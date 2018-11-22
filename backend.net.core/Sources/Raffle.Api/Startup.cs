@@ -45,7 +45,7 @@ namespace Raffle.Api
 
       services.AddSingleton<IJwtFactory, JwtFactory>();
       services.TryAddTransient<IHttpContextAccessor, HttpContextAccessor>();
-
+      services.AddCors();
       // jwt wire up
       // Get options from app settings
       var jwtAppSettingOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
@@ -101,6 +101,7 @@ namespace Raffle.Api
         o.Password.RequireUppercase = false;
         o.Password.RequireNonAlphanumeric = false;
         o.Password.RequiredLength = 6;
+        //o.User.RequireUniqueEmail = true;
       });
       builder = new IdentityBuilder(builder.UserType, typeof(IdentityRole), builder.Services);
       builder.AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
@@ -120,7 +121,14 @@ namespace Raffle.Api
       {
         app.UseHsts();
       }
+      app.UseCors(c =>
+        c.AllowAnyHeader()
+          .AllowAnyMethod()
+          .AllowAnyOrigin()
+          .AllowCredentials()
+      );
 
+      app.UseAuthentication();
       app.UseHttpsRedirection();
       app.UseMvc();
     }
