@@ -26,7 +26,8 @@ namespace Raffle.Api.Auth
         new Claim(JwtRegisteredClaimNames.Jti, await _jwtOptions.JtiGenerator()),
         new Claim(JwtRegisteredClaimNames.Iat, ToUnixEpochDate(_jwtOptions.IssuedAt).ToString(), ClaimValueTypes.Integer64),
         identity.FindFirst(Helpers.Constants.Strings.JwtClaimIdentifiers.Rol),
-        identity.FindFirst(Helpers.Constants.Strings.JwtClaimIdentifiers.Id)
+        identity.FindFirst(Helpers.Constants.Strings.JwtClaimIdentifiers.Id),
+        new Claim(ClaimsIdentity.DefaultRoleClaimType, "guest"), 
       };
 
       // Create the JWT security token and encode it.

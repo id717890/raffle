@@ -44,6 +44,8 @@ namespace Raffle.Api.Controllers
             {
                 return BadRequest(Errors.AddErrorToModelState("login_failure", "Invalid username or password.", ModelState));
             }
+            var userToVerify = await _userManager.FindByNameAsync(credentials.UserName);
+            var result = _userManager.IsEmailConfirmedAsync(userToVerify);
 
             var jwt = await Tokens.GenerateJwt(identity, _jwtFactory, credentials.UserName, _jwtOptions, new JsonSerializerSettings { Formatting = Formatting.Indented });
             return new OkObjectResult(jwt);
