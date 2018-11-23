@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -24,6 +25,7 @@ using Raffle.Api.Auth;
 using Raffle.Api.Extensions;
 using Raffle.Api.Helpers;
 using Raffle.Api.Models;
+using Raffle.Api.Services;
 
 namespace Raffle.Api
 {
@@ -47,6 +49,8 @@ namespace Raffle.Api
 
             services.AddSingleton<IJwtFactory, JwtFactory>();
             services.TryAddTransient<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddTransient<IEmailSender, AuthMessageSender>();
+            services.Configure<AuthMessageSenderOptions>(Configuration);
             //services.AddCors();
             // jwt wire up
             // Get options from app settings

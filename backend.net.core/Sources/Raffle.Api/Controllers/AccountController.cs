@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Raffle.Api.Helpers;
 using Raffle.Api.Models;
@@ -19,12 +20,14 @@ namespace Raffle.Api.Controllers
         private readonly ApplicationDbContext _appDbContext;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IMapper _mapper;
+        private readonly IEmailSender _emailSender;
 
-        public AccountController(UserManager<ApplicationUser> userManager, IMapper mapper, ApplicationDbContext appDbContext)
+        public AccountController(UserManager<ApplicationUser> userManager, IMapper mapper, ApplicationDbContext appDbContext, IEmailSender emailSender)
         {
             _userManager = userManager;
             _mapper = mapper;
             _appDbContext = appDbContext;
+            _emailSender = emailSender;
         }
 
         // POST api/accounts
@@ -42,10 +45,24 @@ namespace Raffle.Api.Controllers
 
             if (!result.Succeeded) return new BadRequestObjectResult(Errors.AddErrorsToModelState(result, ModelState));
 
+            var code = await _userManager.GenerateEmailConfirmationTokenAsync(userIdentity);
+
+
+            var callbackUrl = Url.Action("ConfirmEmail", $"Account", new { userId = userIdentity.Id, code = code });
+            await _emailSender.SendEmailAsync(model.Email, "Confirm your account", $"Please confirm your account by clicking this link: <a href='{callbackUrl}'>link</a>");
+            //await _signInManager.SignInAsync(user, isPersistent: false);
+
+
             await _appDbContext.Customers.AddAsync(new Customer { IdentityId = userIdentity.Id});
             await _appDbContext.SaveChangesAsync();
 
             return new OkObjectResult("Account created");
+        }
+
+        [HttpGet]
+        public IActionResult ConfirmEmail(string userId, string code)
+        {
+            return null;
         }
     }
 }

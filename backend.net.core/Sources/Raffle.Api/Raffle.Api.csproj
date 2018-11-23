@@ -6,6 +6,7 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <PlatformTarget>x64</PlatformTarget>
+    <UserSecretsId>net-core-raffle-c23d27a4</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,6 +19,9 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="3.2.0" />
     <PackageReference Include="fluentvalidation.aspnetcore" Version="7.3.3" />
+    <PackageReference Include="Microsoft.Extensions.SecretManager.Tools" Version="1.0.0-preview2-final" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.1.1" />
+    <PackageReference Include="Sendgrid" Version="9.10.0" />
   </ItemGroup>
 
 </Project>
