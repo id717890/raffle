@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Raffle.Api", "Sources\Raffl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raffle.Infrastructure.Interface", "Sources\Raffle.Infrastructure.Interface\Raffle.Infrastructure.Interface.csproj", "{100DDCC8-4AE4-44AD-AA23-CB18B0A4EABE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raffle.Infrastructure", "Raffle.Infrastructure\Raffle.Infrastructure.csproj", "{F455BA97-9ED4-4037-8867-3B04A55C7803}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raffle.Infrastructure", "Sources\Raffle.Infrastructure\Raffle.Infrastructure.csproj", "{F455BA97-9ED4-4037-8867-3B04A55C7803}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
