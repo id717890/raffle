@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Raffle.Api.Controllers
@@ -17,8 +18,29 @@ namespace Raffle.Api.Controllers
             return new string[] { "value1", "value2" };
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
+      // GET api/values
+      [HttpGet, Authorize(Policy = "ApiUser"), Route("test")]
+      public ActionResult<IEnumerable<string>> Test()
+      {
+        return new string[] { "value22", "value22" };
+      }
+
+        // GET api/values
+        [HttpGet, Authorize(Roles = "guest"), Route("test3")]
+        public ActionResult<IEnumerable<string>> Test3()
+        {
+            return new string[] { "valueGUEST" };
+        }
+
+        // GET api/values
+        [HttpGet, Route("test2")]
+      public ActionResult<IEnumerable<string>> Test2()
+      {
+        return new string[] { "value33", "value33" };
+      }
+
+    // GET api/values/5
+    [HttpGet("{id}")]
         public ActionResult<string> Get(int id)
         {
             return "value";
