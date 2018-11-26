@@ -24,7 +24,7 @@ namespace Raffle.Api.Services
             var client = new SendGridClient(Options.SendGridKey);
             var from = new EmailAddress("test@example.com", "Example User");
             //var subject = "Sending with SendGrid is Fun";
-            var to = new EmailAddress(email);
+            var to = new EmailAddress(email, email);
             var plainTextContent = "and easy to do anywhere, even with C#";
             var htmlContent = "<strong>and easy to do anywhere, even with C#</strong>";
             var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, message);

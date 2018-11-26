@@ -26,6 +26,8 @@ using Raffle.Api.Extensions;
 using Raffle.Api.Helpers;
 using Raffle.Api.Models;
 using Raffle.Api.Services;
+using Raffle.Infrastructure;
+using Raffle.Infrastructure.Interface;
 
 namespace Raffle.Api
 {
@@ -50,6 +52,7 @@ namespace Raffle.Api
             services.AddSingleton<IJwtFactory, JwtFactory>();
             services.TryAddTransient<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IEmailSender, AuthMessageSender>();
+            services.AddTransient<IEmailBuilder, EmailBuilder>();
             services.Configure<AuthMessageSenderOptions>(Configuration);
             //services.AddCors();
             // jwt wire up
@@ -128,12 +131,12 @@ namespace Raffle.Api
             {
                 app.UseHsts();
             }
-            //app.UseCors(c =>
-            //  c.AllowAnyHeader()
-            //    .AllowAnyMethod()
-            //    .AllowAnyOrigin()
-            //    .AllowCredentials()
-            //);
+            app.UseCors(c =>
+                  c.AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowAnyOrigin()
+                .AllowCredentials()
+            );
 
             app.UseExceptionHandler(
               builder =>

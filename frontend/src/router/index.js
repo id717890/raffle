@@ -12,6 +12,8 @@ export default new Router({
     {path: '/voting', name: 'Voting', component: () => import('@/components/Public/Voting')},
     {path: '/signin', name: 'Signin', component: () => import('@/components/Auth/SignIn')},
     {path: '/signup', name: 'Signup', component: () => import('@/components/Auth/SignUp')},
-    {path: '/forgot', name: 'Forgot', component: () => import('@/components/Auth/Forgot')}
-  ]
+    {path: '/forgot', name: 'Forgot', component: () => import('@/components/Auth/Forgot')},
+    {path: '/dashboard', name: 'Dashboard', component: () => import('@/components/Private/Dashboard')}
+  ],
+  mode: 'history'
 })

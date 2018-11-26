@@ -10,6 +10,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Templates\Email\Confirm.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Templates\Email\Confirm.html" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
@@ -22,6 +30,11 @@
     <PackageReference Include="Microsoft.Extensions.SecretManager.Tools" Version="1.0.0-preview2-final" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.1.1" />
     <PackageReference Include="Sendgrid" Version="9.10.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Raffle.Infrastructure.Interface\Raffle.Infrastructure.Interface.csproj" />
+    <ProjectReference Include="..\Raffle.Infrastructure\Raffle.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

@@ -10,8 +10,10 @@
 
       <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto">
-        <b-nav-item to="signin">Sign In</b-nav-item>
-        <b-nav-item to="signup">Sign Up</b-nav-item>
+        <b-nav-item to="/signin" v-if="!isAuth">Sign In</b-nav-item>
+        <b-nav-item to="/signup" v-if="!isAuth">Sign Up</b-nav-item>
+        <b-nav-item to="dashboard" v-if="isAuth">Dashboard</b-nav-item>
+        <b-nav-item @click="LogoutButton" v-if="isAuth">Logout</b-nav-item>
 
         <!-- <b-nav-form>
           <b-form-input size="sm" class="mr-sm-2" type="text" placeholder="Search"/>
@@ -42,14 +44,26 @@
 </template>
 
 <script>
+import {mapGetters, mapActions} from 'vuex'
+
 const menu = [
   {id: 1, name: 'Forum', link: 'forum'},
   {id: 2, name: 'Voting', link: 'voting'}
 ]
 export default {
+  computed: {
+    ...mapGetters(['isAuth'])
+  },
   data () {
     return {
       menu: menu
+    }
+  },
+  methods: {
+    ...mapActions(['logout']),
+    LogoutButton () {
+      this.logout()
+      this.$router.push('/')
     }
   }
 }
