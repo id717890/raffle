@@ -18,12 +18,12 @@ namespace Raffle.Api.Controllers
             return new string[] { "value1", "value2" };
         }
 
-      // GET api/values
-      [HttpGet, Authorize(Policy = "ApiUser"), Route("test")]
-      public ActionResult<IEnumerable<string>> Test()
-      {
-        return new string[] { "value22", "value22" };
-      }
+        // GET api/values
+        [HttpGet, Authorize(Policy = "ApiUser"), Route("test")]
+        public ActionResult<IEnumerable<string>> Test()
+        {
+            return new string[] { "value22", "value22" };
+        }
 
         // GET api/values
         [HttpGet, Authorize(Roles = "guest"), Route("test3")]
@@ -33,14 +33,21 @@ namespace Raffle.Api.Controllers
         }
 
         // GET api/values
-        [HttpGet, Route("test2")]
-      public ActionResult<IEnumerable<string>> Test2()
-      {
-        return new string[] { "value33", "value33" };
-      }
+        [HttpGet, Authorize(Roles = "admin"), Route("test4")]
+        public ActionResult<IEnumerable<string>> Test4()
+        {
+            return new string[] { "value ADMIN" };
+        }
 
-    // GET api/values/5
-    [HttpGet("{id}")]
+        // GET api/values
+        [HttpGet, Route("test2")]
+        public ActionResult<IEnumerable<string>> Test2()
+        {
+            return new string[] { "value33", "value33" };
+        }
+
+        // GET api/values/5
+        [HttpGet("{id}")]
         public ActionResult<string> Get(int id)
         {
             return "value";

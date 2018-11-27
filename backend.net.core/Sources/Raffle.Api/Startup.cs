@@ -109,6 +109,11 @@ namespace Raffle.Api
                 options.AddPolicy("ApiUser", policy => policy.RequireClaim(Constants.Strings.JwtClaimIdentifiers.Rol, Constants.Strings.JwtClaims.ApiAccess));
             });
 
+            //services.AddIdentity<ApplicationUser, IdentityRole>()
+            //    .AddEntityFrameworkStores<ApplicationDbContext>()
+            //    .AddDefaultTokenProviders();
+
+
             // add identity
             var builder = services.AddIdentityCore<ApplicationUser>(o =>
             {
