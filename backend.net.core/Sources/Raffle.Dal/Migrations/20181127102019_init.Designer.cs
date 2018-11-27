@@ -10,7 +10,7 @@ using Raffle.Dal;
 namespace Raffle.Dal.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181126191215_init")]
+    [Migration("20181127102019_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -188,8 +188,9 @@ namespace Raffle.Dal.Migrations
 
             modelBuilder.Entity("Raffle.Domain.Interface.Entity.Customer", b =>
                 {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Gender");
 

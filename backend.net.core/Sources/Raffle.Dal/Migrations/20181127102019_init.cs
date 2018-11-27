@@ -159,7 +159,8 @@ namespace Raffle.Dal.Migrations
                 name: "Customers",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     IsDeleted = table.Column<bool>(nullable: false),
                     IdentityId = table.Column<string>(nullable: true),
                     Location = table.Column<string>(nullable: true),

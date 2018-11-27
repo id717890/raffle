@@ -65,7 +65,7 @@ namespace Raffle.Api.Controllers
                     _emailBuilder.CreateConfirmEmailBody(callbackUrl));
                 //await _signInManager.SignInAsync(user, isPersistent: false);
 
-                var i = await _customerService.Create(new Customer {Id = new Random().Next(1,10000), IdentityId = userIdentity.Id});
+                await _customerService.Create(new Customer {IdentityId = userIdentity.Id});
                 //await _appDbContext.Customers.AddAsync(new Customer { IdentityId = userIdentity.Id});
                 await _appDbContext.SaveChangesAsync();
 

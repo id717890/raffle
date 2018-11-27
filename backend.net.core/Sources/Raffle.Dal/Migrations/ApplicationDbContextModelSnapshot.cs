@@ -186,8 +186,9 @@ namespace Raffle.Dal.Migrations
 
             modelBuilder.Entity("Raffle.Domain.Interface.Entity.Customer", b =>
                 {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Gender");
 
