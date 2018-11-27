@@ -12,6 +12,7 @@ using Raffle.Api.Auth;
 using Raffle.Api.Helpers;
 using Raffle.Api.Models;
 using Raffle.Api.ViewModels;
+using Raffle.Domain.Interface.Entity;
 
 namespace Raffle.Api.Controllers
 {

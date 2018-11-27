@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Raffle.Api.Models;
+using Raffle.Domain.Interface.Entity;
 
 namespace Raffle.Api.ViewModels.Mappings
 {

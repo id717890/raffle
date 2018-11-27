@@ -3,17 +3,15 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Raffle.Api.Models;
+using Raffle.Dal;
 
-namespace Raffle.Api.Migrations
+namespace Raffle.Dal.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181122071217_initial")]
-    partial class initial
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -131,7 +129,7 @@ namespace Raffle.Api.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Raffle.Api.Models.ApplicationUser", b =>
+            modelBuilder.Entity("Raffle.Domain.Interface.Entity.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -147,6 +145,8 @@ namespace Raffle.Api.Migrations
                     b.Property<bool>("EmailConfirmed");
 
                     b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -184,15 +184,16 @@ namespace Raffle.Api.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("Raffle.Api.Models.Customer", b =>
+            modelBuilder.Entity("Raffle.Domain.Interface.Entity.Customer", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Gender");
 
                     b.Property<string>("IdentityId");
+
+                    b.Property<bool>("IsDeleted");
 
                     b.Property<string>("Locale");
 
@@ -215,7 +216,7 @@ namespace Raffle.Api.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Raffle.Api.Models.ApplicationUser")
+                    b.HasOne("Raffle.Domain.Interface.Entity.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -223,7 +224,7 @@ namespace Raffle.Api.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Raffle.Api.Models.ApplicationUser")
+                    b.HasOne("Raffle.Domain.Interface.Entity.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -236,7 +237,7 @@ namespace Raffle.Api.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Raffle.Api.Models.ApplicationUser")
+                    b.HasOne("Raffle.Domain.Interface.Entity.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -244,15 +245,15 @@ namespace Raffle.Api.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Raffle.Api.Models.ApplicationUser")
+                    b.HasOne("Raffle.Domain.Interface.Entity.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Raffle.Api.Models.Customer", b =>
+            modelBuilder.Entity("Raffle.Domain.Interface.Entity.Customer", b =>
                 {
-                    b.HasOne("Raffle.Api.Models.ApplicationUser", "Identity")
+                    b.HasOne("Raffle.Domain.Interface.Entity.ApplicationUser", "Identity")
                         .WithMany()
                         .HasForeignKey("IdentityId");
                 });

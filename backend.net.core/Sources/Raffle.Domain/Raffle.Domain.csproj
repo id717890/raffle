@@ -4,4 +4,9 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Raffle.Dal.Interface\Raffle.Dal.Interface.csproj" />
+    <ProjectReference Include="..\Raffle.Domain.Interface\Raffle.Domain.Interface.csproj" />
+  </ItemGroup>
+
 </Project>

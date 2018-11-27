@@ -2,7 +2,7 @@
 {
     public abstract class Entity
     {
-        public string Id { get; set; }
+        public long Id { get; set; }
         public bool IsDeleted { get; set; }
 
         public override bool Equals(object obj)

@@ -26,6 +26,12 @@ using Raffle.Api.Extensions;
 using Raffle.Api.Helpers;
 using Raffle.Api.Models;
 using Raffle.Api.Services;
+using Raffle.Dal;
+using Raffle.Dal.Interface.Services;
+using Raffle.Dal.Services;
+using Raffle.Domain.Interface.Entity;
+using Raffle.Domain.Interface.Services;
+using Raffle.Domain.Services;
 using Raffle.Infrastructure;
 using Raffle.Infrastructure.Interface;
 
@@ -53,6 +59,8 @@ namespace Raffle.Api
             services.TryAddTransient<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<IEmailBuilder, EmailBuilder>();
+            services.AddTransient<ICustomerRepository, CustomerRepository>();
+            services.AddTransient<ICustomerService, CustomerService>();
             services.Configure<AuthMessageSenderOptions>(Configuration);
             //services.AddCors();
             // jwt wire up
@@ -138,23 +146,23 @@ namespace Raffle.Api
                 .AllowCredentials()
             );
 
-            app.UseExceptionHandler(
-              builder =>
-              {
-                  builder.Run(
-              async context =>
-              {
-                      context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                      context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
+            //app.UseExceptionHandler(
+            //  builder =>
+            //  {
+            //      builder.Run(
+            //  async context =>
+            //  {
+            //          context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+            //          context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
 
-                      var error = context.Features.Get<IExceptionHandlerFeature>();
-                      if (error != null)
-                      {
-                          context.Response.AddApplicationError(error.Error.Message);
-                          await context.Response.WriteAsync(error.Error.Message).ConfigureAwait(false);
-                      }
-                  });
-              });
+            //          var error = context.Features.Get<IExceptionHandlerFeature>();
+            //          if (error != null)
+            //          {
+            //              context.Response.AddApplicationError(error.Error.Message);
+            //              await context.Response.WriteAsync(error.Error.Message).ConfigureAwait(false);
+            //          }
+            //      });
+            //  });
 
             app.UseAuthentication();
 

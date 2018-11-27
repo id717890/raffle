@@ -11,6 +11,9 @@ using Microsoft.AspNetCore.Mvc;
 using Raffle.Api.Helpers;
 using Raffle.Api.Models;
 using Raffle.Api.ViewModels;
+using Raffle.Dal;
+using Raffle.Domain.Interface.Entity;
+using Raffle.Domain.Interface.Services;
 using Raffle.Infrastructure.Interface;
 
 namespace Raffle.Api.Controllers
@@ -24,13 +27,15 @@ namespace Raffle.Api.Controllers
         private readonly IMapper _mapper;
         private readonly IEmailSender _emailSender;
         private readonly IEmailBuilder _emailBuilder;
+        private readonly ICustomerService _customerService;
 
         public AccountController(
             UserManager<ApplicationUser> userManager, 
             IMapper mapper, 
             ApplicationDbContext appDbContext, 
             IEmailSender emailSender,
-            IEmailBuilder emailBuilder
+            IEmailBuilder emailBuilder,
+            ICustomerService customerService
             )
         {
             _userManager = userManager;
@@ -38,6 +43,7 @@ namespace Raffle.Api.Controllers
             _appDbContext = appDbContext;
             _emailSender = emailSender;
             _emailBuilder = emailBuilder;
+            _customerService = customerService;
         }
 
         [HttpPost, Route("register")]
@@ -48,22 +54,28 @@ namespace Raffle.Api.Controllers
                 return BadRequest(ModelState);
             }
 
-            var userIdentity = _mapper.Map<ApplicationUser>(model);
+            try
+            {
+                var userIdentity = _mapper.Map<ApplicationUser>(model);
+                var result = await _userManager.CreateAsync(userIdentity, model.Password);
+                if (!result.Succeeded) return new BadRequestObjectResult(Errors.AddErrorsToModelState(result, ModelState));
+                var code = await _userManager.GenerateEmailConfirmationTokenAsync(userIdentity);
+                var callbackUrl = Url.Action($"ConfirmEmail", $"Account", new { userId = userIdentity.Id, code = code }, protocol: HttpContext.Request.Scheme);
+                await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
+                    _emailBuilder.CreateConfirmEmailBody(callbackUrl));
+                //await _signInManager.SignInAsync(user, isPersistent: false);
 
-            var result = await _userManager.CreateAsync(userIdentity, model.Password);
+                var i = await _customerService.Create(new Customer {Id = new Random().Next(1,10000), IdentityId = userIdentity.Id});
+                //await _appDbContext.Customers.AddAsync(new Customer { IdentityId = userIdentity.Id});
+                await _appDbContext.SaveChangesAsync();
 
-            if (!result.Succeeded) return new BadRequestObjectResult(Errors.AddErrorsToModelState(result, ModelState));
-            var code = await _userManager.GenerateEmailConfirmationTokenAsync(userIdentity);
-            var callbackUrl = Url.Action($"ConfirmEmail", $"Account", new { userId = userIdentity.Id, code = code }, protocol: HttpContext.Request.Scheme);
-            await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
-                _emailBuilder.CreateConfirmEmailBody(callbackUrl));
-            //await _signInManager.SignInAsync(user, isPersistent: false);
+                return new OkObjectResult("Account created");
 
-
-            await _appDbContext.Customers.AddAsync(new Customer { IdentityId = userIdentity.Id});
-            await _appDbContext.SaveChangesAsync();
-
-            return new OkObjectResult("Account created");
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
         [HttpGet, Route("ConfirmEmail")]
