@@ -1,19 +1,21 @@
 import Vue from 'vue'
 
 export default {
-  // signUp: () => {
-  //   return data
-  // },
-  // store: (item) => {
-  //   return new Promise((resolve) => {
-  //     resolve(item)
-  //   })
-  // },
-  // remove: (id) => {
-  //   return new Promise((resolve) => {
-  //     resolve(id)
-  //   })
-  // },
+  signIn: (email, password) => {
+    const data = {
+      email: email,
+      password: password
+    }
+    // console.log(data)
+    return Vue.$http.post('api/auth/login', data).then((x) => {
+      return x
+    }).catch(error => {
+      // console.log('api')
+      // console.log(error.response.data)
+      // console.log(error.response.status)
+      return error
+    })
+  },
   signUp: (email, password, passwordConfirm, firstName, lastName) => {
     const data = {
       email: email,
@@ -26,9 +28,9 @@ export default {
     return Vue.$http.post('api/account/register', data).then((x) => {
       return x
     }).catch(error => {
-      console.log('api')
-      console.log(error.response.data)
-      console.log(error.response.status)
+      // console.log('api')
+      // console.log(error.response.data)
+      // console.log(error.response.status)
       return error
     })
   }

@@ -60,6 +60,21 @@ const actions = {
   //       console.log(e)
   //     })
   // },
+  signUserIn ({dispatch}, payload) {
+    return new Promise((resolve, reject) => {
+      context.signIn(payload.email, payload.password).then((x) => {
+        if (x.status === 200) {
+          console.log(x)
+          resolve()
+        } else {
+          dispatch('setErrors', x.response.data)
+          reject(x.response.data)
+        }
+      }).catch(x => {
+        reject(x.response.data)
+      })
+    })
+  },
   signUserUp ({dispatch}, payload) {
     return new Promise((resolve, reject) => {
       context.signUp(payload.email, payload.password, payload.passwordConfirm, payload.firstName, payload.lastName).then((x) => {

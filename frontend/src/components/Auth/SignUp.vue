@@ -72,7 +72,7 @@ export default {
   computed: {
     ...mapGetters(['getErrors', 'getMessages']),
     getOtherErrors () {
-      console.log(this.getErrors)
+      // console.log(this.getErrors)
       let newObject = {}
       const fields = ['Email', 'Password']
       for (let prop in this.getErrors) {
@@ -92,25 +92,33 @@ export default {
   // },
   created () {
     this.$store.dispatch('clearAllMessages')
-    console.log(this.getOtherErrors)
+    // console.log(this.getOtherErrors)
   },
   methods: {
     ...mapActions(['signUserUp']),
     handleClick () {
       this.showDismissibleAlert = true
     },
+    resetForm () {
+      this.form.email = ''
+      this.form.password = ''
+      this.form.passwordConfirm = ''
+      this.form.firstName = ''
+      this.form.lastName = ''
+    },
     onSubmit (evt) {
       evt.preventDefault()
       // alert(JSON.stringify(this.form))
       this.signUserUp(this.form)
         .then((x) => {
+          this.resetForm()
           // console.log('view')
           // console.log(x)
           // this.$router.push('/')
         })
         .catch(x => {
-          console.log('view catch')
-          console.log(x)
+          // console.log('view catch')
+          // console.log(x)
           // todo show errors from vuex state
         })
     }
