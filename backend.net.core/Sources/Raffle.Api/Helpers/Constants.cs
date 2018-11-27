@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Raffle.Api.Helpers
+﻿namespace Raffle.Api.Helpers
 {
     public static class Constants
     {
+        public const string StandartRole = "Participant";
+
         public static class Strings
         {
             public static class JwtClaimIdentifiers

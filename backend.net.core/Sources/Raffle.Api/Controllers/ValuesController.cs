@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using Raffle.Api.Helpers;
 
 namespace Raffle.Api.Controllers
 {
@@ -19,14 +22,14 @@ namespace Raffle.Api.Controllers
         }
 
         // GET api/values
-        [HttpGet, Authorize(Policy = "ApiUser"), Route("test")]
+        [HttpGet, Authorize, Route("test")]
         public ActionResult<IEnumerable<string>> Test()
         {
             return new string[] { "value22", "value22" };
         }
 
         // GET api/values
-        [HttpGet, Authorize(Roles = "guest"), Route("test3")]
+        [HttpGet, Authorize(Roles = Constants.StandartRole), Route("test3")]
         public ActionResult<IEnumerable<string>> Test3()
         {
             return new string[] { "valueGUEST" };

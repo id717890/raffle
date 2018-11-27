@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
+using Raffle.Api.Helpers;
 using Raffle.Api.Models;
 
 namespace Raffle.Api.Auth
@@ -24,9 +25,9 @@ namespace Raffle.Api.Auth
                 new Claim(JwtRegisteredClaimNames.Sub, userName),
                 new Claim(JwtRegisteredClaimNames.Jti, await _jwtOptions.JtiGenerator()),
                 new Claim(JwtRegisteredClaimNames.Iat, ToUnixEpochDate(_jwtOptions.IssuedAt).ToString(), ClaimValueTypes.Integer64),
-                identity.FindFirst(Helpers.Constants.Strings.JwtClaimIdentifiers.Rol),
-                identity.FindFirst(Helpers.Constants.Strings.JwtClaimIdentifiers.Id),
-                new Claim(ClaimsIdentity.DefaultRoleClaimType, "guest")
+                //identity.FindFirst(Helpers.Constants.Strings.JwtClaimIdentifiers.Rol),
+                //identity.FindFirst(Helpers.Constants.Strings.JwtClaimIdentifiers.Id),
+                new Claim(ClaimsIdentity.DefaultRoleClaimType, Constants.StandartRole)
             };
             // Create the JWT security token and encode it.
             var jwt = new JwtSecurityToken(
@@ -45,7 +46,7 @@ namespace Raffle.Api.Auth
             return new ClaimsIdentity(new GenericIdentity(userName, "Token"), new[]
             {
                 new Claim(Helpers.Constants.Strings.JwtClaimIdentifiers.Id, id),
-                new Claim(Helpers.Constants.Strings.JwtClaimIdentifiers.Rol, Helpers.Constants.Strings.JwtClaims.ApiAccess)
+                //new Claim(Helpers.Constants.Strings.JwtClaimIdentifiers.Rol, Helpers.Constants.Strings.JwtClaims.ApiAccess)
             });
         }
 
