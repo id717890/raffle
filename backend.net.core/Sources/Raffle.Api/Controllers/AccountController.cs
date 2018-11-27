@@ -30,9 +30,9 @@ namespace Raffle.Api.Controllers
         private readonly ICustomerService _customerService;
 
         public AccountController(
-            UserManager<ApplicationUser> userManager, 
-            IMapper mapper, 
-            ApplicationDbContext appDbContext, 
+            UserManager<ApplicationUser> userManager,
+            IMapper mapper,
+            ApplicationDbContext appDbContext,
             IEmailSender emailSender,
             IEmailBuilder emailBuilder,
             ICustomerService customerService
@@ -91,5 +91,37 @@ namespace Raffle.Api.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+        [HttpPost, Route("ForgotPassword")]
+        public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                var user = await _userManager.FindByNameAsync(model.Email);
+                if (user == null) return BadRequest("Указанный пользователь не найден");
+                if (!await _userManager.IsEmailConfirmedAsync(user)) return BadRequest("E-mail не подтвержден");
+                var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+                var callbackUrl = Url.Action($"PasswordReset", $"Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
+
+                await _emailSender.SendEmailAsync(model.Email, "Reset your password",
+                    _emailBuilder.CreateForgotPasswordEmailBody(callbackUrl));
+                return Ok("На Ваш E-mail отправлено письмо для восстановления пароля.");
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpGet, Route("PasswordReset")]
+        public IActionResult PasswordReset(string userId, string code)
+        {
+            return null;
+        }
+
     }
 }
