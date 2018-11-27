@@ -72,6 +72,7 @@ export default {
   computed: {
     ...mapGetters(['getErrors', 'getMessages']),
     getOtherErrors () {
+      console.log(this.getErrors)
       let newObject = {}
       const fields = ['Email', 'Password']
       for (let prop in this.getErrors) {

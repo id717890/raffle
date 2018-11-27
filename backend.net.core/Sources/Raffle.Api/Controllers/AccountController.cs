@@ -71,7 +71,7 @@ namespace Raffle.Api.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest(e.Message);
+                return BadRequest(new {e.Message});
             }
         }
 
@@ -118,9 +118,28 @@ namespace Raffle.Api.Controllers
         }
 
         [HttpGet, Route("PasswordReset")]
-        public IActionResult PasswordReset(string userId, string code)
+        public async Task<IActionResult> PasswordReset(string userId, string code)
         {
-            return null;
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                var user = await _userManager.FindByIdAsync(userId);
+                if (user == null) return BadRequest("Указанный пользователь не найден");
+                var resultVerifyToken = await _userManager.VerifyUserTokenAsync(user, "Default", "ResetaPassword", code);
+                if (resultVerifyToken)
+                {
+                    return Ok();
+
+                }
+                return BadRequest();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
     }

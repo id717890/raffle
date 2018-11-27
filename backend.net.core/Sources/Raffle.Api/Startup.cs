@@ -24,6 +24,7 @@ using Microsoft.IdentityModel.Tokens;
 using Raffle.Api.Auth;
 using Raffle.Api.Extensions;
 using Raffle.Api.Helpers;
+using Raffle.Api.Middleware;
 using Raffle.Api.Models;
 using Raffle.Api.Services;
 using Raffle.Dal;
@@ -144,6 +145,7 @@ namespace Raffle.Api
             {
                 app.UseHsts();
             }
+            app.UseCustomExceptionMiddleware();
             app.UseCors(c =>
                   c.AllowAnyHeader()
                 .AllowAnyMethod()
