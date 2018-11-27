@@ -65,7 +65,7 @@ namespace Raffle.Api.Controllers
                     _emailBuilder.CreateConfirmEmailBody(callbackUrl));
                 //await _signInManager.SignInAsync(user, isPersistent: false);
 
-                await _customerService.Create(new Customer {IdentityId = userIdentity.Id});
+                await _customerService.CreateAsync(new Customer {IdentityId = userIdentity.Id});
                 //await _appDbContext.Customers.AddAsync(new Customer { IdentityId = userIdentity.Id});
                 await _appDbContext.SaveChangesAsync();
 
@@ -81,7 +81,18 @@ namespace Raffle.Api.Controllers
         [HttpGet, Route("ConfirmEmail")]
         public IActionResult ConfirmEmail(string userId, string code)
         {
-            return null;
+            try
+            {
+                var user = _userManager.FindByIdAsync(userId).Result;
+                if (user == null) return BadRequest("Не удалось определить пользователя");
+                var result = _userManager.ConfirmEmailAsync(user, code).Result;
+                if (!result.Succeeded) return BadRequest("Не удалось определить токен доступа");
+                return Ok("aasdasdasd");
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
     }
 }

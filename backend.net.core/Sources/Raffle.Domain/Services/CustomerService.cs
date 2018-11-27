@@ -17,7 +17,7 @@ namespace Raffle.Domain.Services
             _customerRepository = repository;
         }
 
-        public Task<long> Create(Customer customer)
+        public Task<long> CreateAsync(Customer customer)
         {
             return _customerRepository.Create(customer);
         }

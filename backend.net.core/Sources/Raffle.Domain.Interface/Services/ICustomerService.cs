@@ -6,6 +6,6 @@ namespace Raffle.Domain.Interface.Services
 {
     public interface ICustomerService
     {
-        Task<long> Create(Customer customer);
+        Task<long> CreateAsync(Customer customer);
     }
 }
