@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Raffle.Dal.Mapping;
+using Raffle.Domain.Interface.Entity;
 
-namespace Raffle.Api.Models
+namespace Raffle.Dal
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
@@ -15,6 +16,11 @@ namespace Raffle.Api.Models
         }
 
         public DbSet<Customer> Customers { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfiguration(new CustomerMap());
+        }
     }
 }
-

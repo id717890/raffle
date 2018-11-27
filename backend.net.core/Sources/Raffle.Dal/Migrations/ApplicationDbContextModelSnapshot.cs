@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Raffle.Api.Models;
+using Raffle.Dal;
 
-namespace Raffle.Api.Migrations
+namespace Raffle.Dal.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -129,7 +129,7 @@ namespace Raffle.Api.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Raffle.Api.Models.ApplicationUser", b =>
+            modelBuilder.Entity("Raffle.Domain.Interface.Entity.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -145,6 +145,8 @@ namespace Raffle.Api.Migrations
                     b.Property<bool>("EmailConfirmed");
 
                     b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -182,15 +184,17 @@ namespace Raffle.Api.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("Raffle.Api.Models.Customer", b =>
+            modelBuilder.Entity("Raffle.Domain.Interface.Entity.Customer", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Gender");
 
                     b.Property<string>("IdentityId");
+
+                    b.Property<bool>("IsDeleted");
 
                     b.Property<string>("Locale");
 
@@ -213,7 +217,7 @@ namespace Raffle.Api.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Raffle.Api.Models.ApplicationUser")
+                    b.HasOne("Raffle.Domain.Interface.Entity.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -221,7 +225,7 @@ namespace Raffle.Api.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Raffle.Api.Models.ApplicationUser")
+                    b.HasOne("Raffle.Domain.Interface.Entity.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -234,7 +238,7 @@ namespace Raffle.Api.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Raffle.Api.Models.ApplicationUser")
+                    b.HasOne("Raffle.Domain.Interface.Entity.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -242,15 +246,15 @@ namespace Raffle.Api.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Raffle.Api.Models.ApplicationUser")
+                    b.HasOne("Raffle.Domain.Interface.Entity.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Raffle.Api.Models.Customer", b =>
+            modelBuilder.Entity("Raffle.Domain.Interface.Entity.Customer", b =>
                 {
-                    b.HasOne("Raffle.Api.Models.ApplicationUser", "Identity")
+                    b.HasOne("Raffle.Domain.Interface.Entity.ApplicationUser", "Identity")
                         .WithMany()
                         .HasForeignKey("IdentityId");
                 });
