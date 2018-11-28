@@ -1,17 +1,26 @@
 import Vue from 'vue'
 
 export default {
+  resetPasswordVerifyToken: (id, code, password, passwordConfirm) => {
+    const data = {
+      userId: id,
+      code: code,
+      password: password,
+      passwordConfirm: passwordConfirm
+    }
+    return Vue.$http.post('api/account/PasswordReset', data).then((x) => {
+      return x
+    }).catch(error => {
+      return error
+    })
+  },
   forgotPassword: (email) => {
     const data = {
       email: email
     }
-    // console.log(data)
     return Vue.$http.post('api/account/ForgotPassword', data).then((x) => {
       return x
     }).catch(error => {
-      // console.log('api')
-      // console.log(error.response.data)
-      // console.log(error.response.status)
       return error
     })
   },

@@ -32,7 +32,7 @@ namespace Raffle.Api.Controllers
         private readonly ICustomerService _customerService;
         private readonly IMessageModelBuilder _messageModelBuilder;
         private readonly IConfiguration _config;
-        
+
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
@@ -81,7 +81,7 @@ namespace Raffle.Api.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest(new {e.Message});
+                return BadRequest(new { e.Message });
             }
         }
 
@@ -117,6 +117,7 @@ namespace Raffle.Api.Controllers
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user);
                 var webSiteUrl = _config.GetSection("WebSite").Value;
                 var callbackUrl = string.Format(webSiteUrl + "?id={0}&code={1}", user.Id, code);
+                //var callbackUrl = Url.Action($"PasswordReset", $"Account", new {userId = user.Id, code = code}, HttpContext.Request.Scheme); 
                 await _emailSender.SendEmailAsync(model.Email, "Reset your password",
                     _emailBuilder.CreateForgotPasswordEmailBody(callbackUrl));
                 return Ok("На Ваш E-mail отправлено письмо для восстановления пароля.");
@@ -127,8 +128,8 @@ namespace Raffle.Api.Controllers
             }
         }
 
-        [HttpGet, Route("PasswordReset")]
-        public async Task<IActionResult> PasswordReset(string userId, string code)
+        [HttpPost, Route("PasswordReset")]
+        public async Task<IActionResult> PasswordReset([FromBody] ResetPasswordViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -136,19 +137,22 @@ namespace Raffle.Api.Controllers
             }
             try
             {
-                var user = await _userManager.FindByIdAsync(userId);
-                if (user == null) return BadRequest("Указанный пользователь не найден");
-                var resultVerifyToken = await _userManager.VerifyUserTokenAsync(user, "Default", "ResetPassword", code);
+                model.Code = model.Code.Replace(" ", "+");
+                var user = await _userManager.FindByIdAsync(model.UserId);
+                if (user == null) return BadRequest(_messageModelBuilder.CreateModel("message", "Указанный пользователь не найден"));
+                var resultVerifyToken = await _userManager.VerifyUserTokenAsync(user, "Default", "ResetPassword", model.Code);
                 if (resultVerifyToken)
                 {
-                    return Ok();
+                    var result = _userManager.ResetPasswordAsync(user, model.Code, model.Password).Result;
+                    if (!result.Succeeded) return BadRequest(_messageModelBuilder.CreateModel("message", "Ошибка при сбросе пароля. Возможно ссылка не действительна"));
 
+                    return Ok();
                 }
-                return BadRequest();
+                return BadRequest(_messageModelBuilder.CreateModel("message", "Ссылка для восттановления пароля не действительна!"));
             }
             catch (Exception e)
             {
-                return BadRequest(e.Message);
+                return BadRequest(_messageModelBuilder.CreateModel("500", e.Message));
             }
         }
 
