@@ -28,6 +28,7 @@ namespace Raffle.Api.Controllers
         private readonly IEmailSender _emailSender;
         private readonly IEmailBuilder _emailBuilder;
         private readonly ICustomerService _customerService;
+        private readonly IMessageModelBuilder _messageModelBuilder;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
@@ -35,7 +36,8 @@ namespace Raffle.Api.Controllers
             ApplicationDbContext appDbContext,
             IEmailSender emailSender,
             IEmailBuilder emailBuilder,
-            ICustomerService customerService
+            ICustomerService customerService,
+            IMessageModelBuilder messageModelBuilder
             )
         {
             _userManager = userManager;
@@ -44,6 +46,7 @@ namespace Raffle.Api.Controllers
             _emailSender = emailSender;
             _emailBuilder = emailBuilder;
             _customerService = customerService;
+            _messageModelBuilder = messageModelBuilder;
         }
 
         [HttpPost, Route("register")]
@@ -103,8 +106,8 @@ namespace Raffle.Api.Controllers
             try
             {
                 var user = await _userManager.FindByNameAsync(model.Email);
-                if (user == null) return BadRequest("Указанный пользователь не найден");
-                if (!await _userManager.IsEmailConfirmedAsync(user)) return BadRequest("E-mail не подтвержден");
+                if (user == null) return BadRequest(_messageModelBuilder.CreateModel("message", "Указанный пользователь не найден"));
+                if (!await _userManager.IsEmailConfirmedAsync(user)) return BadRequest(_messageModelBuilder.CreateModel("message", "E-mail не подтвержден"));
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user);
                 var callbackUrl = Url.Action($"PasswordReset", $"Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
 
@@ -114,7 +117,7 @@ namespace Raffle.Api.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest(e.Message);
+                return BadRequest(_messageModelBuilder.CreateModel("500", e.Message));
             }
         }
 

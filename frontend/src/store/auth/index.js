@@ -60,6 +60,21 @@ const actions = {
   //       console.log(e)
   //     })
   // },
+  forgotPassword ({dispatch}, payload) {
+    return new Promise((resolve, reject) => {
+      context.forgotPassword(payload.email).then((x) => {
+        if (x.status === 200) {
+          dispatch('setMessages', ['На указанный E-mail выслана инструкция для восстановления пароля'])
+          resolve()
+        } else {
+          dispatch('setErrors', x.response.data)
+          reject(x.response.data)
+        }
+      }).catch(x => {
+        reject(x.response.data)
+      })
+    })
+  },
   signUserIn ({dispatch}, payload) {
     return new Promise((resolve, reject) => {
       context.signIn(payload.email, payload.password).then((x) => {

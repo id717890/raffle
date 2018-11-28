@@ -63,6 +63,7 @@ namespace Raffle.Api
             services.AddTransient<IEmailBuilder, EmailBuilder>();
             services.AddTransient<ICustomerRepository, CustomerRepository>();
             services.AddTransient<ICustomerService, CustomerService>();
+            services.AddTransient<IMessageModelBuilder, MessageModelBuilder>();
             services.Configure<AuthMessageSenderOptions>(Configuration);
             //services.AddCors();
             // jwt wire up

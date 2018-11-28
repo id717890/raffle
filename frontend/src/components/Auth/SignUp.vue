@@ -7,9 +7,14 @@
           <div class="mt-2" v-if="this.getMessages !== null">
             <b-alert show variant="success" v-for="(message, index) in this.getMessages" :key="index">{{message}}</b-alert>
           </div>
-          <div class="mt-2" v-if="this.getErrors !== null">
-            <b-alert show variant="danger" v-for="(error, index) in this.getOtherErrors" :key="index">{{error}}</b-alert>
+          <div class="mt-2" v-if="this.getOtherErrors !== null">
+            <div v-for="(error, index) in this.getOtherErrors" :key="index">
+              <b-alert show variant="danger" v-for="(message, indexMessage) in error" :key="indexMessage">{{message}}</b-alert>
+            </div>
           </div>
+          <!-- <div class="mt-2" v-if="this.getErrors !== null">
+            <b-alert show variant="danger" v-for="(error, index) in this.getOtherErrors" :key="index">{{error}}</b-alert>
+          </div> -->
           <b-form @submit="onSubmit">
             <b-form-group id="emailGroup" label="Email address:" label-for="email">
               <b-form-input id="email" type="email" v-model="form.email" required placeholder="Enter email"></b-form-input>
