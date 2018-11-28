@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Raffle.Api.Helpers;
 using Raffle.Api.Models;
 using Raffle.Api.ViewModels;
@@ -29,6 +31,8 @@ namespace Raffle.Api.Controllers
         private readonly IEmailBuilder _emailBuilder;
         private readonly ICustomerService _customerService;
         private readonly IMessageModelBuilder _messageModelBuilder;
+        private readonly IConfiguration _config;
+        
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
@@ -37,7 +41,8 @@ namespace Raffle.Api.Controllers
             IEmailSender emailSender,
             IEmailBuilder emailBuilder,
             ICustomerService customerService,
-            IMessageModelBuilder messageModelBuilder
+            IMessageModelBuilder messageModelBuilder,
+            IConfiguration config
             )
         {
             _userManager = userManager;
@@ -47,6 +52,7 @@ namespace Raffle.Api.Controllers
             _emailBuilder = emailBuilder;
             _customerService = customerService;
             _messageModelBuilder = messageModelBuilder;
+            _config = config;
         }
 
         [HttpPost, Route("register")]
@@ -109,8 +115,8 @@ namespace Raffle.Api.Controllers
                 if (user == null) return BadRequest(_messageModelBuilder.CreateModel("message", "Указанный пользователь не найден"));
                 if (!await _userManager.IsEmailConfirmedAsync(user)) return BadRequest(_messageModelBuilder.CreateModel("message", "E-mail не подтвержден"));
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user);
-                var callbackUrl = Url.Action($"PasswordReset", $"Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
-
+                var webSiteUrl = _config.GetSection("WebSite").Value;
+                var callbackUrl = string.Format(webSiteUrl + "?id={0}&code={1}", user.Id, code);
                 await _emailSender.SendEmailAsync(model.Email, "Reset your password",
                     _emailBuilder.CreateForgotPasswordEmailBody(callbackUrl));
                 return Ok("На Ваш E-mail отправлено письмо для восстановления пароля.");

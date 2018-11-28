@@ -1,10 +1,13 @@
-﻿namespace Raffle.Api.Helpers
+﻿using Microsoft.Extensions.Configuration;
+
+namespace Raffle.Api.Helpers
 {
     public static class Constants
     {
         public const string StandartRole = "Participant";
         public const string Admin = "Superuser";
 
+        
         //#region No needed if you dont use policies
         //public static class Strings
         //{

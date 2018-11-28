@@ -58,9 +58,6 @@ export default {
         .then(() => {
           this.form.email = ''
         })
-        .catch(() => {
-          // todo show errors from vuex state
-        })
     }
   }
 }
