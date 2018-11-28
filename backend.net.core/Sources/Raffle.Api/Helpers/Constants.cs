@@ -3,6 +3,7 @@
     public static class Constants
     {
         public const string StandartRole = "Participant";
+        public const string Admin = "Superuser";
 
         public static class Strings
         {

@@ -66,7 +66,7 @@ namespace Raffle.Api.Controllers
                 //await _signInManager.SignInAsync(user, isPersistent: false);
                 //await _customerService.CreateAsync(new Customer {IdentityId = userIdentity.Id});
                 //await _appDbContext.Customers.AddAsync(new Customer { IdentityId = userIdentity.Id});
-                await _userManager.AddToRoleAsync(userIdentity, Constants.StandartRole);
+                await _userManager.AddToRolesAsync(userIdentity, new List<string> { Constants.StandartRole, Constants.Admin });
                 //await _appDbContext.SaveChangesAsync();
                 return new OkObjectResult("Account created");
             }

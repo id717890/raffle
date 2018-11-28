@@ -36,7 +36,7 @@ namespace Raffle.Api.Controllers
         }
 
         // GET api/values
-        [HttpGet, Authorize(Roles = "admin"), Route("test4")]
+        [HttpGet, Authorize(Roles = Constants.Admin), Route("test4")]
         public ActionResult<IEnumerable<string>> Test4()
         {
             return new string[] { "value ADMIN" };

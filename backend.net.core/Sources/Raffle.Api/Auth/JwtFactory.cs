@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Raffle.Api.Helpers;
 using Raffle.Api.Models;
@@ -21,14 +25,19 @@ namespace Raffle.Api.Auth
 
         public async Task<string> GenerateEncodedToken(string userName, ClaimsIdentity identity)
         {
-            var claims = new[] {
+            var claims = new List<Claim> {
                 new Claim(JwtRegisteredClaimNames.Sub, userName),
                 new Claim(JwtRegisteredClaimNames.Jti, await _jwtOptions.JtiGenerator()),
                 new Claim(JwtRegisteredClaimNames.Iat, ToUnixEpochDate(_jwtOptions.IssuedAt).ToString(), ClaimValueTypes.Integer64),
                 //identity.FindFirst(Helpers.Constants.Strings.JwtClaimIdentifiers.Rol),
                 //identity.FindFirst(Helpers.Constants.Strings.JwtClaimIdentifiers.Id),
-                new Claim(ClaimsIdentity.DefaultRoleClaimType, Constants.StandartRole)
+                //new Claim(ClaimsIdentity.DefaultRoleClaimType, Constants.StandartRole)
+                //new Claim(ClaimsIdentity.DefaultRoleClaimType, ss)
             };
+            claims.AddRange(identity.Claims.Where(x => x.Type == ClaimTypes.Role).Select(claim => new Claim(ClaimsIdentity.DefaultRoleClaimType, claim.Value)));
+
+            //var ss = identity.Claims.Where(x => x.Type == ClaimTypes.Role).Select(c => c.Value).ToString();
+            
             // Create the JWT security token and encode it.
             var jwt = new JwtSecurityToken(
                 issuer: _jwtOptions.Issuer,
@@ -41,13 +50,14 @@ namespace Raffle.Api.Auth
             return encodedJwt;
         }
 
-        public ClaimsIdentity GenerateClaimsIdentity(string userName, string id)
+        public ClaimsIdentity GenerateClaimsIdentity(string userName, string id, IList<string> roles)
         {
-            return new ClaimsIdentity(new GenericIdentity(userName, "Token"), new[]
+            var claims = new List<Claim>
             {
-                new Claim(Helpers.Constants.Strings.JwtClaimIdentifiers.Id, id),
-                //new Claim(Helpers.Constants.Strings.JwtClaimIdentifiers.Rol, Helpers.Constants.Strings.JwtClaims.ApiAccess)
-            });
+                new Claim(Constants.Strings.JwtClaimIdentifiers.Id, id),
+            };
+            claims.AddRange(roles.Select(role => new Claim(ClaimsIdentity.DefaultRoleClaimType, role)));
+            return new ClaimsIdentity(new GenericIdentity(userName, "Token"), claims);
         }
 
         /// <returns>Date converted to seconds since Unix epoch (Jan 1, 1970, midnight UTC).</returns>

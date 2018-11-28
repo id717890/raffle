@@ -64,7 +64,12 @@ namespace Raffle.Api.Controllers
                         return BadRequest("Email not confirmed!");
                     }
                 }
-                var jwt = await Tokens.GenerateJwt(identity, _jwtFactory, model.Email, _jwtOptions, new JsonSerializerSettings { Formatting = Formatting.Indented });
+                var jwt = await Tokens.GenerateJwt(
+                    identity, 
+                    _jwtFactory, 
+                    model.Email, 
+                    _jwtOptions, 
+                    new JsonSerializerSettings { Formatting = Formatting.Indented });
                 return new OkObjectResult(jwt);
             }
             catch (Exception e)
@@ -86,7 +91,8 @@ namespace Raffle.Api.Controllers
             // check the credentials
             if (await _userManager.CheckPasswordAsync(userToVerify, password))
             {
-                return await Task.FromResult(_jwtFactory.GenerateClaimsIdentity(userName, userToVerify.Id));
+                var roles = await _userManager.GetRolesAsync(userToVerify);
+                return await Task.FromResult(_jwtFactory.GenerateClaimsIdentity(userName, userToVerify.Id, roles));
             }
 
             // Credentials are invalid, or account doesn't exist
