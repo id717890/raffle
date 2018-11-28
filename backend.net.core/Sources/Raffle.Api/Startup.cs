@@ -22,9 +22,10 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Raffle.Api.Auth;
-using Raffle.Api.Extensions;
 using Raffle.Api.Helpers;
+using Raffle.Api.Middleware;
 using Raffle.Api.Models;
+using Raffle.Api.Models.ConfigOptions;
 using Raffle.Api.Services;
 using Raffle.Dal;
 using Raffle.Dal.Interface.Services;
@@ -34,6 +35,7 @@ using Raffle.Domain.Interface.Services;
 using Raffle.Domain.Services;
 using Raffle.Infrastructure;
 using Raffle.Infrastructure.Interface;
+using Raffle.Infrastructure.Interface.Auth;
 
 namespace Raffle.Api
 {
@@ -61,6 +63,7 @@ namespace Raffle.Api
             services.AddTransient<IEmailBuilder, EmailBuilder>();
             services.AddTransient<ICustomerRepository, CustomerRepository>();
             services.AddTransient<ICustomerService, CustomerService>();
+            services.AddTransient<IMessageModelBuilder, MessageModelBuilder>();
             services.Configure<AuthMessageSenderOptions>(Configuration);
             //services.AddCors();
             // jwt wire up
@@ -104,10 +107,15 @@ namespace Raffle.Api
             });
 
             // api user claim policy
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("ApiUser", policy => policy.RequireClaim(Constants.Strings.JwtClaimIdentifiers.Rol, Constants.Strings.JwtClaims.ApiAccess));
-            });
+            //services.AddAuthorization(options =>
+            //{
+            //    options.AddPolicy("ApiUser", policy => policy.RequireClaim(Constants.Strings.JwtClaimIdentifiers.Rol, Constants.Strings.JwtClaims.ApiAccess));
+            //});
+
+            //services.AddIdentity<ApplicationUser, IdentityRole>()
+            //    .AddEntityFrameworkStores<ApplicationDbContext>()
+            //    .AddDefaultTokenProviders();
+
 
             // add identity
             var builder = services.AddIdentityCore<ApplicationUser>(o =>
@@ -139,6 +147,7 @@ namespace Raffle.Api
             {
                 app.UseHsts();
             }
+            app.UseCustomExceptionMiddleware();
             app.UseCors(c =>
                   c.AllowAnyHeader()
                 .AllowAnyMethod()

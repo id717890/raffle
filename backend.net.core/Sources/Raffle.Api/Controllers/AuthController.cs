@@ -11,8 +11,11 @@ using Newtonsoft.Json;
 using Raffle.Api.Auth;
 using Raffle.Api.Helpers;
 using Raffle.Api.Models;
+using Raffle.Api.Models.ConfigOptions;
 using Raffle.Api.ViewModels;
+using Raffle.Dal;
 using Raffle.Domain.Interface.Entity;
+using Raffle.Infrastructure.Interface.Auth;
 
 namespace Raffle.Api.Controllers
 {
@@ -20,36 +23,61 @@ namespace Raffle.Api.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
+        //private readonly ApplicationDbContext _appDbContext;
         private readonly UserManager<ApplicationUser> _userManager;
+        //private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IJwtFactory _jwtFactory;
         private readonly JwtIssuerOptions _jwtOptions;
 
-        public AuthController(UserManager<ApplicationUser> userManager, IJwtFactory jwtFactory, IOptions<JwtIssuerOptions> jwtOptions)
+        public AuthController(
+            UserManager<ApplicationUser> userManager,
+            //SignInManager<ApplicationUser> signInManager,
+            IJwtFactory jwtFactory,
+            //ApplicationDbContext appDbContext,
+            IOptions<JwtIssuerOptions> jwtOptions)
         {
             _userManager = userManager;
             _jwtFactory = jwtFactory;
             _jwtOptions = jwtOptions.Value;
+            //_signInManager = signInManager;
+            //_appDbContext = appDbContext;
         }
 
         // POST api/auth/login
         [HttpPost("login")]
-        public async Task<IActionResult> Post([FromBody]CredentialsViewModel credentials)
+        public async Task<IActionResult> Login([FromBody]LoginViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
-            var identity = await GetClaimsIdentity(credentials.UserName, credentials.Password);
-            if (identity == null)
+            try
             {
-                return BadRequest(Errors.AddErrorToModelState("login_failure", "Invalid username or password.", ModelState));
+                var identity = await GetClaimsIdentity(model.Email, model.Password);
+                if (identity == null)
+                {
+                    return BadRequest(Errors.AddErrorToModelState("login_failure", "Invalid username or password.", ModelState));
+                }
+                var user = _userManager.FindByNameAsync(model.Email).Result;
+                if (user != null)
+                {
+                    if (!_userManager.IsEmailConfirmedAsync(user).Result)
+                    {
+                        return BadRequest("Email not confirmed!");
+                    }
+                }
+                var jwt = await Tokens.GenerateJwt(
+                    identity, 
+                    _jwtFactory, 
+                    model.Email, 
+                    _jwtOptions, 
+                    new JsonSerializerSettings { Formatting = Formatting.Indented });
+                return new OkObjectResult(jwt);
             }
-            var userToVerify = await _userManager.FindByNameAsync(credentials.UserName);
-            var result = _userManager.IsEmailConfirmedAsync(userToVerify);
-
-            var jwt = await Tokens.GenerateJwt(identity, _jwtFactory, credentials.UserName, _jwtOptions, new JsonSerializerSettings { Formatting = Formatting.Indented });
-            return new OkObjectResult(jwt);
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
         private async Task<ClaimsIdentity> GetClaimsIdentity(string userName, string password)
@@ -65,7 +93,8 @@ namespace Raffle.Api.Controllers
             // check the credentials
             if (await _userManager.CheckPasswordAsync(userToVerify, password))
             {
-                return await Task.FromResult(_jwtFactory.GenerateClaimsIdentity(userName, userToVerify.Id));
+                var roles = await _userManager.GetRolesAsync(userToVerify);
+                return await Task.FromResult(_jwtFactory.GenerateClaimsIdentity(userName, userToVerify.Id, roles));
             }
 
             // Credentials are invalid, or account doesn't exist

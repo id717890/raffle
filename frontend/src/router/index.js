@@ -13,7 +13,9 @@ export default new Router({
     {path: '/signin', name: 'Signin', component: () => import('@/components/Auth/SignIn')},
     {path: '/signup', name: 'Signup', component: () => import('@/components/Auth/SignUp')},
     {path: '/forgot', name: 'Forgot', component: () => import('@/components/Auth/Forgot')},
-    {path: '/dashboard', name: 'Dashboard', component: () => import('@/components/Private/Dashboard')}
+    {path: '/resetpassword', name: 'ResetPassword', component: () => import('@/components/Auth/ResetPassword')},
+    {path: '/dashboard', name: 'Dashboard', component: () => import('@/components/Private/Dashboard')},
+    {path: '/message', name: 'Message', component: () => import('@/components/Shared/Message')}
   ],
   mode: 'history'
 })

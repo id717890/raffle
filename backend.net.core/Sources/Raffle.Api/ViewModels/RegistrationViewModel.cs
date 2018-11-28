@@ -3,7 +3,6 @@ using Newtonsoft.Json;
 
 namespace Raffle.Api.ViewModels
 {
-    [JsonObject("data")]
     public class RegistrationViewModel
     {
         [Required, EmailAddress, JsonProperty("email")]

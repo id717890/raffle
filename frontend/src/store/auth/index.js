@@ -60,6 +60,51 @@ const actions = {
   //       console.log(e)
   //     })
   // },
+  resetPasswordVerifyToken ({dispatch}, payload) {
+    return new Promise((resolve, reject) => {
+      context.resetPasswordVerifyToken(payload.userId, payload.code, payload.password, payload.passwordConfirm).then((x) => {
+        if (x.status === 200) {
+          dispatch('setMessages', ['Пароль успешно изменен. Теперь Вы можете авторизоваться!'])
+          resolve()
+        } else {
+          dispatch('setErrors', x.response.data)
+          reject(x.response.data)
+        }
+      }).catch(x => {
+        reject(x.response.data)
+      })
+    })
+  },
+  forgotPassword ({dispatch}, payload) {
+    return new Promise((resolve, reject) => {
+      context.forgotPassword(payload.email).then((x) => {
+        if (x.status === 200) {
+          dispatch('setMessages', ['На указанный E-mail выслана инструкция для восстановления пароля'])
+          resolve()
+        } else {
+          dispatch('setErrors', x.response.data)
+          reject(x.response.data)
+        }
+      }).catch(x => {
+        reject(x.response.data)
+      })
+    })
+  },
+  signUserIn ({dispatch}, payload) {
+    return new Promise((resolve, reject) => {
+      context.signIn(payload.email, payload.password).then((x) => {
+        if (x.status === 200) {
+          console.log(x)
+          resolve()
+        } else {
+          dispatch('setErrors', x.response.data)
+          reject(x.response.data)
+        }
+      }).catch(x => {
+        reject(x.response.data)
+      })
+    })
+  },
   signUserUp ({dispatch}, payload) {
     return new Promise((resolve, reject) => {
       context.signUp(payload.email, payload.password, payload.passwordConfirm, payload.firstName, payload.lastName).then((x) => {

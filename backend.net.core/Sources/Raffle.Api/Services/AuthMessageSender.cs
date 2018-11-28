@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Options;
+using Raffle.Api.Models.ConfigOptions;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 

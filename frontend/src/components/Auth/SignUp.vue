@@ -7,9 +7,14 @@
           <div class="mt-2" v-if="this.getMessages !== null">
             <b-alert show variant="success" v-for="(message, index) in this.getMessages" :key="index">{{message}}</b-alert>
           </div>
-          <div class="mt-2" v-if="this.getErrors !== null">
-            <b-alert show variant="danger" v-for="(error, index) in this.getOtherErrors" :key="index">{{error}}</b-alert>
+          <div class="mt-2" v-if="this.getOtherErrors !== null">
+            <div v-for="(error, index) in this.getOtherErrors" :key="index">
+              <b-alert show variant="danger" v-for="(message, indexMessage) in error" :key="indexMessage">{{message}}</b-alert>
+            </div>
           </div>
+          <!-- <div class="mt-2" v-if="this.getErrors !== null">
+            <b-alert show variant="danger" v-for="(error, index) in this.getOtherErrors" :key="index">{{error}}</b-alert>
+          </div> -->
           <b-form @submit="onSubmit">
             <b-form-group id="emailGroup" label="Email address:" label-for="email">
               <b-form-input id="email" type="email" v-model="form.email" required placeholder="Enter email"></b-form-input>
@@ -72,6 +77,7 @@ export default {
   computed: {
     ...mapGetters(['getErrors', 'getMessages']),
     getOtherErrors () {
+      // console.log(this.getErrors)
       let newObject = {}
       const fields = ['Email', 'Password']
       for (let prop in this.getErrors) {
@@ -91,25 +97,33 @@ export default {
   // },
   created () {
     this.$store.dispatch('clearAllMessages')
-    console.log(this.getOtherErrors)
+    // console.log(this.getOtherErrors)
   },
   methods: {
     ...mapActions(['signUserUp']),
     handleClick () {
       this.showDismissibleAlert = true
     },
+    resetForm () {
+      this.form.email = ''
+      this.form.password = ''
+      this.form.passwordConfirm = ''
+      this.form.firstName = ''
+      this.form.lastName = ''
+    },
     onSubmit (evt) {
       evt.preventDefault()
       // alert(JSON.stringify(this.form))
       this.signUserUp(this.form)
         .then((x) => {
+          this.resetForm()
           // console.log('view')
           // console.log(x)
           // this.$router.push('/')
         })
         .catch(x => {
-          console.log('view catch')
-          console.log(x)
+          // console.log('view catch')
+          // console.log(x)
           // todo show errors from vuex state
         })
     }

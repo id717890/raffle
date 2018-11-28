@@ -5,7 +5,7 @@ using Raffle.Infrastructure.Interface;
 
 namespace Raffle.Infrastructure
 {
-    public class EmailBuilder: IEmailBuilder
+    public class EmailBuilder : IEmailBuilder
     {
         private IHostingEnvironment _env;
 
@@ -21,7 +21,7 @@ namespace Raffle.Infrastructure
             var ss = _env.WebRootPath;
             var sw = _env.ContentRootPath;
 
-            using (StreamReader reader = new StreamReader(_env.ContentRootPath+ "/Templates/Email/Confirm.html"))
+            using (StreamReader reader = new StreamReader(_env.ContentRootPath + "/Templates/Email/Confirm.html"))
 
             {
 
@@ -35,6 +35,16 @@ namespace Raffle.Infrastructure
 
             //body = body.Replace("{message}", message);
 
+            return body.Replace("{0}", url);
+        }
+
+        public string CreateForgotPasswordEmailBody(string url)
+        {
+            string body = string.Empty;
+            using (StreamReader reader = new StreamReader(_env.ContentRootPath + "/Templates/Email/Forgot.html"))
+            {
+                body = reader.ReadToEnd();
+            }
             return body.Replace("{0}", url);
         }
     }
