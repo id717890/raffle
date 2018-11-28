@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace Raffle.Api.Auth
+namespace Raffle.Infrastructure.Interface.Auth
 {
     public interface IJwtFactory
     {

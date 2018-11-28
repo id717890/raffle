@@ -22,7 +22,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Raffle.Api.Auth;
-using Raffle.Api.Extensions;
 using Raffle.Api.Helpers;
 using Raffle.Api.Middleware;
 using Raffle.Api.Models;
@@ -35,6 +34,7 @@ using Raffle.Domain.Interface.Services;
 using Raffle.Domain.Services;
 using Raffle.Infrastructure;
 using Raffle.Infrastructure.Interface;
+using Raffle.Infrastructure.Interface.Auth;
 
 namespace Raffle.Api
 {

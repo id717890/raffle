@@ -2,8 +2,8 @@
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Raffle.Api.Auth;
 using Raffle.Api.Models;
+using Raffle.Infrastructure.Interface.Auth;
 
 namespace Raffle.Api.Helpers
 {
@@ -17,7 +17,6 @@ namespace Raffle.Api.Helpers
                 access_token = await jwtFactory.GenerateEncodedToken(userName, identity),
                 expires_in = (int)jwtOptions.ValidFor.TotalSeconds
             };
-
             return JsonConvert.SerializeObject(response, serializerSettings);
         }
     }

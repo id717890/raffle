@@ -1,15 +1,14 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Raffle.Api.Helpers;
 using Raffle.Api.Models;
+using Raffle.Infrastructure.Interface.Auth;
 
 namespace Raffle.Api.Auth
 {
@@ -54,7 +53,7 @@ namespace Raffle.Api.Auth
         {
             var claims = new List<Claim>
             {
-                new Claim(Constants.Strings.JwtClaimIdentifiers.Id, id),
+                new Claim("id", id),
             };
             claims.AddRange(roles.Select(role => new Claim(ClaimsIdentity.DefaultRoleClaimType, role)));
             return new ClaimsIdentity(new GenericIdentity(userName, "Token"), claims);
