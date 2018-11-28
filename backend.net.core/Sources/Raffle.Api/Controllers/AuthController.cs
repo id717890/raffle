@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using Raffle.Api.Auth;
 using Raffle.Api.Helpers;
 using Raffle.Api.Models;
+using Raffle.Api.Models.ConfigOptions;
 using Raffle.Api.ViewModels;
 using Raffle.Dal;
 using Raffle.Domain.Interface.Entity;

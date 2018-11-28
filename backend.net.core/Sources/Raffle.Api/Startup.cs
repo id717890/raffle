@@ -25,6 +25,7 @@ using Raffle.Api.Auth;
 using Raffle.Api.Helpers;
 using Raffle.Api.Middleware;
 using Raffle.Api.Models;
+using Raffle.Api.Models.ConfigOptions;
 using Raffle.Api.Services;
 using Raffle.Dal;
 using Raffle.Dal.Interface.Services;

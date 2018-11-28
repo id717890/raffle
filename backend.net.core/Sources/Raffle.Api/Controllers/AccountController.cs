@@ -129,7 +129,7 @@ namespace Raffle.Api.Controllers
             {
                 var user = await _userManager.FindByIdAsync(userId);
                 if (user == null) return BadRequest("Указанный пользователь не найден");
-                var resultVerifyToken = await _userManager.VerifyUserTokenAsync(user, "Default", "ResetaPassword", code);
+                var resultVerifyToken = await _userManager.VerifyUserTokenAsync(user, "Default", "ResetPassword", code);
                 if (resultVerifyToken)
                 {
                     return Ok();

@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Raffle.Api.Models
+namespace Raffle.Api.Models.ConfigOptions
 {
     public class JwtIssuerOptions
     {
