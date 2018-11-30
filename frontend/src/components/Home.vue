@@ -7,7 +7,22 @@
           <h3 style="text-align:center;">Parallax Demo</h3>
           <p>Parallax scrolling is a web site trend where the background content is moved at a different speed than the foreground content while scrolling. Nascetur per nec posuere turpis, lectus nec libero turpis nunc at, sed posuere mollis ullamcorper libero ante lectus, blandit pellentesque a, magna turpis est sapien duis blandit dignissim. Viverra interdum mi magna mi, morbi sociis. Condimentum dui ipsum consequat morbi, curabitur aliquam pede, nullam vitae eu placerat eget et vehicula. Varius quisque non molestie dolor, nunc nisl dapibus vestibulum at, sodales tincidunt mauris ullamcorper, dapibus pulvinar, in in neque risus odio. Accumsan fringilla vulputate at quibusdam sociis eleifend, aenean maecenas vulputate, non id vehicula lorem mattis, ratione interdum sociis ornare. Suscipit proin magna cras vel, non sit platea sit, maecenas ante augue etiam maecenas, porta porttitor placerat leo.</p>
         </div>
-        <div class="prlxblock1 prlx"></div>
+        <div class="prlxblock1 prlx">
+          <b-container>
+            <b-row>
+              <b-col class="d-flex justify-content-center" style="flex-flow:row wrap; align-content: center">
+                <b-card :title="gift.gift.name" class="m-4" v-for="gift in this.getGiftsDraw" :key="gift.id"
+                  :img-src="gift.gift.image" style="max-width: 15rem;" img-top
+                >
+                <p class="card-text">
+                  {{gift.info}}
+                </p>
+                </b-card>
+              </b-col>
+            </b-row>
+          </b-container>
+          
+        </div>
         <div class="txt" style="min-height: 700px">
           <h3 style="text-align:center;">Parallax Demo</h3>
           <p>Parallax scrolling is a web site trend where the background content is moved at a different speed than the foreground content while scrolling. Nascetur per nec posuere turpis, lectus nec libero turpis nunc at, sed posuere mollis ullamcorper libero ante lectus, blandit pellentesque a, magna turpis est sapien duis blandit dignissim. Viverra interdum mi magna mi, morbi sociis. Condimentum dui ipsum consequat morbi, curabitur aliquam pede, nullam vitae eu placerat eget et vehicula. Varius quisque non molestie dolor, nunc nisl dapibus vestibulum at, sodales tincidunt mauris ullamcorper, dapibus pulvinar, in in neque risus odio. Accumsan fringilla vulputate at quibusdam sociis eleifend, aenean maecenas vulputate, non id vehicula lorem mattis, ratione interdum sociis ornare. Suscipit proin magna cras vel, non sit platea sit, maecenas ante augue etiam maecenas, porta porttitor placerat leo.</p>
@@ -17,6 +32,20 @@
     </b-row>
   </b-container>
 </template>
+
+<script>
+import {mapGetters} from 'vuex'
+
+export default {
+  computed: {
+    ...mapGetters(['getGiftsDraw'])
+  },
+  async created () {
+    this.$store.dispatch('getGiftsDraw')
+  }
+}
+</script>
+
 
 <style>
   .prlxblock1 {

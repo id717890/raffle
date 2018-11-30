@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import * as types from './mutation-types'
 import auth from './auth'
 import notify from './notify'
+import gift from './gift'
 // import word from './word'
 // import busy from './busy'
 // import dialog from './dialog'
@@ -20,7 +21,8 @@ export const store = new Vuex.Store({
   ],
   modules: {
     auth,
-    notify
+    notify,
+    gift
     // category,
     // word,
     // busy

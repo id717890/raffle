@@ -1,4 +1,7 @@
 /* Dialog element */
+export const SET_GIFTS_DRAW = 'SET_GIFTS_DRAW'
+
+/* Dialog element */
 export const SET_CONFIRM_DIALOG_RESULT = 'SET_CONFIRM_DIALOG_RESULT'
 export const RESET_CONFIRM_DIALOG_RESULT = 'RESET_CONFIRM_DIALOG_RESULT'
 
