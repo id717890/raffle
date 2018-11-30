@@ -43,8 +43,8 @@ namespace Raffle.Dal.Migrations
                     b.ToTable("AspNetRoles");
 
                     b.HasData(
-                        new { Id = "88a1fa92-68e6-4cda-ad7e-8bdae2315f05", ConcurrencyStamp = "f32cfc83-7859-44c1-a391-980b5af8cec3", Name = "Superuser", NormalizedName = "SUPERUSER" },
-                        new { Id = "3975bb76-a08f-4635-9db6-ce6ea8683290", ConcurrencyStamp = "5780ddfe-57b8-4e3f-9c5e-514a2323bf7c", Name = "Participant", NormalizedName = "PARTICIPANT" }
+                        new { Id = "0e4ca8f3-78f8-44b5-a9fa-5588b6862d1d", ConcurrencyStamp = "f6365f73-5a07-4586-a103-8d36256111f8", Name = "Superuser", NormalizedName = "SUPERUSER" },
+                        new { Id = "fdacf13c-797f-4b56-a852-01cd21463e14", ConcurrencyStamp = "7d6c8887-d521-4f09-85ec-853ebc065a79", Name = "Participant", NormalizedName = "PARTICIPANT" }
                     );
                 });
 
@@ -251,8 +251,7 @@ namespace Raffle.Dal.Migrations
 
                     b.Property<long>("GiftId");
 
-                    b.Property<string>("Info")
-                        .IsRequired();
+                    b.Property<string>("Info");
 
                     b.Property<bool>("IsDeleted");
 
@@ -266,7 +265,7 @@ namespace Raffle.Dal.Migrations
 
                     b.HasIndex("GiftId");
 
-                    b.ToTable("GiftDraws");
+                    b.ToTable("GiftDraw");
 
                     b.HasData(
                         new { Id = 1L, GiftId = 1L, Info = "test info 1", IsDeleted = false, Price = 77000m, PriceKey = 250m, Reached = 0m },

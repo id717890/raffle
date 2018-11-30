@@ -82,7 +82,7 @@ namespace Raffle.Api.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest(e.Message);
+                return BadRequest(_messageModelBuilder.CreateModel("500", e.Message));
             }
         }
 

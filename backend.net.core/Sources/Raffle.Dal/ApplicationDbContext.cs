@@ -21,8 +21,14 @@ namespace Raffle.Dal
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfiguration(new GiftMap());
-            modelBuilder.ApplyConfiguration(new GiftDrawMap());
+            //modelBuilder.ApplyConfiguration(new GiftDrawMap());
             modelBuilder.ApplyConfiguration(new CustomerMap());
+
+
+            modelBuilder.Entity<GiftDraw>()
+                .HasOne<Gift>(s => s.Gift)
+                .WithMany(g => g.GiftDraws)
+                .HasForeignKey(s => s.GiftId);
 
             modelBuilder.Entity<IdentityRole>().HasData(
                 new IdentityRole {Id = Guid.NewGuid().ToString(), Name = "Superuser", NormalizedName = "SUPERUSER"},
