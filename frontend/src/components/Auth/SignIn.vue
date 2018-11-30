@@ -47,8 +47,8 @@ export default {
     return {
       showDismissibleAlert: false,
       form: {
-        email: '',
-        password: ''
+        email: 'jusupovz@gmail.com',
+        password: 'qweqwe'
       }
     }
   },

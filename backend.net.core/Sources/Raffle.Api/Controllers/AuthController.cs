@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,7 @@ using Raffle.Api.Models.ConfigOptions;
 using Raffle.Api.ViewModels;
 using Raffle.Dal;
 using Raffle.Domain.Interface.Entity;
+using Raffle.Infrastructure.Interface;
 using Raffle.Infrastructure.Interface.Auth;
 
 namespace Raffle.Api.Controllers
@@ -28,23 +30,27 @@ namespace Raffle.Api.Controllers
         //private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IJwtFactory _jwtFactory;
         private readonly JwtIssuerOptions _jwtOptions;
+        private readonly IMessageModelBuilder _messageModelBuilder;
 
         public AuthController(
             UserManager<ApplicationUser> userManager,
             //SignInManager<ApplicationUser> signInManager,
             IJwtFactory jwtFactory,
             //ApplicationDbContext appDbContext,
-            IOptions<JwtIssuerOptions> jwtOptions)
+            IOptions<JwtIssuerOptions> jwtOptions,
+            IMessageModelBuilder messageModelBuilder
+            )
         {
             _userManager = userManager;
             _jwtFactory = jwtFactory;
             _jwtOptions = jwtOptions.Value;
+            _messageModelBuilder = messageModelBuilder;
             //_signInManager = signInManager;
             //_appDbContext = appDbContext;
         }
 
         // POST api/auth/login
-        [HttpPost("login")]
+        [HttpPost("Login")]
         public async Task<IActionResult> Login([FromBody]LoginViewModel model)
         {
             if (!ModelState.IsValid)
@@ -99,6 +105,34 @@ namespace Raffle.Api.Controllers
 
             // Credentials are invalid, or account doesn't exist
             return await Task.FromResult<ClaimsIdentity>(null);
+        }
+
+        [HttpPost("GetModules"), Authorize]
+        public async Task<IActionResult> GetModules()
+        {
+            try
+            {
+                var email = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                if (email == null) return Unauthorized();
+                var user = await _userManager.FindByEmailAsync(email);
+                if (user == null) return Unauthorized();
+
+                if (await _userManager.IsInRoleAsync(user, Constants.Admin))
+                    return Ok(new
+                    {
+                        modules = new[] { "manage", "dashboard" }
+                    });
+                if (await _userManager.IsInRoleAsync(user, Constants.StandartRole))
+                    return Ok(new
+                    {
+                        modules = new [] {"dashboard"}
+                    });
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(_messageModelBuilder.CreateModel("500", e.Message));
+            }
         }
     }
 }

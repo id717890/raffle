@@ -1,9 +1,11 @@
 import * as types from '../mutation-types'
 import context from '@/api/auth'
+import Vue from 'vue'
 // import Vue from 'vue'
 
 const state = {
   user: null,
+  token: null,
   isAuth: false
 }
 
@@ -18,49 +20,12 @@ const getters = {
   getLoading (state) {
     return state.loading
   },
-  isAuth: state => state.user != null
+  isAuth: state => state.user != null && state.token != null
 }
 
 // actions
 const actions = {
-  // resetPassword ({commit}, payload) {
-  //   commit(types.SET_LOADING, true)
-  //   commit(types.CLEAR_ERROR)
-  //   return firebase.auth().sendPasswordResetEmail(payload)
-  //     .then(() => {
-  //       commit(types.SET_LOADING, false)
-  //       // x.user.sendEmailVerification()
-  //       // commit(types.SET_LOADING, false)
-  //       // const newUser = {
-  //       //   id: x.user.uid
-  //       // }
-  //       // commit(types.SET_USER, newUser)
-  //     })
-  //     .catch(e => {
-  //       commit(types.SET_LOADING, false)
-  //       commit(types.SET_ERROR, e)
-  //       console.log(e)
-  //     })
-  // },
-  // signUserUp ({commit}, payload) {
-  //   commit(types.SET_LOADING, true)
-  //   commit(types.CLEAR_ERROR)
-  //   firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
-  //     .then(x => {
-  //       x.user.sendEmailVerification()
-  //       commit(types.SET_LOADING, false)
-  //       const newUser = {
-  //         id: x.user.uid
-  //       }
-  //       commit(types.SET_USER, newUser)
-  //     })
-  //     .catch(e => {
-  //       commit(types.SET_LOADING, false)
-  //       commit(types.SET_ERROR, e)
-  //       console.log(e)
-  //     })
-  // },
-  resetPasswordVerifyToken ({dispatch}, payload) {
+  async resetPasswordVerifyToken ({dispatch}, payload) {
     return new Promise((resolve, reject) => {
       context.resetPasswordVerifyToken(payload.userId, payload.code, payload.password, payload.passwordConfirm).then((x) => {
         if (x.status === 200) {
@@ -75,7 +40,7 @@ const actions = {
       })
     })
   },
-  forgotPassword ({dispatch}, payload) {
+  async forgotPassword ({dispatch}, payload) {
     return new Promise((resolve, reject) => {
       context.forgotPassword(payload.email).then((x) => {
         if (x.status === 200) {
@@ -90,11 +55,17 @@ const actions = {
       })
     })
   },
-  signUserIn ({dispatch}, payload) {
+  async signUserIn ({commit, dispatch}, payload) {
     return new Promise((resolve, reject) => {
       context.signIn(payload.email, payload.password).then((x) => {
         if (x.status === 200) {
-          console.log(x)
+          let token = x.data.access_token
+          let expiration = x.data.expires_in
+          let user = x.data.id
+          commit(types.SET_USER, user)
+          commit(types.SET_TOKEN, token)
+          Vue.auth.setToken(token, expiration * 1000 + Date.now())
+          Vue.auth.setUser(user)
           resolve()
         } else {
           dispatch('setErrors', x.response.data)
@@ -105,7 +76,7 @@ const actions = {
       })
     })
   },
-  signUserUp ({dispatch}, payload) {
+  async signUserUp ({dispatch}, payload) {
     return new Promise((resolve, reject) => {
       context.signUp(payload.email, payload.password, payload.passwordConfirm, payload.firstName, payload.lastName).then((x) => {
         if (x.status === 200) {
@@ -120,21 +91,20 @@ const actions = {
       })
     })
   },
-  logout ({commit}) {
+  async logout ({commit}) {
+    Vue.auth.logout()
     commit(types.SET_USER, null)
+    commit(types.SET_TOKEN, null)
+  },
+  async autoSignIn ({commit, dispatch}) {
+    let credential = Vue.auth.getCredentials()
+    if (!credential) {
+      dispatch('logout')
+    } else {
+      commit(types.SET_TOKEN, credential.token)
+      commit(types.SET_USER, credential.id)
+    }
   }
-  // autoSignIn ({commit}, payload) {
-  //   commit(types.SET_USER, {id: payload.uid})
-  // },
-  // logout ({commit}) {
-  //   if (!config.isLocalApp()) {
-  //     firebase.auth().signOut()
-  //   }
-  //   commit(types.SET_USER, null)
-  // },
-  // clearError ({commit}) {
-  //   commit(types.CLEAR_ERROR)
-  // }
 }
 
 // mutations
@@ -144,6 +114,9 @@ const mutations = {
   },
   [types.SET_LOADING] (state, payload) {
     state.loading = payload
+  },
+  [types.SET_TOKEN] (state, payload) {
+    state.token = payload
   },
   // [types.SET_ERROR] (state, payload) {
   //   state.error = payload

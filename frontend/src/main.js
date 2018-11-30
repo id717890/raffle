@@ -19,5 +19,8 @@ new Vue({
   el: '#app',
   router,
   store,
-  render: h => h(App)
+  render: h => h(App),
+  async created () {
+    this.$store.dispatch('autoSignIn')
+  }
 })

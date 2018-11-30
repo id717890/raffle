@@ -12,6 +12,7 @@ export const SET_ERRORS = 'SET_ERRORS'
 export const SET_USER = 'SET_USER'
 export const SIGN_UP = 'SIGN_UP'
 export const SIGN_IN = 'SIGN_IN'
+export const SET_TOKEN = 'SET_TOKEN'
 
 /* words */
 export const UPDATE_ORDER_OF_CATEGORY_OF_WORDS = 'UPDATE_ORDER_OF_CATEGORY_OF_WORDS'
