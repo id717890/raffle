@@ -41,6 +41,11 @@ namespace Raffle.Dal.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasData(
+                        new { Id = "88a1fa92-68e6-4cda-ad7e-8bdae2315f05", ConcurrencyStamp = "f32cfc83-7859-44c1-a391-980b5af8cec3", Name = "Superuser", NormalizedName = "SUPERUSER" },
+                        new { Id = "3975bb76-a08f-4635-9db6-ce6ea8683290", ConcurrencyStamp = "5780ddfe-57b8-4e3f-9c5e-514a2323bf7c", Name = "Participant", NormalizedName = "PARTICIPANT" }
+                    );
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -207,6 +212,71 @@ namespace Raffle.Dal.Migrations
                     b.ToTable("Customers");
                 });
 
+            modelBuilder.Entity("Raffle.Domain.Interface.Entity.Gift", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .IsRequired();
+
+                    b.Property<string>("Image")
+                        .IsRequired();
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Gifts");
+
+                    b.HasData(
+                        new { Id = 1L, Description = "Смартфон Apple iPhone X – воплощение статуса, надежности и передовых технологий. Большой, 5.8-дюймовый безрамочный экран дарит удивительно четкое и живое изображение (разрешение 2436x1125). Привычный поклонникам бренда интерфейс здесь дополнен такими возможностями, как бесконтактная оплата и зарядка, поддержка максимального количества диапазонов LTE.", Image = "https://www.re-store.ru/upload/iblock/ea3/ea3a57da3137cf5be1c0b3d1e8999a37.jpg", IsDeleted = false, Name = "Apple iPhone X" },
+                        new { Id = 2L, Description = @"6.3 Смартфон Samsung Galaxy Note 8 64 ГБ – устройство, в котором внимание уделялось всем деталям.Выполнена задняя панель в синем цвете,
+                    она придает лаконичный дизайн.Устанавливается стекло Corning Gorilla Glass 5 с двух сторон.Оно не царапается при эксплуатации и обладает увеличенной прочностью.", Image = "https://cdn.images.express.co.uk/img/dynamic/galleries/x701/260002.jpg", IsDeleted = false, Name = "Samsung Galaxy Note 8" },
+                        new { Id = 3L, Description = "Игровая приставка PlayStation 4 Pro в полной мере оправдывает свое название. В приставке есть все необходимое для комфортного использования любимых игр. ", Image = "https://s0.rbk.ru/v6_top_pics/resized/1440xH/media/img/5/16/754733297837165.png", IsDeleted = false, Name = "PlayStation 4 Pro" },
+                        new { Id = 4L, Description = "Игровая приставка Microsoft Xbox One S + Forza Horizon 3 – лучшее, что вы можете приобрести, если являетесь заядлым поклонником видеоигр.", Image = "https://avatars.mds.yandex.net/get-mpic/195452/img_id1065977498717792190/9hq", IsDeleted = false, Name = "Microsoft Xbox One" },
+                        new { Id = 5L, Description = "Смартфон Apple iPhone 7 выполнен в герметичном черном алюминиевом корпусе, защищающем его от брызг, царапин и пыли. ", Image = "https://www.o2.co.uk/shop/homepage/images/shop15/brand/apple/iphone7/apple-iphone-7-gallery-img-5.jpg", IsDeleted = false, Name = "Apple iPhone 7" }
+                    );
+                });
+
+            modelBuilder.Entity("Raffle.Domain.Interface.Entity.GiftDraw", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long>("GiftId");
+
+                    b.Property<string>("Info")
+                        .IsRequired();
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<decimal>("Price");
+
+                    b.Property<decimal>("PriceKey");
+
+                    b.Property<decimal>("Reached");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GiftId");
+
+                    b.ToTable("GiftDraws");
+
+                    b.HasData(
+                        new { Id = 1L, GiftId = 1L, Info = "test info 1", IsDeleted = false, Price = 77000m, PriceKey = 250m, Reached = 0m },
+                        new { Id = 2L, GiftId = 2L, Info = "test info 2", IsDeleted = false, Price = 68000m, PriceKey = 250m, Reached = 0m },
+                        new { Id = 3L, GiftId = 3L, Info = "test info 3", IsDeleted = false, Price = 30000m, PriceKey = 150m, Reached = 0m },
+                        new { Id = 4L, GiftId = 4L, Info = "test info 4", IsDeleted = false, Price = 25000m, PriceKey = 150m, Reached = 0m },
+                        new { Id = 5L, GiftId = 5L, Info = "test info 5", IsDeleted = false, Price = 40000m, PriceKey = 200m, Reached = 0m }
+                    );
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
@@ -257,6 +327,14 @@ namespace Raffle.Dal.Migrations
                     b.HasOne("Raffle.Domain.Interface.Entity.ApplicationUser", "Identity")
                         .WithMany()
                         .HasForeignKey("IdentityId");
+                });
+
+            modelBuilder.Entity("Raffle.Domain.Interface.Entity.GiftDraw", b =>
+                {
+                    b.HasOne("Raffle.Domain.Interface.Entity.Gift", "Gift")
+                        .WithMany("GiftDraws")
+                        .HasForeignKey("GiftId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

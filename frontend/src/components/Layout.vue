@@ -1,5 +1,5 @@
 <template>
-<div>
+<div style="height: 100%">
   <b-navbar toggleable="sm" type="dark" variant="dark">
     <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
     <b-navbar-brand to="/">Raffle</b-navbar-brand>
@@ -37,7 +37,7 @@
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>
-  <b-container fluid>
+  <b-container fluid  style="height: 100%">
     <router-view></router-view>
   </b-container>
 </div>

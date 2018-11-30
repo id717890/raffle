@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Raffle.Dal.Migrations
 {
-    public partial class init : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -47,6 +47,22 @@ namespace Raffle.Dal.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Gifts",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
+                    Image = table.Column<string>(nullable: false),
+                    Description = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Gifts", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -178,6 +194,64 @@ namespace Raffle.Dal.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "GiftDraws",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    GiftId = table.Column<long>(nullable: false),
+                    Info = table.Column<string>(nullable: false),
+                    Price = table.Column<decimal>(nullable: false),
+                    PriceKey = table.Column<decimal>(nullable: false),
+                    Reached = table.Column<decimal>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GiftDraws", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_GiftDraws_Gifts_GiftId",
+                        column: x => x.GiftId,
+                        principalTable: "Gifts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { "88a1fa92-68e6-4cda-ad7e-8bdae2315f05", "f32cfc83-7859-44c1-a391-980b5af8cec3", "Superuser", "SUPERUSER" },
+                    { "3975bb76-a08f-4635-9db6-ce6ea8683290", "5780ddfe-57b8-4e3f-9c5e-514a2323bf7c", "Participant", "PARTICIPANT" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Gifts",
+                columns: new[] { "Id", "Description", "Image", "IsDeleted", "Name" },
+                values: new object[,]
+                {
+                    { 1L, "Смартфон Apple iPhone X – воплощение статуса, надежности и передовых технологий. Большой, 5.8-дюймовый безрамочный экран дарит удивительно четкое и живое изображение (разрешение 2436x1125). Привычный поклонникам бренда интерфейс здесь дополнен такими возможностями, как бесконтактная оплата и зарядка, поддержка максимального количества диапазонов LTE.", "https://www.re-store.ru/upload/iblock/ea3/ea3a57da3137cf5be1c0b3d1e8999a37.jpg", false, "Apple iPhone X" },
+                    { 2L, @"6.3 Смартфон Samsung Galaxy Note 8 64 ГБ – устройство, в котором внимание уделялось всем деталям.Выполнена задняя панель в синем цвете,
+                                    она придает лаконичный дизайн.Устанавливается стекло Corning Gorilla Glass 5 с двух сторон.Оно не царапается при эксплуатации и обладает увеличенной прочностью.", "https://cdn.images.express.co.uk/img/dynamic/galleries/x701/260002.jpg", false, "Samsung Galaxy Note 8" },
+                    { 3L, "Игровая приставка PlayStation 4 Pro в полной мере оправдывает свое название. В приставке есть все необходимое для комфортного использования любимых игр. ", "https://s0.rbk.ru/v6_top_pics/resized/1440xH/media/img/5/16/754733297837165.png", false, "PlayStation 4 Pro" },
+                    { 4L, "Игровая приставка Microsoft Xbox One S + Forza Horizon 3 – лучшее, что вы можете приобрести, если являетесь заядлым поклонником видеоигр.", "https://avatars.mds.yandex.net/get-mpic/195452/img_id1065977498717792190/9hq", false, "Microsoft Xbox One" },
+                    { 5L, "Смартфон Apple iPhone 7 выполнен в герметичном черном алюминиевом корпусе, защищающем его от брызг, царапин и пыли. ", "https://www.o2.co.uk/shop/homepage/images/shop15/brand/apple/iphone7/apple-iphone-7-gallery-img-5.jpg", false, "Apple iPhone 7" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "GiftDraws",
+                columns: new[] { "Id", "GiftId", "Info", "IsDeleted", "Price", "PriceKey", "Reached" },
+                values: new object[,]
+                {
+                    { 1L, 1L, "test info 1", false, 77000m, 250m, 0m },
+                    { 2L, 2L, "test info 2", false, 68000m, 250m, 0m },
+                    { 3L, 3L, "test info 3", false, 30000m, 150m, 0m },
+                    { 4L, 4L, "test info 4", false, 25000m, 150m, 0m },
+                    { 5L, 5L, "test info 5", false, 40000m, 200m, 0m }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -221,6 +295,11 @@ namespace Raffle.Dal.Migrations
                 name: "IX_Customers_IdentityId",
                 table: "Customers",
                 column: "IdentityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GiftDraws_GiftId",
+                table: "GiftDraws",
+                column: "GiftId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -244,10 +323,16 @@ namespace Raffle.Dal.Migrations
                 name: "Customers");
 
             migrationBuilder.DropTable(
+                name: "GiftDraws");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Gifts");
         }
     }
 }
