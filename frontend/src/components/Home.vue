@@ -67,7 +67,7 @@ export default {
 </script>
 
 
-<style>
+<style lang="scss">
   .card .card-img-top {
     transform: scale(1.2);
     transition: transform .2s; /* Animation */

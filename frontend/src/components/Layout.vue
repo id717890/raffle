@@ -1,6 +1,6 @@
 <template>
 <div style="height: 100%">
-  <b-navbar toggleable="sm" type="dark" style="background: none !important">
+  <b-navbar toggleable="sm" type="dark" variant="dark">
     <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
     <b-navbar-brand to="/">Raffle</b-navbar-brand>
     <b-collapse is-nav id="nav_collapse">
