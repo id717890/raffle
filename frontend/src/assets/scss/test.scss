@@ -1,5 +1,5 @@
-$test: green;
+$test: transparent !important;
 
-.bg-dark {
-  background-color: transparent !important
+.navbar {
+  background-color: $test
 }

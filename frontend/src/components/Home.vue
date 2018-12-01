@@ -1,8 +1,16 @@
 <template>
-  <b-container fluid class="p-0" style="height: 100%">
-    <b-row class="p-0"  style="height: 100%">
-      <b-col class="p-0" style="height: 100%">
-        <div class="prlxblock2 prlx"></div>
+  <b-container fluid class="p-0 m-0" style="height: 100%">
+        <div class="prlxblock2 prlx d-flex flex-row justify-content-around align-items-center" >
+          <div class="face" style="background-color: transparent">
+            <h1>ПОДАРКИ</h1><br>
+            <h2>и</h2><br>
+            <h1>ПРИЗЫ</h1>
+          </div>
+          <div class="face">
+            <h2>Участвуй и выигрывай</h2>
+          </div>
+          
+        </div>
         <!-- <div class="prblock1 prlx"></div> -->
         <div class="txt">
           <h3 style="text-align:center;">Parallax Demo</h3>
@@ -48,8 +56,6 @@
           </b-container>
         </div>
         <div class="prblock3 prlx"></div>
-      </b-col>
-    </b-row>
   </b-container>
 </template>
 
