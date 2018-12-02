@@ -6,6 +6,7 @@ import notify from './notify'
 import gift from './gift'
 import forum from './forum'
 import busy from './busy'
+import vote from './vote'
 
 Vue.use(Vuex)
 
@@ -23,7 +24,8 @@ export const store = new Vuex.Store({
     notify,
     gift,
     forum,
-    busy
+    busy,
+    vote
     // category,
     // word,
     // busy

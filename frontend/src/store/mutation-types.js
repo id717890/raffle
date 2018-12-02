@@ -1,3 +1,6 @@
+/* Vote */
+export const RECIEVE_VOTES = 'RECIEVE_VOTES'
+
 /* Forum */
 export const SET_CURRENT_TOPIC = 'SET_CURRENT_TOPIC'
 export const RECIEVE_TOPICS = 'RECIEVE_TOPICS'

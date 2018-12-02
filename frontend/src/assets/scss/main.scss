@@ -1,0 +1,45 @@
+html, body {
+  height: 100%;
+}
+
+.prlxblock1 {
+  padding: 50px 0;
+  background-image: url('assets/images/p1.jpg');  
+}
+
+.prlxblock2 {
+  min-height: 100%;
+  background-image: url('assets/images/p5.jpg');  
+}
+
+.prlxblock3 {
+  min-height: 100%;
+  background-image: url('assets/images/p2.jpg');  
+}
+
+.prlxblock4 {
+  min-height: 100%;
+  background-image: url('assets/images/p3.jpg');  
+}
+
+.prlxblock5 {
+  min-height: 100%;
+  background-image: url('assets/images/p4.jpg');  
+}
+
+.prblock1 {
+  /* Set a specific height */
+  min-height: 100%; 
+  background-image: url('https://www.w3schools.com/howto/img_parallax.jpg');   
+}
+
+.prblock2 {
+  background-image: url('https://www.w3schools.com/howto/img_parallax2.jpg');
+  /* Set a specific height */
+  min-height: 100%; 
+}
+
+.prblock3 {
+  background-image: url('https://www.w3schools.com/howto/img_parallax3.jpg');
+  min-height: 100%; 
+}

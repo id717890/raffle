@@ -105,22 +105,7 @@ export default {
 
 
 
-  .prlxblock1 {
-    padding: 50px 0;
-    background-image: url('../assets/images/p1.jpg');  
-  }
-
-  .prlxblock2 {
-    min-height: 100%;
-    background-image: url('../assets/images/p5.jpg');  
-  }
-
-
-  .prblock1 {
-    /* Set a specific height */
-    min-height: 100%; 
-    background-image: url('https://www.w3schools.com/howto/img_parallax.jpg');   
-  }
+  
 
   .txt {
     color: #777;
@@ -138,18 +123,5 @@ export default {
     background-size: cover;
   }
 
-  .prblock2 {
-    background-image: url('https://www.w3schools.com/howto/img_parallax2.jpg');
-    /* Set a specific height */
-    min-height: 100%; 
-  }
-
-  .prblock3 {
-    background-image: url('https://www.w3schools.com/howto/img_parallax3.jpg');
-    min-height: 100%; 
-  }
-
-  html, body {
-    height: 100% !important;
-  }
+  
 </style>
