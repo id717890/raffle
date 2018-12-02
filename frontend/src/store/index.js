@@ -4,10 +4,8 @@ import * as types from './mutation-types'
 import auth from './auth'
 import notify from './notify'
 import gift from './gift'
-// import word from './word'
-// import busy from './busy'
-// import dialog from './dialog'
-// import training from './training'
+import forum from './forum'
+import busy from './busy'
 
 Vue.use(Vuex)
 
@@ -16,13 +14,16 @@ export const store = new Vuex.Store({
     store => {
       store.subscribeAction((action, state) => {
         store.commit(types.CLEAR_ERRORS)
+        store.commit(types.SET_LOADING, true)
       })
     }
   ],
   modules: {
     auth,
     notify,
-    gift
+    gift,
+    forum,
+    busy
     // category,
     // word,
     // busy
