@@ -27,6 +27,23 @@ html, body {
   background-image: url('assets/images/p4.jpg');  
 }
 
+.gift-block {
+  background-color: rgba($color: whitesmoke, $alpha: 0.6);
+  padding: 5px;
+}
+
+.gift-block .bordered {
+  border: 2px solid rgb(204, 199, 196);
+  padding: 25px;
+  min-height: 300px;
+  min-width: 450px;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+  align-items: flex-start
+}
+
+
 .prblock1 {
   /* Set a specific height */
   min-height: 100%; 
@@ -42,4 +59,25 @@ html, body {
 .prblock3 {
   background-image: url('https://www.w3schools.com/howto/img_parallax3.jpg');
   min-height: 100%; 
+}
+
+.vote-card .card-img-top {
+  max-height: 170px;
+  align-self: center;
+  width: auto;
+}
+
+.vote-card {
+  overflow: hidden;
+}
+
+.card .card-img-top {
+  transform: scale(1.2);
+  transition: transform 3s; /* Animation */
+}
+
+
+.card:hover .card-img-top {
+  transform: scale(1);
+  opacity: 0.6;
 }

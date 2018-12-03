@@ -6,8 +6,12 @@
             <h2>и</h2><br>
             <h1>ПРИЗЫ</h1>
           </div>
-          <div class="face">
+          <div class="gift-block">
+            <div class="bordered">
+            <h2>Голосуй и выбирай призы и подарки</h2>
             <h2>Участвуй и выигрывай</h2>
+            <h2>Участвуй и выигрывай</h2>
+            </div>
           </div>
           
         </div>
@@ -74,16 +78,7 @@ export default {
 
 
 <style lang="scss">
-  .card .card-img-top {
-    transform: scale(1.2);
-    transition: transform .2s; /* Animation */
-  }
-
   
-  .card:hover .card-img-top {
-    transform: scale(1);
-    opacity: 0.6;
-  }
 
   .step {
     /* font-family: Verdana, Geneva, Tahoma, sans-serif */

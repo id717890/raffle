@@ -13,36 +13,66 @@ const data = [
     id: 1,
     gift: {
       id: 1,
-      name: 'Стиральная машина'
+      name: 'Телевизор LED LG 43UK6200',
+      image: require('../assets/images/gifts/LED LG 43UK6200 2.jpg')
     },
-    votesAggree: 0,
-    votesDisagree: 0
+    price: '24999 руб.',
+    votesAggree: 111,
+    votesDisagree: 2
   },
   {
     id: 2,
     gift: {
       id: 2,
-      name: 'Микроволновая печь'
+      name: 'Микроволновая печь LG MH6336GIB',
+      image: require('../assets/images/gifts/LG MH6336GIB.jpg')
     },
-    votesAggree: 0,
-    votesDisagree: 0
+    price: '10000 руб.',
+    votesAggree: 1,
+    votesDisagree: 1
   },
   {
     id: 3,
     gift: {
       id: 3,
-      name: 'Пылесос'
+      name: 'Планшет Samsung GALAXY Tab S2 9.7',
+      image: require('../assets/images/gifts/Samsung GALAXY Tab S2 32 ГБ 3G, LTE черный.jpg')
     },
-    votesAggree: 0,
+    price: '34000 руб.',
+    votesAggree: 23,
     votesDisagree: 0
   },
   {
     id: 4,
     gift: {
       id: 4,
-      name: 'Телевизор'
+      name: 'Стиральная машина Samsung WW60H2200EWD/LP',
+      image: require('../assets/images/gifts/washmachine Samsung WW60H2200EWDLP.jpg')
     },
-    votesAggree: 13,
-    votesDisagree: 19
+    price: '29000 руб.',
+    votesAggree: 10,
+    votesDisagree: 10
+  },
+  {
+    id: 5,
+    gift: {
+      id: 5,
+      name: 'Пылесос Thomas DryBOX AMFIBIA',
+      image: require('../assets/images/gifts/Thomas DryBOX AMFIBIA.jpg')
+    },
+    price: '26999 руб.',
+    votesAggree: 3,
+    votesDisagree: 23
+  },
+  {
+    id: 6,
+    gift: {
+      id: 6,
+      name: 'Смартфон Samsung Galaxy A8+ SM-A730F',
+      image: require('../assets/images/gifts/Samsung Galaxy A8+ SM-A730F 32 ГБ черный.jpg')
+    },
+    price: '55999 руб.',
+    votesAggree: 66,
+    votesDisagree: 12
   }
 ]
