@@ -1,7 +1,7 @@
 import * as types from '../mutation-types'
 import context from '@/api/auth'
 import Vue from 'vue'
-// import Vue from 'vue'
+import config from '@/packages/config'
 
 const state = {
   user: null,
@@ -57,23 +57,33 @@ const actions = {
   },
   async signUserIn ({commit, dispatch}, payload) {
     return new Promise((resolve, reject) => {
-      context.signIn(payload.email, payload.password).then((x) => {
-        if (x.status === 200) {
-          let token = x.data.access_token
-          let expiration = x.data.expires_in
-          let user = x.data.id
-          commit(types.SET_USER, user)
-          commit(types.SET_TOKEN, token)
-          Vue.auth.setToken(token, expiration * 1000 + Date.now())
-          Vue.auth.setUser(user)
-          resolve()
-        } else {
-          dispatch('setErrors', x.response.data)
+      if (config.isLocalApp()) {
+        let user = 'qweqw-qweqw-qweqw-qweqw'
+        let token = 'qweadfasdgjh awehiahawh ekjhakghkasdhg'
+        commit(types.SET_USER, user)
+        commit(types.SET_TOKEN, token)
+        Vue.auth.setToken(token, 144000 * 1000 + Date.now())
+        Vue.auth.setUser(user)
+        resolve()
+      } else {
+        context.signIn(payload.email, payload.password).then((x) => {
+          if (x.status === 200) {
+            let token = x.data.access_token
+            let expiration = x.data.expires_in
+            let user = x.data.id
+            commit(types.SET_USER, user)
+            commit(types.SET_TOKEN, token)
+            Vue.auth.setToken(token, expiration * 1000 + Date.now())
+            Vue.auth.setUser(user)
+            resolve()
+          } else {
+            dispatch('setErrors', x.response.data)
+            reject(x.response.data)
+          }
+        }).catch(x => {
           reject(x.response.data)
-        }
-      }).catch(x => {
-        reject(x.response.data)
-      })
+        })
+      }
     })
   },
   async signUserUp ({dispatch}, payload) {
