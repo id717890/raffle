@@ -1,4 +1,5 @@
 /* Vote */
+export const ADD_VOTE = 'ADD_VOTE'
 export const RECIEVE_VOTES = 'RECIEVE_VOTES'
 
 /* Forum */

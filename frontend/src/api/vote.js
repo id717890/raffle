@@ -5,6 +5,11 @@ export default {
     if (config.isLocalApp()) {
       return new Promise((resolve) => { resolve(data) })
     }
+  },
+  addVote () {
+    if (config.isLocalApp()) {
+      return new Promise((resolve) => { resolve() })
+    }
   }
 }
 

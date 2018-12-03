@@ -8,7 +8,13 @@ const state = {
 
 // actions
 const actions = {
-  reciveVotes ({commit, dispatch}) {
+  async agreeVote ({commit, dispatch}, payload) {
+    console.log('add agree vote')
+  },
+  async disagreeVote ({commit, dispatch}, payload) {
+    console.log('add disagree vote')
+  },
+  async reciveVotes ({commit, dispatch}) {
     return new Promise((resolve, reject) => {
       context.getVotes().then((x) => {
         if (config.isLocalApp()) {
@@ -33,6 +39,8 @@ const actions = {
 
 // mutations
 const mutations = {
+  [types.ADD_VOTE] (state, payload) {
+  },
   [types.RECIEVE_VOTES] (state, payload) {
     state.votes = payload
   }
