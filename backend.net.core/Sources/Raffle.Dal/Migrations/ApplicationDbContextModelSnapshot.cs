@@ -43,8 +43,8 @@ namespace Raffle.Dal.Migrations
                     b.ToTable("AspNetRoles");
 
                     b.HasData(
-                        new { Id = "d32b274c-1061-47c7-b3ea-56c2d8673899", ConcurrencyStamp = "05bbbf2d-a22e-4cb3-b641-14683ed40e96", Name = "Superuser", NormalizedName = "SUPERUSER" },
-                        new { Id = "47237e9f-1d17-4a0e-beba-6926b8bb3979", ConcurrencyStamp = "c2a9e70f-183a-46f2-a5f8-4661841540d3", Name = "Participant", NormalizedName = "PARTICIPANT" }
+                        new { Id = "46173b52-437c-4298-bd5f-69a377da280a", ConcurrencyStamp = "0a666c75-fad4-471c-ae74-d060e8a857fe", Name = "Superuser", NormalizedName = "SUPERUSER" },
+                        new { Id = "1fbae8ab-5dc1-4244-9d91-bbe98d92e70f", ConcurrencyStamp = "1aa81652-30be-4171-b2ab-f33cebc82ccc", Name = "Participant", NormalizedName = "PARTICIPANT" }
                     );
                 });
 
@@ -242,11 +242,10 @@ namespace Raffle.Dal.Migrations
                         new { Id = 5L, Description = "Смартфон Apple iPhone 7 выполнен в герметичном черном алюминиевом корпусе, защищающем его от брызг, царапин и пыли. ", Image = "https://www.o2.co.uk/shop/homepage/images/shop15/brand/apple/iphone7/apple-iphone-7-gallery-img-5.jpg", IsDeleted = false, Name = "Apple iPhone 7" },
                         new { Id = 6L, Description = "Телевизор LED LG 43UK6200 поддерживает цифровые тюнеры DVB-T, DVB-T2, DVB-C, DVB-S и DVB-S2.", ImageLocal = "LED LG 43UK6200 2.jpg", IsDeleted = false, Name = "Телевизор LED LG 43UK6200" },
                         new { Id = 7L, Description = "Микроволновая печь LG MH6336GIB выполнена в стильном матовом корпусе черного цвета.", ImageLocal = "LG MH6336GIB.jpg", IsDeleted = false, Name = "Микроволновая печь LG MH6336GIB" },
-                        new { Id = 8L, Description = "Телевизор LED LG 43UK6200 поддерживает цифровые тюнеры DVB-T, DVB-T2, DVB-C, DVB-S и DVB-S2.", ImageLocal = "Samsung GALAXY Tab S2 32 ГБ 3G, LTE черный.jpg", IsDeleted = false, Name = "Телевизор LED LG 43UK6200" },
-                        new { Id = 9L, Description = "9.7-дюймовый планшет Samsung GALAXY Tab S2 оснащен внушительным запасом встроенной памяти 32 ГБ и беспроводной технологией доступа к мобильной интернет-сети 3G.", ImageLocal = "Samsung GALAXY Tab S2 32 ГБ 3G, LTE черный.jpg", IsDeleted = false, Name = "Планшет Samsung GALAXY Tab S2 9.7" },
-                        new { Id = 10L, Description = "Стиральная машина Samsung WW60H2200EWD/LP – модель от компании, которая давно занимается выпуском данной техники.", ImageLocal = "washmachine Samsung WW60H2200EWDLP.jpg", IsDeleted = false, Name = "Стиральная машина Samsung WW60H2200EWD/LP" },
-                        new { Id = 11L, Description = "Пылесос Thomas DryBOX AMFIBIA выполнен в корпусе черного цвета с голубыми деталями.", ImageLocal = "Thomas DryBOX AMFIBIA.jpg", IsDeleted = false, Name = "Пылесос Thomas DryBOX AMFIBIA" },
-                        new { Id = 12L, Description = "Смартфон Samsung Galaxy A8+ SM-A730F сможет поразить своим обширным функционалом и грандиозным техническим оснащением даже самого требовательного и капризного пользователя.", ImageLocal = "Samsung Galaxy A8+ SM-A730F 32 ГБ черный.jpg", IsDeleted = false, Name = "Смартфон Samsung Galaxy A8+ SM-A730F" }
+                        new { Id = 8L, Description = "9.7-дюймовый планшет Samsung GALAXY Tab S2 оснащен внушительным запасом встроенной памяти 32 ГБ и беспроводной технологией доступа к мобильной интернет-сети 3G.", ImageLocal = "Samsung GALAXY Tab S2 32 ГБ 3G, LTE черный.jpg", IsDeleted = false, Name = "Планшет Samsung GALAXY Tab S2 9.7" },
+                        new { Id = 9L, Description = "Стиральная машина Samsung WW60H2200EWD/LP – модель от компании, которая давно занимается выпуском данной техники.", ImageLocal = "washmachine Samsung WW60H2200EWDLP.jpg", IsDeleted = false, Name = "Стиральная машина Samsung WW60H2200EWD/LP" },
+                        new { Id = 10L, Description = "Пылесос Thomas DryBOX AMFIBIA выполнен в корпусе черного цвета с голубыми деталями.", ImageLocal = "Thomas DryBOX AMFIBIA.jpg", IsDeleted = false, Name = "Пылесос Thomas DryBOX AMFIBIA" },
+                        new { Id = 11L, Description = "Смартфон Samsung Galaxy A8+ SM-A730F сможет поразить своим обширным функционалом и грандиозным техническим оснащением даже самого требовательного и капризного пользователя.", ImageLocal = "Samsung Galaxy A8+ SM-A730F 32 ГБ черный.jpg", IsDeleted = false, Name = "Смартфон Samsung Galaxy A8+ SM-A730F" }
                     );
                 });
 
@@ -308,12 +307,11 @@ namespace Raffle.Dal.Migrations
 
                     b.HasData(
                         new { Id = 1L, GiftId = 6L, IsDeleted = false, Price = 29999m, VotesAgree = 111L, VotesDisagree = 4L },
-                        new { Id = 2L, GiftId = 7L, IsDeleted = false, Price = 29999m, VotesAgree = 111L, VotesDisagree = 4L },
-                        new { Id = 3L, GiftId = 8L, IsDeleted = false, Price = 29999m, VotesAgree = 111L, VotesDisagree = 4L },
-                        new { Id = 4L, GiftId = 9L, IsDeleted = false, Price = 29999m, VotesAgree = 111L, VotesDisagree = 4L },
-                        new { Id = 5L, GiftId = 10L, IsDeleted = false, Price = 29999m, VotesAgree = 111L, VotesDisagree = 4L },
-                        new { Id = 6L, GiftId = 11L, IsDeleted = false, Price = 29999m, VotesAgree = 111L, VotesDisagree = 4L },
-                        new { Id = 7L, GiftId = 12L, IsDeleted = false, Price = 29999m, VotesAgree = 111L, VotesDisagree = 4L }
+                        new { Id = 2L, GiftId = 7L, IsDeleted = false, Price = 9999m, VotesAgree = 1L, VotesDisagree = 1L },
+                        new { Id = 3L, GiftId = 8L, IsDeleted = false, Price = 29499m, VotesAgree = 23L, VotesDisagree = 0L },
+                        new { Id = 4L, GiftId = 9L, IsDeleted = false, Price = 24499m, VotesAgree = 11L, VotesDisagree = 11L },
+                        new { Id = 5L, GiftId = 10L, IsDeleted = false, Price = 24999m, VotesAgree = 3L, VotesDisagree = 33L },
+                        new { Id = 6L, GiftId = 11L, IsDeleted = false, Price = 22999m, VotesAgree = 22L, VotesDisagree = 10L }
                     );
                 });
 

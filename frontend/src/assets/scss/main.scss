@@ -74,10 +74,46 @@ html, body {
 .card .card-img-top {
   transform: scale(1.2);
   transition: transform 3s; /* Animation */
+  margin-bottom: 1rem;
 }
 
 
 .card:hover .card-img-top {
   transform: scale(1);
   opacity: 0.6;
+}
+
+
+.step {
+  /* font-family: Verdana, Geneva, Tahoma, sans-serif */
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 1.2rem;
+  color: antiquewhite;
+  display: flex;
+  align-items: center
+}
+
+.step .number {
+  font-size: 4rem;
+  margin-right: 15px;
+}
+
+.step .number.odd {
+  padding-left: 50px;
+}
+
+.txt {
+  color: #777;
+  background-color: white;
+  text-align: center;
+  padding: 50px 80px;
+  text-align: justify;
+}
+
+.prlx {
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }

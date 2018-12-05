@@ -2,10 +2,25 @@
 <b-container class="h-100 p-0" fluid>
   <div class="prlxblock3 prlx pt-5" >
     <b-row class="w-100">
+      <b-col lg=8 md=10 sm=12 offset-lg=2 offset-md=1>
+        <b-jumbotron bg-variant="secondary" text-variant="white" class="mt-3 pb-4" border-variant="dark">
+          <template slot="header">
+            Выбирай и голосуй
+          </template>
+          <template slot="lead">
+            Вибирай призы, которые тебе по душе, голосуй за них 
+          </template>
+          <hr class="my-4">
+          <p>* Зарегистрируйся чтобы голосовать</p>
+          <p class="p-0 m-0">* Голосуй за несколько подарков</p>
+        </b-jumbotron>
+      </b-col>
+    </b-row>
+    <b-row class="w-100">
       <b-col lg=8 md=10 sm=12 offset-lg=2 offset-md=1 class="d-flex flex-row flex-wrap justify-content-around ">
         <b-card no-body v-for="vote in votes" :key="vote.id" class="vote-card m-3 pt-4"
                 style="max-width: 20rem;"
-                :img-src="vote.gift.image"
+                :img-src="vote.gift.image === null ? '/static/images/gifts/'+ vote.gift.imageLocal  : vote.gift.image"
                 img-alt="Image"
                 img-top>
             <h4 slot="header">{{vote.gift.name}}</h4>
@@ -13,8 +28,8 @@
               <p class="card-text">Стоимость {{vote.price}}</p>
             </b-card-body>
             <b-card-body>
-              <b-progress class="mt-1" :max="(vote.votesAggree + vote.votesDisagree)" show-value :title="'Голосов <за> '+vote.votesAggree + '; Голосов <против> '+vote.votesDisagree">
-                <b-progress-bar :value="vote.votesAggree" variant="success"></b-progress-bar>
+              <b-progress class="mt-1" :max="(vote.votesAgree + vote.votesDisagree)" show-value :title="'Голосов <за> '+vote.votesAggree + '; Голосов <против> '+vote.votesDisagree">
+                <b-progress-bar :value="vote.votesAgree" variant="success"></b-progress-bar>
                 <b-progress-bar :value="vote.votesDisagree" variant="danger"></b-progress-bar>
               </b-progress>
             </b-card-body>

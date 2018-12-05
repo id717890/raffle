@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -31,10 +32,22 @@ namespace Raffle.Dal
             //    .WithMany(g => g.GiftDraws)
             //    .HasForeignKey(s => s.GiftId);
 
-            modelBuilder.Entity<IdentityRole>().HasData(
-                new IdentityRole {Id = Guid.NewGuid().ToString(), Name = "Superuser", NormalizedName = "SUPERUSER"},
-                new IdentityRole {Id = Guid.NewGuid().ToString(), Name = "Participant", NormalizedName = "PARTICIPANT"}
-            );
+            var roleAdmin = new IdentityRole { Id = Guid.NewGuid().ToString(), Name = "Superuser", NormalizedName = "SUPERUSER" };
+            var roleStandart = new IdentityRole { Id = Guid.NewGuid().ToString(), Name = "Participant", NormalizedName = "PARTICIPANT" };
+
+            modelBuilder.Entity<IdentityRole>().HasData(roleAdmin, roleStandart);
+
+            //// derive a 256-bit subkey (use HMACSHA1 with 10,000 iterations)
+            //string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+            //    password: "qweqwe",
+            //    salt: new byte[128 / 8],
+            //    prf: KeyDerivationPrf.HMACSHA1,
+            //    iterationCount: 10000,
+            //    numBytesRequested: 256 / 8));
+
+            //var user = new ApplicationUser { Email = "jusupovz@gmail.com", UserName = "jusupovz@gmail.com", NormalizedEmail = "JUSUPOVZ@GMAIL.COM", NormalizedUserName = "JUSUPOVZ@GMAIL.COM", EmailConfirmed = true, FirstName = "Zamir", LastName = "Yusupov", PasswordHash = hashed };
+
+            //modelBuilder.Entity<ApplicationUser>().HasData(user);
 
             var gift1 = new Gift
             {
@@ -115,17 +128,6 @@ namespace Raffle.Dal
             var gift8 = new Gift
             {
                 Id = 8,
-                Name = "Телевизор LED LG 43UK6200",
-                Description = "Телевизор LED LG 43UK6200 поддерживает цифровые тюнеры DVB-T, DVB-T2, DVB-C, DVB-S и DVB-S2.",
-                Image = null,
-                ImageLocal = "Samsung GALAXY Tab S2 32 ГБ 3G, LTE черный.jpg",
-                IsDeleted = false
-            };
-
-
-            var gift9 = new Gift
-            {
-                Id = 9,
                 Name = "Планшет Samsung GALAXY Tab S2 9.7",
                 Description = "9.7-дюймовый планшет Samsung GALAXY Tab S2 оснащен внушительным запасом встроенной памяти 32 ГБ и беспроводной технологией доступа к мобильной интернет-сети 3G.",
                 Image = null,
@@ -133,9 +135,9 @@ namespace Raffle.Dal
                 IsDeleted = false
             };
 
-            var gift10 = new Gift
+            var gift9 = new Gift
             {
-                Id = 10,
+                Id = 9,
                 Name = "Стиральная машина Samsung WW60H2200EWD/LP",
                 Description = "Стиральная машина Samsung WW60H2200EWD/LP – модель от компании, которая давно занимается выпуском данной техники.",
                 Image = null,
@@ -143,9 +145,9 @@ namespace Raffle.Dal
                 IsDeleted = false
             };
 
-            var gift11 = new Gift
+            var gift10 = new Gift
             {
-                Id = 11,
+                Id = 10,
                 Name = "Пылесос Thomas DryBOX AMFIBIA",
                 Description = "Пылесос Thomas DryBOX AMFIBIA выполнен в корпусе черного цвета с голубыми деталями.",
                 Image = null,
@@ -153,9 +155,9 @@ namespace Raffle.Dal
                 IsDeleted = false
             };
 
-            var gift12 = new Gift
+            var gift11 = new Gift
             {
-                Id = 12,
+                Id = 11,
                 Name = "Смартфон Samsung Galaxy A8+ SM-A730F",
                 Description = "Смартфон Samsung Galaxy A8+ SM-A730F сможет поразить своим обширным функционалом и грандиозным техническим оснащением даже самого требовательного и капризного пользователя.",
                 Image = null,
@@ -163,74 +165,23 @@ namespace Raffle.Dal
                 IsDeleted = false
             };
 
-            modelBuilder.Entity<Gift>().HasData(gift1, gift2, gift3, gift4, gift5, gift6, gift7, gift8, gift9, gift10, gift11, gift12);
+            modelBuilder.Entity<Gift>().HasData(gift1, gift2, gift3, gift4, gift5, gift6, gift7, gift8, gift9, gift10, gift11);
 
             modelBuilder.Entity<GiftDraw>().HasData(
-                new GiftDraw
-                {
-                    //Gift = gift1,
-                    GiftId = gift1.Id,
-                    Id = 1,
-                    Price = 77000,
-                    Info = "test info 1",
-                    PriceKey = 250,
-                    Reached = 0,
-                    IsDeleted = false
-                },
-                new GiftDraw
-                {
-                    GiftId = gift2.Id,
-                    //Gift = gift2
-                    Id = 2,
-                    Price = 68000,
-                    Info = "test info 2",
-                    PriceKey = 250,
-                    Reached = 0,
-                    IsDeleted = false
-                },
-                new GiftDraw
-                {
-                    GiftId = gift3.Id,
-                    //Gift = gift3,
-                    Id = 3,
-                    Price = 30000,
-                    Info = "test info 3",
-                    PriceKey = 150,
-                    Reached = 0,
-                    IsDeleted = false
-                },
-                new GiftDraw
-                {
-                    //Gift = gift4,
-                    GiftId = gift4.Id,
-                    Id = 4,
-                    Price = 25000,
-                    Info = "test info 4",
-                    PriceKey = 150,
-                    Reached = 0,
-                    IsDeleted = false
-                },
-                new GiftDraw
-                {
-                    //Gift = gift5,
-                    GiftId = gift5.Id,
-                    Id = 5,
-                    Price = 40000,
-                    Info = "test info 5",
-                    PriceKey = 200,
-                    Reached = 0,
-                    IsDeleted = false
-                }
+                new GiftDraw { GiftId = gift1.Id, Id = 1, Price = 77000, Info = "test info 1", PriceKey = 250, Reached = 0, IsDeleted = false },
+                new GiftDraw { GiftId = gift2.Id, Id = 2, Price = 68000, Info = "test info 2", PriceKey = 250, Reached = 0, IsDeleted = false },
+                new GiftDraw { GiftId = gift3.Id, Id = 3, Price = 30000, Info = "test info 3", PriceKey = 150, Reached = 0, IsDeleted = false },
+                new GiftDraw { GiftId = gift4.Id, Id = 4, Price = 25000, Info = "test info 4", PriceKey = 150, Reached = 0, IsDeleted = false },
+                new GiftDraw { GiftId = gift5.Id, Id = 5, Price = 40000, Info = "test info 5", PriceKey = 200, Reached = 0, IsDeleted = false }
             );
 
             modelBuilder.Entity<Vote>().HasData(
                 new Vote { Id = 1, GiftId = 6, IsDeleted = false, Price = 29999, VotesAgree = 111, VotesDisagree = 4 },
-                new Vote { Id = 2, GiftId = 7, IsDeleted = false, Price = 29999, VotesAgree = 111, VotesDisagree = 4 },
-                new Vote { Id = 3, GiftId = 8, IsDeleted = false, Price = 29999, VotesAgree = 111, VotesDisagree = 4 },
-                new Vote { Id = 4, GiftId = 9, IsDeleted = false, Price = 29999, VotesAgree = 111, VotesDisagree = 4 },
-                new Vote { Id = 5, GiftId = 10, IsDeleted = false, Price = 29999, VotesAgree = 111, VotesDisagree = 4 },
-                new Vote { Id = 6, GiftId = 11, IsDeleted = false, Price = 29999, VotesAgree = 111, VotesDisagree = 4 },
-                new Vote { Id = 7, GiftId = 12, IsDeleted = false, Price = 29999, VotesAgree = 111, VotesDisagree = 4 }
+                new Vote { Id = 2, GiftId = 7, IsDeleted = false, Price = 9999, VotesAgree = 1, VotesDisagree = 1 },
+                new Vote { Id = 3, GiftId = 8, IsDeleted = false, Price = 29499, VotesAgree = 23, VotesDisagree = 0 },
+                new Vote { Id = 4, GiftId = 9, IsDeleted = false, Price = 24499, VotesAgree = 11, VotesDisagree = 11 },
+                new Vote { Id = 5, GiftId = 10, IsDeleted = false, Price = 24999, VotesAgree = 3, VotesDisagree = 33 },
+                new Vote { Id = 6, GiftId = 11, IsDeleted = false, Price = 22999, VotesAgree = 22, VotesDisagree = 10 }
             );
         }
     }

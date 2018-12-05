@@ -1,9 +1,16 @@
 import config from '@/packages/config'
+import Vue from 'vue'
 
 export default {
   getVotes () {
     if (config.isLocalApp()) {
       return new Promise((resolve) => { resolve(data) })
+    } else {
+      return Vue.$http.get('api/vote').then((x) => {
+        return x
+      }).catch(error => {
+        return error
+      })
     }
   },
   addVote () {
@@ -21,7 +28,7 @@ const data = [
       name: 'Телевизор LED LG 43UK6200',
       image: require('../assets/images/gifts/LED LG 43UK6200 2.jpg')
     },
-    price: '24999 руб.',
+    price: '29999 руб.',
     votesAggree: 111,
     votesDisagree: 2
   },
@@ -32,7 +39,7 @@ const data = [
       name: 'Микроволновая печь LG MH6336GIB',
       image: require('../assets/images/gifts/LG MH6336GIB.jpg')
     },
-    price: '10000 руб.',
+    price: '9999 руб.',
     votesAggree: 1,
     votesDisagree: 1
   },
@@ -43,7 +50,7 @@ const data = [
       name: 'Планшет Samsung GALAXY Tab S2 9.7',
       image: require('../assets/images/gifts/Samsung GALAXY Tab S2 32 ГБ 3G, LTE черный.jpg')
     },
-    price: '34000 руб.',
+    price: '29499 руб.',
     votesAggree: 23,
     votesDisagree: 0
   },
@@ -54,7 +61,7 @@ const data = [
       name: 'Стиральная машина Samsung WW60H2200EWD/LP',
       image: require('../assets/images/gifts/washmachine Samsung WW60H2200EWDLP.jpg')
     },
-    price: '29000 руб.',
+    price: '24499 руб.',
     votesAggree: 10,
     votesDisagree: 10
   },
@@ -65,7 +72,7 @@ const data = [
       name: 'Пылесос Thomas DryBOX AMFIBIA',
       image: require('../assets/images/gifts/Thomas DryBOX AMFIBIA.jpg')
     },
-    price: '26999 руб.',
+    price: '24999 руб.',
     votesAggree: 3,
     votesDisagree: 23
   },
@@ -76,7 +83,7 @@ const data = [
       name: 'Смартфон Samsung Galaxy A8+ SM-A730F',
       image: require('../assets/images/gifts/Samsung Galaxy A8+ SM-A730F 32 ГБ черный.jpg')
     },
-    price: '55999 руб.',
+    price: '22999 руб.',
     votesAggree: 66,
     votesDisagree: 12
   }
