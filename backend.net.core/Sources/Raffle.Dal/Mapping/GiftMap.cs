@@ -12,7 +12,8 @@ namespace Raffle.Dal.Mapping
             builder.HasKey(x => x.Id);
             builder.Property("Id").ValueGeneratedOnAdd();
             builder.Property("Name").IsRequired();
-            builder.Property("Image").IsRequired();
+            builder.Property("Image").IsRequired(false);
+            builder.Property("ImageLocal").IsRequired(false);
             builder.Property("Description").IsRequired();
         }
     }

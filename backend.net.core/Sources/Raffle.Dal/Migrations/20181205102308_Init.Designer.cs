@@ -10,7 +10,7 @@ using Raffle.Dal;
 namespace Raffle.Dal.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181130144925_Init")]
+    [Migration("20181205102308_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,8 +45,8 @@ namespace Raffle.Dal.Migrations
                     b.ToTable("AspNetRoles");
 
                     b.HasData(
-                        new { Id = "0e4ca8f3-78f8-44b5-a9fa-5588b6862d1d", ConcurrencyStamp = "f6365f73-5a07-4586-a103-8d36256111f8", Name = "Superuser", NormalizedName = "SUPERUSER" },
-                        new { Id = "fdacf13c-797f-4b56-a852-01cd21463e14", ConcurrencyStamp = "7d6c8887-d521-4f09-85ec-853ebc065a79", Name = "Participant", NormalizedName = "PARTICIPANT" }
+                        new { Id = "d32b274c-1061-47c7-b3ea-56c2d8673899", ConcurrencyStamp = "05bbbf2d-a22e-4cb3-b641-14683ed40e96", Name = "Superuser", NormalizedName = "SUPERUSER" },
+                        new { Id = "47237e9f-1d17-4a0e-beba-6926b8bb3979", ConcurrencyStamp = "c2a9e70f-183a-46f2-a5f8-4661841540d3", Name = "Participant", NormalizedName = "PARTICIPANT" }
                     );
                 });
 
@@ -223,8 +223,9 @@ namespace Raffle.Dal.Migrations
                     b.Property<string>("Description")
                         .IsRequired();
 
-                    b.Property<string>("Image")
-                        .IsRequired();
+                    b.Property<string>("Image");
+
+                    b.Property<string>("ImageLocal");
 
                     b.Property<bool>("IsDeleted");
 
@@ -236,12 +237,18 @@ namespace Raffle.Dal.Migrations
                     b.ToTable("Gifts");
 
                     b.HasData(
-                        new { Id = 1L, Description = "Смартфон Apple iPhone X – воплощение статуса, надежности и передовых технологий. Большой, 5.8-дюймовый безрамочный экран дарит удивительно четкое и живое изображение (разрешение 2436x1125). Привычный поклонникам бренда интерфейс здесь дополнен такими возможностями, как бесконтактная оплата и зарядка, поддержка максимального количества диапазонов LTE.", Image = "https://www.re-store.ru/upload/iblock/ea3/ea3a57da3137cf5be1c0b3d1e8999a37.jpg", IsDeleted = false, Name = "Apple iPhone X" },
-                        new { Id = 2L, Description = @"6.3 Смартфон Samsung Galaxy Note 8 64 ГБ – устройство, в котором внимание уделялось всем деталям.Выполнена задняя панель в синем цвете,
-                    она придает лаконичный дизайн.Устанавливается стекло Corning Gorilla Glass 5 с двух сторон.Оно не царапается при эксплуатации и обладает увеличенной прочностью.", Image = "https://cdn.images.express.co.uk/img/dynamic/galleries/x701/260002.jpg", IsDeleted = false, Name = "Samsung Galaxy Note 8" },
+                        new { Id = 1L, Description = "Смартфон Apple iPhone X – воплощение статуса, надежности и передовых технологий.", Image = "https://www.re-store.ru/upload/iblock/ea3/ea3a57da3137cf5be1c0b3d1e8999a37.jpg", IsDeleted = false, Name = "Apple iPhone X" },
+                        new { Id = 2L, Description = "6.3 Смартфон Samsung Galaxy Note 8 64 ГБ – устройство, в котором внимание уделялось всем деталям.", Image = "https://cdn.images.express.co.uk/img/dynamic/galleries/x701/260002.jpg", IsDeleted = false, Name = "Samsung Galaxy Note 8" },
                         new { Id = 3L, Description = "Игровая приставка PlayStation 4 Pro в полной мере оправдывает свое название. В приставке есть все необходимое для комфортного использования любимых игр. ", Image = "https://s0.rbk.ru/v6_top_pics/resized/1440xH/media/img/5/16/754733297837165.png", IsDeleted = false, Name = "PlayStation 4 Pro" },
                         new { Id = 4L, Description = "Игровая приставка Microsoft Xbox One S + Forza Horizon 3 – лучшее, что вы можете приобрести, если являетесь заядлым поклонником видеоигр.", Image = "https://avatars.mds.yandex.net/get-mpic/195452/img_id1065977498717792190/9hq", IsDeleted = false, Name = "Microsoft Xbox One" },
-                        new { Id = 5L, Description = "Смартфон Apple iPhone 7 выполнен в герметичном черном алюминиевом корпусе, защищающем его от брызг, царапин и пыли. ", Image = "https://www.o2.co.uk/shop/homepage/images/shop15/brand/apple/iphone7/apple-iphone-7-gallery-img-5.jpg", IsDeleted = false, Name = "Apple iPhone 7" }
+                        new { Id = 5L, Description = "Смартфон Apple iPhone 7 выполнен в герметичном черном алюминиевом корпусе, защищающем его от брызг, царапин и пыли. ", Image = "https://www.o2.co.uk/shop/homepage/images/shop15/brand/apple/iphone7/apple-iphone-7-gallery-img-5.jpg", IsDeleted = false, Name = "Apple iPhone 7" },
+                        new { Id = 6L, Description = "Телевизор LED LG 43UK6200 поддерживает цифровые тюнеры DVB-T, DVB-T2, DVB-C, DVB-S и DVB-S2.", ImageLocal = "LED LG 43UK6200 2.jpg", IsDeleted = false, Name = "Телевизор LED LG 43UK6200" },
+                        new { Id = 7L, Description = "Микроволновая печь LG MH6336GIB выполнена в стильном матовом корпусе черного цвета.", ImageLocal = "LG MH6336GIB.jpg", IsDeleted = false, Name = "Микроволновая печь LG MH6336GIB" },
+                        new { Id = 8L, Description = "Телевизор LED LG 43UK6200 поддерживает цифровые тюнеры DVB-T, DVB-T2, DVB-C, DVB-S и DVB-S2.", ImageLocal = "Samsung GALAXY Tab S2 32 ГБ 3G, LTE черный.jpg", IsDeleted = false, Name = "Телевизор LED LG 43UK6200" },
+                        new { Id = 9L, Description = "9.7-дюймовый планшет Samsung GALAXY Tab S2 оснащен внушительным запасом встроенной памяти 32 ГБ и беспроводной технологией доступа к мобильной интернет-сети 3G.", ImageLocal = "Samsung GALAXY Tab S2 32 ГБ 3G, LTE черный.jpg", IsDeleted = false, Name = "Планшет Samsung GALAXY Tab S2 9.7" },
+                        new { Id = 10L, Description = "Стиральная машина Samsung WW60H2200EWD/LP – модель от компании, которая давно занимается выпуском данной техники.", ImageLocal = "washmachine Samsung WW60H2200EWDLP.jpg", IsDeleted = false, Name = "Стиральная машина Samsung WW60H2200EWD/LP" },
+                        new { Id = 11L, Description = "Пылесос Thomas DryBOX AMFIBIA выполнен в корпусе черного цвета с голубыми деталями.", ImageLocal = "Thomas DryBOX AMFIBIA.jpg", IsDeleted = false, Name = "Пылесос Thomas DryBOX AMFIBIA" },
+                        new { Id = 12L, Description = "Смартфон Samsung Galaxy A8+ SM-A730F сможет поразить своим обширным функционалом и грандиозным техническим оснащением даже самого требовательного и капризного пользователя.", ImageLocal = "Samsung Galaxy A8+ SM-A730F 32 ГБ черный.jpg", IsDeleted = false, Name = "Смартфон Samsung Galaxy A8+ SM-A730F" }
                     );
                 });
 
@@ -253,7 +260,8 @@ namespace Raffle.Dal.Migrations
 
                     b.Property<long>("GiftId");
 
-                    b.Property<string>("Info");
+                    b.Property<string>("Info")
+                        .IsRequired();
 
                     b.Property<bool>("IsDeleted");
 
@@ -267,7 +275,7 @@ namespace Raffle.Dal.Migrations
 
                     b.HasIndex("GiftId");
 
-                    b.ToTable("GiftDraw");
+                    b.ToTable("GiftDraws");
 
                     b.HasData(
                         new { Id = 1L, GiftId = 1L, Info = "test info 1", IsDeleted = false, Price = 77000m, PriceKey = 250m, Reached = 0m },
@@ -275,6 +283,39 @@ namespace Raffle.Dal.Migrations
                         new { Id = 3L, GiftId = 3L, Info = "test info 3", IsDeleted = false, Price = 30000m, PriceKey = 150m, Reached = 0m },
                         new { Id = 4L, GiftId = 4L, Info = "test info 4", IsDeleted = false, Price = 25000m, PriceKey = 150m, Reached = 0m },
                         new { Id = 5L, GiftId = 5L, Info = "test info 5", IsDeleted = false, Price = 40000m, PriceKey = 200m, Reached = 0m }
+                    );
+                });
+
+            modelBuilder.Entity("Raffle.Domain.Interface.Entity.Vote", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long>("GiftId");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<decimal>("Price");
+
+                    b.Property<long>("VotesAgree");
+
+                    b.Property<long>("VotesDisagree");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GiftId");
+
+                    b.ToTable("Votes");
+
+                    b.HasData(
+                        new { Id = 1L, GiftId = 6L, IsDeleted = false, Price = 29999m, VotesAgree = 111L, VotesDisagree = 4L },
+                        new { Id = 2L, GiftId = 7L, IsDeleted = false, Price = 29999m, VotesAgree = 111L, VotesDisagree = 4L },
+                        new { Id = 3L, GiftId = 8L, IsDeleted = false, Price = 29999m, VotesAgree = 111L, VotesDisagree = 4L },
+                        new { Id = 4L, GiftId = 9L, IsDeleted = false, Price = 29999m, VotesAgree = 111L, VotesDisagree = 4L },
+                        new { Id = 5L, GiftId = 10L, IsDeleted = false, Price = 29999m, VotesAgree = 111L, VotesDisagree = 4L },
+                        new { Id = 6L, GiftId = 11L, IsDeleted = false, Price = 29999m, VotesAgree = 111L, VotesDisagree = 4L },
+                        new { Id = 7L, GiftId = 12L, IsDeleted = false, Price = 29999m, VotesAgree = 111L, VotesDisagree = 4L }
                     );
                 });
 
@@ -334,6 +375,14 @@ namespace Raffle.Dal.Migrations
                 {
                     b.HasOne("Raffle.Domain.Interface.Entity.Gift", "Gift")
                         .WithMany("GiftDraws")
+                        .HasForeignKey("GiftId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Raffle.Domain.Interface.Entity.Vote", b =>
+                {
+                    b.HasOne("Raffle.Domain.Interface.Entity.Gift", "Gift")
+                        .WithMany()
                         .HasForeignKey("GiftId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

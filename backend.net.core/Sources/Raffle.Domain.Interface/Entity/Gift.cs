@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace Raffle.Domain.Interface.Entity
@@ -8,6 +7,7 @@ namespace Raffle.Domain.Interface.Entity
     {
         public string Name { get; set; }
         public string Image { get; set; }
+        public string ImageLocal { get; set; }
         public string Description { get; set; }
 
         [JsonIgnore]

@@ -21,7 +21,7 @@ namespace Raffle.Dal
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfiguration(new GiftMap());
-            //modelBuilder.ApplyConfiguration(new GiftDrawMap());
+            modelBuilder.ApplyConfiguration(new GiftDrawMap());
             modelBuilder.ApplyConfiguration(new CustomerMap());
             modelBuilder.ApplyConfiguration(new VoteMap());
 
@@ -41,8 +41,9 @@ namespace Raffle.Dal
                 Id = 1,
                 Name = "Apple iPhone X",
                 Description =
-                    "Смартфон Apple iPhone X – воплощение статуса, надежности и передовых технологий. Большой, 5.8-дюймовый безрамочный экран дарит удивительно четкое и живое изображение (разрешение 2436x1125). Привычный поклонникам бренда интерфейс здесь дополнен такими возможностями, как бесконтактная оплата и зарядка, поддержка максимального количества диапазонов LTE.",
+                    "Смартфон Apple iPhone X – воплощение статуса, надежности и передовых технологий.",
                 Image = "https://www.re-store.ru/upload/iblock/ea3/ea3a57da3137cf5be1c0b3d1e8999a37.jpg",
+                ImageLocal = null,
                 IsDeleted = false
             };
 
@@ -51,9 +52,9 @@ namespace Raffle.Dal
                 Id = 2,
                 Name = "Samsung Galaxy Note 8",
                 Description =
-                    @"6.3 Смартфон Samsung Galaxy Note 8 64 ГБ – устройство, в котором внимание уделялось всем деталям.Выполнена задняя панель в синем цвете,
-                    она придает лаконичный дизайн.Устанавливается стекло Corning Gorilla Glass 5 с двух сторон.Оно не царапается при эксплуатации и обладает увеличенной прочностью.",
+                    "6.3 Смартфон Samsung Galaxy Note 8 64 ГБ – устройство, в котором внимание уделялось всем деталям.",
                 Image = "https://cdn.images.express.co.uk/img/dynamic/galleries/x701/260002.jpg",
+                ImageLocal = null,
                 IsDeleted = false
             };
 
@@ -64,6 +65,7 @@ namespace Raffle.Dal
                 Description =
                     "Игровая приставка PlayStation 4 Pro в полной мере оправдывает свое название. В приставке есть все необходимое для комфортного использования любимых игр. ",
                 Image = "https://s0.rbk.ru/v6_top_pics/resized/1440xH/media/img/5/16/754733297837165.png",
+                ImageLocal = null,
                 IsDeleted = false
             };
 
@@ -74,6 +76,7 @@ namespace Raffle.Dal
                 Description =
                     "Игровая приставка Microsoft Xbox One S + Forza Horizon 3 – лучшее, что вы можете приобрести, если являетесь заядлым поклонником видеоигр.",
                 Image = "https://avatars.mds.yandex.net/get-mpic/195452/img_id1065977498717792190/9hq",
+                ImageLocal = null,
                 IsDeleted = false
             };
 
@@ -83,12 +86,84 @@ namespace Raffle.Dal
                 Name = "Apple iPhone 7",
                 Description =
                     "Смартфон Apple iPhone 7 выполнен в герметичном черном алюминиевом корпусе, защищающем его от брызг, царапин и пыли. ",
-                Image =
+                Image = 
                     "https://www.o2.co.uk/shop/homepage/images/shop15/brand/apple/iphone7/apple-iphone-7-gallery-img-5.jpg",
+                ImageLocal = null,
                 IsDeleted = false
             };
 
-            modelBuilder.Entity<Gift>().HasData(gift1, gift2, gift3, gift4, gift5);
+            var gift6 = new Gift
+            {
+                Id = 6,
+                Name = "Телевизор LED LG 43UK6200",
+                Description = "Телевизор LED LG 43UK6200 поддерживает цифровые тюнеры DVB-T, DVB-T2, DVB-C, DVB-S и DVB-S2.",
+                Image = null,
+                ImageLocal = "LED LG 43UK6200 2.jpg",
+                IsDeleted = false
+            };
+
+            var gift7 = new Gift
+            {
+                Id = 7,
+                Name = "Микроволновая печь LG MH6336GIB",
+                Description = "Микроволновая печь LG MH6336GIB выполнена в стильном матовом корпусе черного цвета.",
+                Image = null,
+                ImageLocal = "LG MH6336GIB.jpg",
+                IsDeleted = false
+            };
+
+            var gift8 = new Gift
+            {
+                Id = 8,
+                Name = "Телевизор LED LG 43UK6200",
+                Description = "Телевизор LED LG 43UK6200 поддерживает цифровые тюнеры DVB-T, DVB-T2, DVB-C, DVB-S и DVB-S2.",
+                Image = null,
+                ImageLocal = "Samsung GALAXY Tab S2 32 ГБ 3G, LTE черный.jpg",
+                IsDeleted = false
+            };
+
+
+            var gift9 = new Gift
+            {
+                Id = 9,
+                Name = "Планшет Samsung GALAXY Tab S2 9.7",
+                Description = "9.7-дюймовый планшет Samsung GALAXY Tab S2 оснащен внушительным запасом встроенной памяти 32 ГБ и беспроводной технологией доступа к мобильной интернет-сети 3G.",
+                Image = null,
+                ImageLocal = "Samsung GALAXY Tab S2 32 ГБ 3G, LTE черный.jpg",
+                IsDeleted = false
+            };
+
+            var gift10 = new Gift
+            {
+                Id = 10,
+                Name = "Стиральная машина Samsung WW60H2200EWD/LP",
+                Description = "Стиральная машина Samsung WW60H2200EWD/LP – модель от компании, которая давно занимается выпуском данной техники.",
+                Image = null,
+                ImageLocal = "washmachine Samsung WW60H2200EWDLP.jpg",
+                IsDeleted = false
+            };
+
+            var gift11 = new Gift
+            {
+                Id = 11,
+                Name = "Пылесос Thomas DryBOX AMFIBIA",
+                Description = "Пылесос Thomas DryBOX AMFIBIA выполнен в корпусе черного цвета с голубыми деталями.",
+                Image = null,
+                ImageLocal = "Thomas DryBOX AMFIBIA.jpg",
+                IsDeleted = false
+            };
+
+            var gift12 = new Gift
+            {
+                Id = 12,
+                Name = "Смартфон Samsung Galaxy A8+ SM-A730F",
+                Description = "Смартфон Samsung Galaxy A8+ SM-A730F сможет поразить своим обширным функционалом и грандиозным техническим оснащением даже самого требовательного и капризного пользователя.",
+                Image = null,
+                ImageLocal = "Samsung Galaxy A8+ SM-A730F 32 ГБ черный.jpg",
+                IsDeleted = false
+            };
+
+            modelBuilder.Entity<Gift>().HasData(gift1, gift2, gift3, gift4, gift5, gift6, gift7, gift8, gift9, gift10, gift11, gift12);
 
             modelBuilder.Entity<GiftDraw>().HasData(
                 new GiftDraw
@@ -146,6 +221,16 @@ namespace Raffle.Dal
                     Reached = 0,
                     IsDeleted = false
                 }
+            );
+
+            modelBuilder.Entity<Vote>().HasData(
+                new Vote { Id = 1, GiftId = 6, IsDeleted = false, Price = 29999, VotesAgree = 111, VotesDisagree = 4 },
+                new Vote { Id = 2, GiftId = 7, IsDeleted = false, Price = 29999, VotesAgree = 111, VotesDisagree = 4 },
+                new Vote { Id = 3, GiftId = 8, IsDeleted = false, Price = 29999, VotesAgree = 111, VotesDisagree = 4 },
+                new Vote { Id = 4, GiftId = 9, IsDeleted = false, Price = 29999, VotesAgree = 111, VotesDisagree = 4 },
+                new Vote { Id = 5, GiftId = 10, IsDeleted = false, Price = 29999, VotesAgree = 111, VotesDisagree = 4 },
+                new Vote { Id = 6, GiftId = 11, IsDeleted = false, Price = 29999, VotesAgree = 111, VotesDisagree = 4 },
+                new Vote { Id = 7, GiftId = 12, IsDeleted = false, Price = 29999, VotesAgree = 111, VotesDisagree = 4 }
             );
         }
     }

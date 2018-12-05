@@ -57,7 +57,8 @@ namespace Raffle.Dal.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     IsDeleted = table.Column<bool>(nullable: false),
                     Name = table.Column<string>(nullable: false),
-                    Image = table.Column<string>(nullable: false),
+                    Image = table.Column<string>(nullable: true),
+                    ImageLocal = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
@@ -195,23 +196,46 @@ namespace Raffle.Dal.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "GiftDraw",
+                name: "GiftDraws",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     IsDeleted = table.Column<bool>(nullable: false),
                     GiftId = table.Column<long>(nullable: false),
-                    Info = table.Column<string>(nullable: true),
+                    Info = table.Column<string>(nullable: false),
                     Price = table.Column<decimal>(nullable: false),
                     PriceKey = table.Column<decimal>(nullable: false),
                     Reached = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GiftDraw", x => x.Id);
+                    table.PrimaryKey("PK_GiftDraws", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_GiftDraw_Gifts_GiftId",
+                        name: "FK_GiftDraws_Gifts_GiftId",
+                        column: x => x.GiftId,
+                        principalTable: "Gifts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Votes",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    GiftId = table.Column<long>(nullable: false),
+                    Price = table.Column<decimal>(nullable: false),
+                    VotesAgree = table.Column<long>(nullable: false),
+                    VotesDisagree = table.Column<long>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Votes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Votes_Gifts_GiftId",
                         column: x => x.GiftId,
                         principalTable: "Gifts",
                         principalColumn: "Id",
@@ -223,25 +247,31 @@ namespace Raffle.Dal.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "0e4ca8f3-78f8-44b5-a9fa-5588b6862d1d", "f6365f73-5a07-4586-a103-8d36256111f8", "Superuser", "SUPERUSER" },
-                    { "fdacf13c-797f-4b56-a852-01cd21463e14", "7d6c8887-d521-4f09-85ec-853ebc065a79", "Participant", "PARTICIPANT" }
+                    { "d32b274c-1061-47c7-b3ea-56c2d8673899", "05bbbf2d-a22e-4cb3-b641-14683ed40e96", "Superuser", "SUPERUSER" },
+                    { "47237e9f-1d17-4a0e-beba-6926b8bb3979", "c2a9e70f-183a-46f2-a5f8-4661841540d3", "Participant", "PARTICIPANT" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Gifts",
-                columns: new[] { "Id", "Description", "Image", "IsDeleted", "Name" },
+                columns: new[] { "Id", "Description", "Image", "ImageLocal", "IsDeleted", "Name" },
                 values: new object[,]
                 {
-                    { 1L, "Смартфон Apple iPhone X – воплощение статуса, надежности и передовых технологий. Большой, 5.8-дюймовый безрамочный экран дарит удивительно четкое и живое изображение (разрешение 2436x1125). Привычный поклонникам бренда интерфейс здесь дополнен такими возможностями, как бесконтактная оплата и зарядка, поддержка максимального количества диапазонов LTE.", "https://www.re-store.ru/upload/iblock/ea3/ea3a57da3137cf5be1c0b3d1e8999a37.jpg", false, "Apple iPhone X" },
-                    { 2L, @"6.3 Смартфон Samsung Galaxy Note 8 64 ГБ – устройство, в котором внимание уделялось всем деталям.Выполнена задняя панель в синем цвете,
-                                    она придает лаконичный дизайн.Устанавливается стекло Corning Gorilla Glass 5 с двух сторон.Оно не царапается при эксплуатации и обладает увеличенной прочностью.", "https://cdn.images.express.co.uk/img/dynamic/galleries/x701/260002.jpg", false, "Samsung Galaxy Note 8" },
-                    { 3L, "Игровая приставка PlayStation 4 Pro в полной мере оправдывает свое название. В приставке есть все необходимое для комфортного использования любимых игр. ", "https://s0.rbk.ru/v6_top_pics/resized/1440xH/media/img/5/16/754733297837165.png", false, "PlayStation 4 Pro" },
-                    { 4L, "Игровая приставка Microsoft Xbox One S + Forza Horizon 3 – лучшее, что вы можете приобрести, если являетесь заядлым поклонником видеоигр.", "https://avatars.mds.yandex.net/get-mpic/195452/img_id1065977498717792190/9hq", false, "Microsoft Xbox One" },
-                    { 5L, "Смартфон Apple iPhone 7 выполнен в герметичном черном алюминиевом корпусе, защищающем его от брызг, царапин и пыли. ", "https://www.o2.co.uk/shop/homepage/images/shop15/brand/apple/iphone7/apple-iphone-7-gallery-img-5.jpg", false, "Apple iPhone 7" }
+                    { 1L, "Смартфон Apple iPhone X – воплощение статуса, надежности и передовых технологий.", "https://www.re-store.ru/upload/iblock/ea3/ea3a57da3137cf5be1c0b3d1e8999a37.jpg", null, false, "Apple iPhone X" },
+                    { 2L, "6.3 Смартфон Samsung Galaxy Note 8 64 ГБ – устройство, в котором внимание уделялось всем деталям.", "https://cdn.images.express.co.uk/img/dynamic/galleries/x701/260002.jpg", null, false, "Samsung Galaxy Note 8" },
+                    { 3L, "Игровая приставка PlayStation 4 Pro в полной мере оправдывает свое название. В приставке есть все необходимое для комфортного использования любимых игр. ", "https://s0.rbk.ru/v6_top_pics/resized/1440xH/media/img/5/16/754733297837165.png", null, false, "PlayStation 4 Pro" },
+                    { 4L, "Игровая приставка Microsoft Xbox One S + Forza Horizon 3 – лучшее, что вы можете приобрести, если являетесь заядлым поклонником видеоигр.", "https://avatars.mds.yandex.net/get-mpic/195452/img_id1065977498717792190/9hq", null, false, "Microsoft Xbox One" },
+                    { 5L, "Смартфон Apple iPhone 7 выполнен в герметичном черном алюминиевом корпусе, защищающем его от брызг, царапин и пыли. ", "https://www.o2.co.uk/shop/homepage/images/shop15/brand/apple/iphone7/apple-iphone-7-gallery-img-5.jpg", null, false, "Apple iPhone 7" },
+                    { 6L, "Телевизор LED LG 43UK6200 поддерживает цифровые тюнеры DVB-T, DVB-T2, DVB-C, DVB-S и DVB-S2.", null, "LED LG 43UK6200 2.jpg", false, "Телевизор LED LG 43UK6200" },
+                    { 7L, "Микроволновая печь LG MH6336GIB выполнена в стильном матовом корпусе черного цвета.", null, "LG MH6336GIB.jpg", false, "Микроволновая печь LG MH6336GIB" },
+                    { 8L, "Телевизор LED LG 43UK6200 поддерживает цифровые тюнеры DVB-T, DVB-T2, DVB-C, DVB-S и DVB-S2.", null, "Samsung GALAXY Tab S2 32 ГБ 3G, LTE черный.jpg", false, "Телевизор LED LG 43UK6200" },
+                    { 9L, "9.7-дюймовый планшет Samsung GALAXY Tab S2 оснащен внушительным запасом встроенной памяти 32 ГБ и беспроводной технологией доступа к мобильной интернет-сети 3G.", null, "Samsung GALAXY Tab S2 32 ГБ 3G, LTE черный.jpg", false, "Планшет Samsung GALAXY Tab S2 9.7" },
+                    { 10L, "Стиральная машина Samsung WW60H2200EWD/LP – модель от компании, которая давно занимается выпуском данной техники.", null, "washmachine Samsung WW60H2200EWDLP.jpg", false, "Стиральная машина Samsung WW60H2200EWD/LP" },
+                    { 11L, "Пылесос Thomas DryBOX AMFIBIA выполнен в корпусе черного цвета с голубыми деталями.", null, "Thomas DryBOX AMFIBIA.jpg", false, "Пылесос Thomas DryBOX AMFIBIA" },
+                    { 12L, "Смартфон Samsung Galaxy A8+ SM-A730F сможет поразить своим обширным функционалом и грандиозным техническим оснащением даже самого требовательного и капризного пользователя.", null, "Samsung Galaxy A8+ SM-A730F 32 ГБ черный.jpg", false, "Смартфон Samsung Galaxy A8+ SM-A730F" }
                 });
 
             migrationBuilder.InsertData(
-                table: "GiftDraw",
+                table: "GiftDraws",
                 columns: new[] { "Id", "GiftId", "Info", "IsDeleted", "Price", "PriceKey", "Reached" },
                 values: new object[,]
                 {
@@ -250,6 +280,20 @@ namespace Raffle.Dal.Migrations
                     { 3L, 3L, "test info 3", false, 30000m, 150m, 0m },
                     { 4L, 4L, "test info 4", false, 25000m, 150m, 0m },
                     { 5L, 5L, "test info 5", false, 40000m, 200m, 0m }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Votes",
+                columns: new[] { "Id", "GiftId", "IsDeleted", "Price", "VotesAgree", "VotesDisagree" },
+                values: new object[,]
+                {
+                    { 1L, 6L, false, 29999m, 111L, 4L },
+                    { 2L, 7L, false, 29999m, 111L, 4L },
+                    { 3L, 8L, false, 29999m, 111L, 4L },
+                    { 4L, 9L, false, 29999m, 111L, 4L },
+                    { 5L, 10L, false, 29999m, 111L, 4L },
+                    { 6L, 11L, false, 29999m, 111L, 4L },
+                    { 7L, 12L, false, 29999m, 111L, 4L }
                 });
 
             migrationBuilder.CreateIndex(
@@ -297,8 +341,13 @@ namespace Raffle.Dal.Migrations
                 column: "IdentityId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GiftDraw_GiftId",
-                table: "GiftDraw",
+                name: "IX_GiftDraws_GiftId",
+                table: "GiftDraws",
+                column: "GiftId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Votes_GiftId",
+                table: "Votes",
                 column: "GiftId");
         }
 
@@ -323,7 +372,10 @@ namespace Raffle.Dal.Migrations
                 name: "Customers");
 
             migrationBuilder.DropTable(
-                name: "GiftDraw");
+                name: "GiftDraws");
+
+            migrationBuilder.DropTable(
+                name: "Votes");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
