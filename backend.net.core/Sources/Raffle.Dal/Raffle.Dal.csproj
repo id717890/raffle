@@ -13,4 +13,8 @@
     <ProjectReference Include="..\Raffle.Domain.Interface\Raffle.Domain.Interface.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Seeders\" />
+  </ItemGroup>
+
 </Project>

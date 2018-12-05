@@ -15,7 +15,7 @@ namespace Raffle.Dal.Mapping
             builder.Property(x=>x.Price).IsRequired();
             builder.Property(x=>x.PriceKey).IsRequired();
             builder.Property(x => x.Reached).IsRequired();
-            builder.HasOne<Gift>(x => x.Gift).WithMany(y => y.GiftDraws).IsRequired();
+            builder.HasOne<Gift>(x => x.Gift);
         }
     }
 }
