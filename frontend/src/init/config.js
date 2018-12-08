@@ -1,3 +1,3 @@
 export default {
-  local: false
+  local: true
 }

@@ -1,4 +1,7 @@
 /* Vote */
+export const RECIEVE_INFO = 'RECIEVE_INFO'
+
+/* Vote */
 export const ADD_VOTE = 'ADD_VOTE'
 export const RECIEVE_VOTES = 'RECIEVE_VOTES'
 

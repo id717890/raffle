@@ -29,7 +29,7 @@ const data = [
       image: require('../assets/images/gifts/LED LG 43UK6200 2.jpg')
     },
     price: '29999 руб.',
-    votesAggree: 111,
+    votesAgree: 111,
     votesDisagree: 2
   },
   {
@@ -40,7 +40,7 @@ const data = [
       image: require('../assets/images/gifts/LG MH6336GIB.jpg')
     },
     price: '9999 руб.',
-    votesAggree: 1,
+    votesAgree: 1,
     votesDisagree: 1
   },
   {
@@ -51,7 +51,7 @@ const data = [
       image: require('../assets/images/gifts/Samsung GALAXY Tab S2 32 ГБ 3G, LTE черный.jpg')
     },
     price: '29499 руб.',
-    votesAggree: 23,
+    votesAgree: 23,
     votesDisagree: 0
   },
   {
@@ -62,7 +62,7 @@ const data = [
       image: require('../assets/images/gifts/washmachine Samsung WW60H2200EWDLP.jpg')
     },
     price: '24499 руб.',
-    votesAggree: 10,
+    votesAgree: 10,
     votesDisagree: 10
   },
   {
@@ -73,7 +73,7 @@ const data = [
       image: require('../assets/images/gifts/Thomas DryBOX AMFIBIA.jpg')
     },
     price: '24999 руб.',
-    votesAggree: 3,
+    votesAgree: 3,
     votesDisagree: 23
   },
   {
@@ -84,7 +84,7 @@ const data = [
       image: require('../assets/images/gifts/Samsung Galaxy A8+ SM-A730F 32 ГБ черный.jpg')
     },
     price: '22999 руб.',
-    votesAggree: 66,
+    votesAgree: 66,
     votesDisagree: 12
   }
 ]

@@ -34,8 +34,8 @@
               </b-progress>
             </b-card-body>
             <b-card-body v-if="isAuth" class="d-flex justify-content-center align-content-stregth" style="flex: 1 1 auto">
-              <button @click="addVote(1)" class="btn btn-success" style="flex: 1 1 50%">ЗА</button>
-              <button @click="addVote(0)" class="btn btn-danger" style="flex: 1 1 50%">Против</button>
+              <button @click="addVote(1)" class="btn btn-success mr-1" style="flex: 1 1 50%">ЗА</button>
+              <button @click="addVote(0)" class="btn btn-danger ml-1" style="flex: 1 1 50%">Против</button>
             </b-card-body>
         </b-card>
       </b-col>

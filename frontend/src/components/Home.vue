@@ -17,8 +17,32 @@
         </div>
         <!-- <div class="prblock1 prlx"></div> -->
         <div class="txt">
-          <h3 style="text-align:center;">Parallax Demo</h3>
-          <p>Parallax scrolling is a web site trend where the background content is moved at a different speed than the foreground content while scrolling. Nascetur per nec posuere turpis, lectus nec libero turpis nunc at, sed posuere mollis ullamcorper libero ante lectus, blandit pellentesque a, magna turpis est sapien duis blandit dignissim. Viverra interdum mi magna mi, morbi sociis. Condimentum dui ipsum consequat morbi, curabitur aliquam pede, nullam vitae eu placerat eget et vehicula. Varius quisque non molestie dolor, nunc nisl dapibus vestibulum at, sodales tincidunt mauris ullamcorper, dapibus pulvinar, in in neque risus odio. Accumsan fringilla vulputate at quibusdam sociis eleifend, aenean maecenas vulputate, non id vehicula lorem mattis, ratione interdum sociis ornare. Suscipit proin magna cras vel, non sit platea sit, maecenas ante augue etiam maecenas, porta porttitor placerat leo.</p>
+          <b-row justify-content-center>
+            <b-col class="mb-2">
+              <div class="text-center">
+            <h2>Участников</h2>
+            <h3>{{info.totalUsers}}</h3>
+          </div>
+            </b-col>
+            <b-col class="mb-2">
+              <div class="text-center">
+            <h2>Призов</h2>
+            <h3>{{info.totalGifts}}</h3>
+          </div>
+            </b-col>
+            <b-col class="mb-2">
+              <div class="text-center">
+            <h2>Ключей</h2>
+            <h3>{{info.totalKeys}}</h3>
+          </div>
+            </b-col>
+          </b-row>
+
+          
+          
+          
+          <!-- <h3 style="text-align:center;">Parallax Demo</h3> -->
+          <!-- <p>Parallax scrolling is a web site trend where the background content is moved at a different speed than the foreground content while scrolling. Nascetur per nec posuere turpis, lectus nec libero turpis nunc at, sed posuere mollis ullamcorper libero ante lectus, blandit pellentesque a, magna turpis est sapien duis blandit dignissim. Viverra interdum mi magna mi, morbi sociis. Condimentum dui ipsum consequat morbi, curabitur aliquam pede, nullam vitae eu placerat eget et vehicula. Varius quisque non molestie dolor, nunc nisl dapibus vestibulum at, sodales tincidunt mauris ullamcorper, dapibus pulvinar, in in neque risus odio. Accumsan fringilla vulputate at quibusdam sociis eleifend, aenean maecenas vulputate, non id vehicula lorem mattis, ratione interdum sociis ornare. Suscipit proin magna cras vel, non sit platea sit, maecenas ante augue etiam maecenas, porta porttitor placerat leo.</p> -->
         </div>
         <div class="prlxblock1 prlx d-flex justify-content-center" align-v="center">
           <div class="steps-wrapper">
@@ -64,14 +88,18 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import {mapGetters, mapState} from 'vuex'
 
 export default {
   computed: {
+    ...mapState({
+      info: state => state.info.info
+    }),
     ...mapGetters(['getGiftsDraw'])
   },
   async created () {
     this.$store.dispatch('getGiftsDraw')
+    this.$store.dispatch('reciveInfo')
   }
 }
 </script>

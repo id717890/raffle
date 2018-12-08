@@ -12,7 +12,7 @@
       <b-navbar-nav class="ml-auto">
         <b-nav-item to="/signin" v-if="!isAuth">Sign In</b-nav-item>
         <b-nav-item to="/signup" v-if="!isAuth">Sign Up</b-nav-item>
-        <b-nav-item to="dashboard" v-if="isAuth">Dashboard</b-nav-item>
+        <b-nav-item to="/dashboard" v-if="isAuth">Dashboard</b-nav-item>
         <b-nav-item @click="LogoutButton" v-if="isAuth">Logout</b-nav-item>
 
         <!-- <b-nav-form>
