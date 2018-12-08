@@ -1,4 +1,4 @@
-/* Vote */
+/* INFO */
 export const RECIEVE_INFO = 'RECIEVE_INFO'
 
 /* Vote */
@@ -10,6 +10,7 @@ export const SET_CURRENT_TOPIC = 'SET_CURRENT_TOPIC'
 export const RECIEVE_TOPICS = 'RECIEVE_TOPICS'
 
 /* Gift Draw */
+export const RECIEVE_USER_GIFTS = 'RECIEVE_USER_GIFTS'
 export const SET_GIFTS_DRAW = 'SET_GIFTS_DRAW'
 
 /* Dialog element */
