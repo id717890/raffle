@@ -1,5 +1,5 @@
 <template>
-<b-row class="mt-5 pt-3 w-100">
+<b-row class="mt-5 pt-3 w-100 p-0 m-0">
   <b-col lg=2 md=3 sm=12>
     <b-nav vertical pills>
       <b-nav-item to="/dashboard/gifts">Призы и ключи</b-nav-item>

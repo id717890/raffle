@@ -47,8 +47,8 @@
 import {mapGetters, mapActions} from 'vuex'
 
 const menu = [
-  {id: 1, name: 'Forum', link: 'forum'},
-  {id: 2, name: 'Voting', link: 'voting'}
+  {id: 1, name: 'Forum', link: '/forum'},
+  {id: 2, name: 'Voting', link: '/voting'}
 ]
 export default {
   computed: {
