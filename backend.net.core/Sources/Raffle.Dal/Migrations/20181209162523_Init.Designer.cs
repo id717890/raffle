@@ -10,7 +10,7 @@ using Raffle.Dal;
 namespace Raffle.Dal.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181205105814_Init")]
+    [Migration("20181209162523_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,8 +45,8 @@ namespace Raffle.Dal.Migrations
                     b.ToTable("AspNetRoles");
 
                     b.HasData(
-                        new { Id = "46173b52-437c-4298-bd5f-69a377da280a", ConcurrencyStamp = "0a666c75-fad4-471c-ae74-d060e8a857fe", Name = "Superuser", NormalizedName = "SUPERUSER" },
-                        new { Id = "1fbae8ab-5dc1-4244-9d91-bbe98d92e70f", ConcurrencyStamp = "1aa81652-30be-4171-b2ab-f33cebc82ccc", Name = "Participant", NormalizedName = "PARTICIPANT" }
+                        new { Id = "05106c7c-2b56-4d8a-a704-2688c2baf0fd", ConcurrencyStamp = "b94194a0-a97d-4de3-a999-0835776d97f3", Name = "Superuser", NormalizedName = "SUPERUSER" },
+                        new { Id = "9990cc90-1bab-41ab-b0df-5050e907cf80", ConcurrencyStamp = "204cfa45-d7fb-4fc4-b92a-a1a41a44539b", Name = "Participant", NormalizedName = "PARTICIPANT" }
                     );
                 });
 
@@ -283,6 +283,27 @@ namespace Raffle.Dal.Migrations
                         new { Id = 4L, GiftId = 4L, Info = "test info 4", IsDeleted = false, Price = 25000m, PriceKey = 150m, Reached = 0m },
                         new { Id = 5L, GiftId = 5L, Info = "test info 5", IsDeleted = false, Price = 40000m, PriceKey = 200m, Reached = 0m }
                     );
+                });
+
+            modelBuilder.Entity("Raffle.Domain.Interface.Entity.Order", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Date");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("NotificationType")
+                        .IsRequired();
+
+                    b.Property<string>("OperationId")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("Raffle.Domain.Interface.Entity.Vote", b =>

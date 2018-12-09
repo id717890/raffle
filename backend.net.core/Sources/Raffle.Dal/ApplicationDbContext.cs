@@ -17,6 +17,9 @@ namespace Raffle.Dal
 
         public DbSet<Gift> Gifts { get; set; }
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<GiftDraw> GiftDraws { get; set; }
+        public DbSet<Vote> Votes { get; set; }
+        public DbSet<Order> Orders { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -25,6 +28,7 @@ namespace Raffle.Dal
             modelBuilder.ApplyConfiguration(new GiftDrawMap());
             modelBuilder.ApplyConfiguration(new CustomerMap());
             modelBuilder.ApplyConfiguration(new VoteMap());
+            modelBuilder.ApplyConfiguration(new OrderMap());
 
 
             //modelBuilder.Entity<GiftDraw>()

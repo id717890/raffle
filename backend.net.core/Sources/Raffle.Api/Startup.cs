@@ -69,6 +69,8 @@ namespace Raffle.Api
             services.AddTransient<IGiftDrawRepository, GiftDrawRepository>();
             services.AddTransient<IVoteRepository, VoteRepository>();
             services.AddTransient<IVoteService, VoteService>();
+            services.AddTransient<IOrderRepository, OrderRepository>();
+            services.AddTransient<IOrderService, OrderService>();
             #endregion
 
 

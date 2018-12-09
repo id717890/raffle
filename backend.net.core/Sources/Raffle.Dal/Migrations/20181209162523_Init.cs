@@ -67,6 +67,22 @@ namespace Raffle.Dal.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    OperationId = table.Column<string>(nullable: false),
+                    NotificationType = table.Column<string>(nullable: false),
+                    Date = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -247,8 +263,8 @@ namespace Raffle.Dal.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "46173b52-437c-4298-bd5f-69a377da280a", "0a666c75-fad4-471c-ae74-d060e8a857fe", "Superuser", "SUPERUSER" },
-                    { "1fbae8ab-5dc1-4244-9d91-bbe98d92e70f", "1aa81652-30be-4171-b2ab-f33cebc82ccc", "Participant", "PARTICIPANT" }
+                    { "05106c7c-2b56-4d8a-a704-2688c2baf0fd", "b94194a0-a97d-4de3-a999-0835776d97f3", "Superuser", "SUPERUSER" },
+                    { "9990cc90-1bab-41ab-b0df-5050e907cf80", "204cfa45-d7fb-4fc4-b92a-a1a41a44539b", "Participant", "PARTICIPANT" }
                 });
 
             migrationBuilder.InsertData(
@@ -371,6 +387,9 @@ namespace Raffle.Dal.Migrations
 
             migrationBuilder.DropTable(
                 name: "GiftDraws");
+
+            migrationBuilder.DropTable(
+                name: "Orders");
 
             migrationBuilder.DropTable(
                 name: "Votes");
