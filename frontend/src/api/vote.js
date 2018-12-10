@@ -13,9 +13,15 @@ export default {
       })
     }
   },
-  addVote () {
+  giveVote (vote) {
     if (config.isLocalApp()) {
       return new Promise((resolve) => { resolve() })
+    } else {
+      return Vue.$http.post('api/vote', vote).then((x) => {
+        return x
+      }).catch(error => {
+        return error
+      })
     }
   }
 }

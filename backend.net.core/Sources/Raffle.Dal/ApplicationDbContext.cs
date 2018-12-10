@@ -19,6 +19,7 @@ namespace Raffle.Dal
         public DbSet<Customer> Customers { get; set; }
         public DbSet<GiftDraw> GiftDraws { get; set; }
         public DbSet<Vote> Votes { get; set; }
+        public DbSet<VoteUser> VoteUsers { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<GiftDrawUser> GiftDrawUsers{ get; set; }
         public DbSet<GiftDrawUserKey> GiftDrawUserKeys { get; set; }
@@ -30,6 +31,7 @@ namespace Raffle.Dal
             modelBuilder.ApplyConfiguration(new GiftDrawMap());
             modelBuilder.ApplyConfiguration(new CustomerMap());
             modelBuilder.ApplyConfiguration(new VoteMap());
+            modelBuilder.ApplyConfiguration(new VoteUserMap());
             modelBuilder.ApplyConfiguration(new OrderMap());
             modelBuilder.ApplyConfiguration(new GiftDrawUserMap());
             modelBuilder.ApplyConfiguration(new GiftDrawUserKeyMap());

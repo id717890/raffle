@@ -1,6 +1,7 @@
 import * as types from '../mutation-types'
 import context from '@/api/vote'
 import config from '@/packages/config'
+import Vue from 'vue'
 
 const state = {
   votes: []
@@ -8,11 +9,18 @@ const state = {
 
 // actions
 const actions = {
-  async agreeVote ({commit, dispatch}, payload) {
-    console.log('add agree vote')
-  },
-  async disagreeVote ({commit, dispatch}, payload) {
-    console.log('add disagree vote')
+  async giveVote ({commit, dispatch}, payload) {
+    let credential = Vue.auth.getCredentials()
+    if (credential != null) {
+      let voteUser = {id: payload.id, userId: credential.id, value: payload.value}
+      context.giveVote(voteUser).then(x => {
+        if (x.status === 200) {
+          commit(types.ADD_VOTE, x.data)
+        } else {
+          dispatch('setErrors', x.response.data)
+        }
+      })
+    }
   },
   async reciveVotes ({commit, dispatch}) {
     return new Promise((resolve, reject) => {

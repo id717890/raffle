@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Raffle.Dal.Interface.Services;
@@ -19,6 +18,11 @@ namespace Raffle.Dal.Services
         public override async Task<List<GiftDraw>> GetAll()
         {
             return await _db.Set<GiftDraw>().Include(x => x.Gift).ToListAsync();
+        }
+
+        public async Task<long> GetCountOfGifts()
+        {
+            return await _db.Set<GiftDraw>().CountAsync(x => x.IsDeleted == false);
         }
     }
 }

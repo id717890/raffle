@@ -10,7 +10,7 @@ using Raffle.Dal;
 namespace Raffle.Dal.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181210080336_Init")]
+    [Migration("20181210095411_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,8 +45,8 @@ namespace Raffle.Dal.Migrations
                     b.ToTable("AspNetRoles");
 
                     b.HasData(
-                        new { Id = "8b9b2222-3254-46d5-9c1d-15e5a3f7ac5b", ConcurrencyStamp = "8a6a78bc-bb1a-4cfc-b0a4-d1c754e03981", Name = "Superuser", NormalizedName = "SUPERUSER" },
-                        new { Id = "74ee1a2d-e287-442b-ae5c-6ca0db5593d9", ConcurrencyStamp = "c4283f58-0440-45f1-8a40-cf33ccfe4df2", Name = "Participant", NormalizedName = "PARTICIPANT" }
+                        new { Id = "50d72831-a067-491d-b044-99472c965726", ConcurrencyStamp = "b1f61845-8047-478a-9af4-9df45584a8ea", Name = "Superuser", NormalizedName = "SUPERUSER" },
+                        new { Id = "2d7ed83c-95a9-41d3-a881-e488b804c1ea", ConcurrencyStamp = "c998e5d3-ecd8-4147-9510-b7a7208a9810", Name = "Participant", NormalizedName = "PARTICIPANT" }
                     );
                 });
 
@@ -397,6 +397,31 @@ namespace Raffle.Dal.Migrations
                     );
                 });
 
+            modelBuilder.Entity("Raffle.Domain.Interface.Entity.VoteUser", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("UserId");
+
+                    b.Property<bool>("Value")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(true);
+
+                    b.Property<long>("VoteId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("VoteId");
+
+                    b.ToTable("VoteUsers");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
@@ -481,6 +506,18 @@ namespace Raffle.Dal.Migrations
                     b.HasOne("Raffle.Domain.Interface.Entity.Gift", "Gift")
                         .WithMany()
                         .HasForeignKey("GiftId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Raffle.Domain.Interface.Entity.VoteUser", b =>
+                {
+                    b.HasOne("Raffle.Domain.Interface.Entity.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.HasOne("Raffle.Domain.Interface.Entity.Vote", "Vote")
+                        .WithMany()
+                        .HasForeignKey("VoteId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

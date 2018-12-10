@@ -69,7 +69,7 @@ namespace Raffle.Api.Controllers
                 {
                     if (!_userManager.IsEmailConfirmedAsync(user).Result)
                     {
-                        return BadRequest("Email not confirmed!");
+                        return BadRequest(_messageModelBuilder.CreateModel("403", "Email not confirmed!"));
                     }
                 }
                 var jwt = await Tokens.GenerateJwt(

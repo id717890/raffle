@@ -1,9 +1,7 @@
 export default function (Vue) {
-  // let authUser = {};
-
   Vue.auth = {
     getToken () {
-      if (this.isExpired) {
+      if (this.isExpired()) {
         this.logout()
         return null
       }

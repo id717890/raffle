@@ -19,5 +19,10 @@ namespace Raffle.Domain.Services
         {
             return await _repository.GetAll();
         }
+
+        public async Task<long> GetCountOfGifts()
+        {
+            return await _repository.GetCountOfGifts();
+        }
     }
 }

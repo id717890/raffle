@@ -108,7 +108,7 @@ const actions = {
   },
   async autoSignIn ({commit, dispatch}) {
     let credential = Vue.auth.getCredentials()
-    if (!credential) {
+    if (credential == null) {
       dispatch('logout')
     } else {
       commit(types.SET_TOKEN, credential.token)

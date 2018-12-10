@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Raffle.Domain.Interface.Entity;
 using Raffle.Domain.Interface.Services;
 using Raffle.Infrastructure.Interface;
 
@@ -15,15 +13,18 @@ namespace Raffle.Api.Controllers
     [ApiController]
     public class InfoController : ControllerBase
     {
-        private readonly IMapper _mapper;
         private readonly IMessageModelBuilder _messageModelBuilder;
         private readonly IGiftDrawUserKeyService _giftDrawUserKeyService;
+        private readonly IGiftDrawService _giftDrawService;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public InfoController(IMapper mapper, IMessageModelBuilder messageModelBuilder, IGiftDrawUserKeyService giftDrawUserKeyService)
+
+        public InfoController(IMessageModelBuilder messageModelBuilder, IGiftDrawUserKeyService giftDrawUserKeyService, IGiftDrawService giftDrawService, UserManager<ApplicationUser> userManager)
         {
-            _mapper = mapper;
             _messageModelBuilder = messageModelBuilder;
             _giftDrawUserKeyService = giftDrawUserKeyService;
+            _giftDrawService = giftDrawService;
+            _userManager = userManager;
         }
 
         [HttpGet, Route("TotalInfo")]
@@ -31,7 +32,7 @@ namespace Raffle.Api.Controllers
         {
             try
             {
-                return Ok(new { totalUsers = 999, totalGifts = 999, totalKeys = await _giftDrawUserKeyService.GetCountOfKeys()});
+                return Ok(new { totalUsers = await _userManager.Users.CountAsync(), totalGifts = await _giftDrawService.GetCountOfGifts(), totalKeys = await _giftDrawUserKeyService.GetCountOfKeys()});
             }
             catch (Exception e)
             {

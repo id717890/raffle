@@ -294,6 +294,34 @@ namespace Raffle.Dal.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "VoteUsers",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    UserId = table.Column<string>(nullable: true),
+                    VoteId = table.Column<long>(nullable: false),
+                    Value = table.Column<bool>(nullable: false, defaultValue: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_VoteUsers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_VoteUsers_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_VoteUsers_Votes_VoteId",
+                        column: x => x.VoteId,
+                        principalTable: "Votes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "GiftDrawUserKeys",
                 columns: table => new
                 {
@@ -319,8 +347,8 @@ namespace Raffle.Dal.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "8b9b2222-3254-46d5-9c1d-15e5a3f7ac5b", "8a6a78bc-bb1a-4cfc-b0a4-d1c754e03981", "Superuser", "SUPERUSER" },
-                    { "74ee1a2d-e287-442b-ae5c-6ca0db5593d9", "c4283f58-0440-45f1-8a40-cf33ccfe4df2", "Participant", "PARTICIPANT" }
+                    { "50d72831-a067-491d-b044-99472c965726", "b1f61845-8047-478a-9af4-9df45584a8ea", "Superuser", "SUPERUSER" },
+                    { "2d7ed83c-95a9-41d3-a881-e488b804c1ea", "c998e5d3-ecd8-4147-9510-b7a7208a9810", "Participant", "PARTICIPANT" }
                 });
 
             migrationBuilder.InsertData(
@@ -434,6 +462,16 @@ namespace Raffle.Dal.Migrations
                 name: "IX_Votes_GiftId",
                 table: "Votes",
                 column: "GiftId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_VoteUsers_UserId",
+                table: "VoteUsers",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_VoteUsers_VoteId",
+                table: "VoteUsers",
+                column: "VoteId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -463,13 +501,16 @@ namespace Raffle.Dal.Migrations
                 name: "Orders");
 
             migrationBuilder.DropTable(
-                name: "Votes");
+                name: "VoteUsers");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "GiftDrawUsers");
+
+            migrationBuilder.DropTable(
+                name: "Votes");
 
             migrationBuilder.DropTable(
                 name: "GiftDraws");
