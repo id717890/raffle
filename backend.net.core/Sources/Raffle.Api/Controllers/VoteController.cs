@@ -38,9 +38,23 @@ namespace Raffle.Api.Controllers
         {
             try
             {
-                var map = _mapper.Map<IEnumerable<VoteViewModel.Vote>>(await _voteService.GetAllGifts());
+                //var first = _voteService.GetAllGifts().Result;
+                ////var two = first.VoteUsers;
+                //return Ok(first);
+                var list = new List<VoteViewModel.Vote>();
+                foreach (var item in await _voteService.GetAllGifts())
+                {
+                    var data = _mapper.Map<Vote, VoteViewModel.Vote>(item);
+                    data.VotesAgree = item.VoteUsers.Count(x => x.Value);
+                    data.VotesDisagree = item.VoteUsers.Count(x => !x.Value);
+                    list.Add(data);
+                }
 
-                return Ok(map);
+
+
+                //var map = _mapper.Map<IEnumerable<VoteViewModel.Vote>>(await _voteService.GetAllGifts());
+
+                return Ok(list);
             }
             catch (Exception e)
             {

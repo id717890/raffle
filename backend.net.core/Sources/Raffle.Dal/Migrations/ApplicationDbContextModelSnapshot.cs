@@ -43,8 +43,8 @@ namespace Raffle.Dal.Migrations
                     b.ToTable("AspNetRoles");
 
                     b.HasData(
-                        new { Id = "50d72831-a067-491d-b044-99472c965726", ConcurrencyStamp = "b1f61845-8047-478a-9af4-9df45584a8ea", Name = "Superuser", NormalizedName = "SUPERUSER" },
-                        new { Id = "2d7ed83c-95a9-41d3-a881-e488b804c1ea", ConcurrencyStamp = "c998e5d3-ecd8-4147-9510-b7a7208a9810", Name = "Participant", NormalizedName = "PARTICIPANT" }
+                        new { Id = "21e2b553-7852-4d0a-8173-5d60fbacb090", ConcurrencyStamp = "b7ecdad4-aa9c-49ad-9b53-4a19a216e967", Name = "Superuser", NormalizedName = "SUPERUSER" },
+                        new { Id = "a19f3c3b-503f-4eae-a01b-bd324bc2863e", ConcurrencyStamp = "52f58a78-e572-4c86-8163-36e9d1703059", Name = "Participant", NormalizedName = "PARTICIPANT" }
                     );
                 });
 
@@ -405,9 +405,7 @@ namespace Raffle.Dal.Migrations
 
                     b.Property<string>("UserId");
 
-                    b.Property<bool>("Value")
-                        .ValueGeneratedOnAdd()
-                        .HasDefaultValue(true);
+                    b.Property<bool>("Value");
 
                     b.Property<long>("VoteId");
 
@@ -514,7 +512,7 @@ namespace Raffle.Dal.Migrations
                         .HasForeignKey("UserId");
 
                     b.HasOne("Raffle.Domain.Interface.Entity.Vote", "Vote")
-                        .WithMany()
+                        .WithMany("VoteUsers")
                         .HasForeignKey("VoteId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

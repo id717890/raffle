@@ -17,7 +17,7 @@ namespace Raffle.Dal.Services
 
         public override async Task<List<Vote>> GetAll()
         {
-            return await _db.Set<Vote>().Include(x => x.Gift).ToListAsync();
+            return await _db.Set<Vote>().Include(x => x.Gift).Include(x=>x.VoteUsers).ToListAsync();
         }
     }
 }

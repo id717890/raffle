@@ -13,7 +13,7 @@ namespace Raffle.Dal.Mapping
             builder.Property(x => x.Id).ValueGeneratedOnAdd();
             builder.Property(x => x.Value).IsRequired();
             builder.HasOne<ApplicationUser>(x => x.User);
-            builder.HasOne<Vote>(x => x.Vote);
+            builder.HasOne(x => x.Vote);
         }
     }
 }

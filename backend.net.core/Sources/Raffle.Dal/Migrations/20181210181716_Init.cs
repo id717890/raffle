@@ -302,7 +302,7 @@ namespace Raffle.Dal.Migrations
                     IsDeleted = table.Column<bool>(nullable: false),
                     UserId = table.Column<string>(nullable: true),
                     VoteId = table.Column<long>(nullable: false),
-                    Value = table.Column<bool>(nullable: false, defaultValue: true)
+                    Value = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -347,8 +347,8 @@ namespace Raffle.Dal.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "50d72831-a067-491d-b044-99472c965726", "b1f61845-8047-478a-9af4-9df45584a8ea", "Superuser", "SUPERUSER" },
-                    { "2d7ed83c-95a9-41d3-a881-e488b804c1ea", "c998e5d3-ecd8-4147-9510-b7a7208a9810", "Participant", "PARTICIPANT" }
+                    { "21e2b553-7852-4d0a-8173-5d60fbacb090", "b7ecdad4-aa9c-49ad-9b53-4a19a216e967", "Superuser", "SUPERUSER" },
+                    { "a19f3c3b-503f-4eae-a01b-bd324bc2863e", "52f58a78-e572-4c86-8163-36e9d1703059", "Participant", "PARTICIPANT" }
                 });
 
             migrationBuilder.InsertData(

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json;
 
 namespace Raffle.Domain.Interface.Entity
@@ -11,7 +12,6 @@ namespace Raffle.Domain.Interface.Entity
         public long VotesAgree { get; set; }
         public long VotesDisagree { get; set; }
 
-        [JsonIgnore]
         public ICollection<VoteUser> VoteUsers { get; set; }
     }
 }

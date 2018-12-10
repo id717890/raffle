@@ -15,6 +15,7 @@ namespace Raffle.Dal.Mapping
             builder.Property(x => x.VotesAgree).IsRequired();
             builder.Property(x => x.VotesDisagree).IsRequired();
             builder.HasOne<Gift>(x => x.Gift);
+            //builder.HasMany<VoteUser>(x => x.VoteUsers).WithOne();
         }
     }
 }
