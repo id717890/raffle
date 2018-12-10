@@ -2,7 +2,7 @@
 
 namespace Raffle.Dal.Interface.Services
 {
-    public interface IGiftDrawRepository: IRepository<GiftDraw>
+    public interface IGiftDrawUserRepository: IRepository<GiftDrawUser>
     {
     }
 }
