@@ -1,6 +1,4 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
-using Newtonsoft.Json;
 
 namespace Raffle.Api.ViewModels
 {
@@ -8,14 +6,18 @@ namespace Raffle.Api.ViewModels
     {
         public class YandexHttpNotify
         {
-            [Required, JsonProperty("operation_id")]
-            public string OperationId { get; set; }
-
-            [JsonProperty("notification_type")]
-            public string NotificationType { get; set; }
-
-            [Required, JsonProperty("datetime")]
-            public DateTime Date { get; set; }
+            public string operation_id { get; set; }
+            public string notification_type { get; set; }
+            public decimal amount { get; set; }
+            public decimal withdraw_amount { get; set; }
+            public string currency { get; set; }
+            public DateTime datetime { get; set; }
+            public string sender { get; set; }
+            public bool codepro { get; set; }
+            public string label { get; set; }
+            public string sha1_hash { get; set; }
+            public bool unaccepted { get; set; }
+            public string email { get; set; }
         }
     }
 }

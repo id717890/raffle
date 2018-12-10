@@ -43,8 +43,8 @@ namespace Raffle.Dal.Migrations
                     b.ToTable("AspNetRoles");
 
                     b.HasData(
-                        new { Id = "05106c7c-2b56-4d8a-a704-2688c2baf0fd", ConcurrencyStamp = "b94194a0-a97d-4de3-a999-0835776d97f3", Name = "Superuser", NormalizedName = "SUPERUSER" },
-                        new { Id = "9990cc90-1bab-41ab-b0df-5050e907cf80", ConcurrencyStamp = "204cfa45-d7fb-4fc4-b92a-a1a41a44539b", Name = "Participant", NormalizedName = "PARTICIPANT" }
+                        new { Id = "650ef52c-7ee9-4e0f-86c6-c8a32ffeba90", ConcurrencyStamp = "b16c7adb-0dc2-4b4a-9d80-6d19e9f5a2de", Name = "Superuser", NormalizedName = "SUPERUSER" },
+                        new { Id = "cd919616-bd9e-4102-88a2-6212044addd3", ConcurrencyStamp = "ace5e000-4ead-4b61-a5f5-498c45f65f7d", Name = "Participant", NormalizedName = "PARTICIPANT" }
                     );
                 });
 
@@ -289,15 +289,33 @@ namespace Raffle.Dal.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<decimal>("Amount");
+
+                    b.Property<bool>("Codepro");
+
+                    b.Property<string>("Currency");
+
                     b.Property<DateTime>("Date");
 
                     b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("Label")
+                        .IsRequired();
 
                     b.Property<string>("NotificationType")
                         .IsRequired();
 
                     b.Property<string>("OperationId")
                         .IsRequired();
+
+                    b.Property<string>("Sender");
+
+                    b.Property<string>("Sha1Hash")
+                        .IsRequired();
+
+                    b.Property<bool>("Unaccepted");
+
+                    b.Property<decimal>("WithdrawAmount");
 
                     b.HasKey("Id");
 

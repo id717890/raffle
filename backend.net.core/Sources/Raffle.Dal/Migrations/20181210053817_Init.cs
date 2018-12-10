@@ -75,7 +75,15 @@ namespace Raffle.Dal.Migrations
                     IsDeleted = table.Column<bool>(nullable: false),
                     OperationId = table.Column<string>(nullable: false),
                     NotificationType = table.Column<string>(nullable: false),
-                    Date = table.Column<DateTime>(nullable: false)
+                    Date = table.Column<DateTime>(nullable: false),
+                    Amount = table.Column<decimal>(nullable: false),
+                    WithdrawAmount = table.Column<decimal>(nullable: false),
+                    Currency = table.Column<string>(nullable: true),
+                    Sender = table.Column<string>(nullable: true),
+                    Codepro = table.Column<bool>(nullable: false),
+                    Label = table.Column<string>(nullable: false),
+                    Sha1Hash = table.Column<string>(nullable: false),
+                    Unaccepted = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -263,8 +271,8 @@ namespace Raffle.Dal.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "05106c7c-2b56-4d8a-a704-2688c2baf0fd", "b94194a0-a97d-4de3-a999-0835776d97f3", "Superuser", "SUPERUSER" },
-                    { "9990cc90-1bab-41ab-b0df-5050e907cf80", "204cfa45-d7fb-4fc4-b92a-a1a41a44539b", "Participant", "PARTICIPANT" }
+                    { "650ef52c-7ee9-4e0f-86c6-c8a32ffeba90", "b16c7adb-0dc2-4b4a-9d80-6d19e9f5a2de", "Superuser", "SUPERUSER" },
+                    { "cd919616-bd9e-4102-88a2-6212044addd3", "ace5e000-4ead-4b61-a5f5-498c45f65f7d", "Participant", "PARTICIPANT" }
                 });
 
             migrationBuilder.InsertData(

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,30 +19,27 @@ namespace Raffle.Api.Controllers
     {
         private readonly IMessageModelBuilder _messageModelBuilder;
         private readonly IOrderService _orderService;
+        private readonly IMapper _mapper;
 
-        public PayController(IMessageModelBuilder messageModelBuilder, IOrderService orderService)
+        public PayController(IMessageModelBuilder messageModelBuilder, IOrderService orderService, IMapper mapper)
         {
             _messageModelBuilder = messageModelBuilder;
             _orderService = orderService;
+            _mapper = mapper;
         }
 
 
         [HttpPost, AllowAnonymous, Route("notify")]
-        public async Task<IActionResult> Notify([FromBody]OrderViewModel.YandexHttpNotify model)
+        public async Task<IActionResult> Notify([FromForm]OrderViewModel.YandexHttpNotify model)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             try
             {
-                await _orderService.CreateAsync(new Order()
+                var order = _mapper.Map<Order>(model);
+                if (order.Label == null)
                 {
-                    Date = model.Date,
-                    NotificationType = model.NotificationType,
-                    OperationId = model.OperationId
-                });
+                    order.Label = "empty";
+                }
+                await _orderService.CreateAsync(order);
                 return Ok();
             }
             catch (Exception e)
