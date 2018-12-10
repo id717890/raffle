@@ -266,13 +266,61 @@ namespace Raffle.Dal.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "GiftDrawUsers",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    GiftDrawId = table.Column<long>(nullable: false),
+                    UserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GiftDrawUsers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_GiftDrawUsers_GiftDraws_GiftDrawId",
+                        column: x => x.GiftDrawId,
+                        principalTable: "GiftDraws",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_GiftDrawUsers_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "GiftDrawUserKeys",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    GiftDrawUserId = table.Column<long>(nullable: true),
+                    Key = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GiftDrawUserKeys", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_GiftDrawUserKeys_GiftDrawUsers_GiftDrawUserId",
+                        column: x => x.GiftDrawUserId,
+                        principalTable: "GiftDrawUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "650ef52c-7ee9-4e0f-86c6-c8a32ffeba90", "b16c7adb-0dc2-4b4a-9d80-6d19e9f5a2de", "Superuser", "SUPERUSER" },
-                    { "cd919616-bd9e-4102-88a2-6212044addd3", "ace5e000-4ead-4b61-a5f5-498c45f65f7d", "Participant", "PARTICIPANT" }
+                    { "8b9b2222-3254-46d5-9c1d-15e5a3f7ac5b", "8a6a78bc-bb1a-4cfc-b0a4-d1c754e03981", "Superuser", "SUPERUSER" },
+                    { "74ee1a2d-e287-442b-ae5c-6ca0db5593d9", "c4283f58-0440-45f1-8a40-cf33ccfe4df2", "Participant", "PARTICIPANT" }
                 });
 
             migrationBuilder.InsertData(
@@ -368,6 +416,21 @@ namespace Raffle.Dal.Migrations
                 column: "GiftId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_GiftDrawUserKeys_GiftDrawUserId",
+                table: "GiftDrawUserKeys",
+                column: "GiftDrawUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GiftDrawUsers_GiftDrawId",
+                table: "GiftDrawUsers",
+                column: "GiftDrawId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GiftDrawUsers_UserId",
+                table: "GiftDrawUsers",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Votes_GiftId",
                 table: "Votes",
                 column: "GiftId");
@@ -394,7 +457,7 @@ namespace Raffle.Dal.Migrations
                 name: "Customers");
 
             migrationBuilder.DropTable(
-                name: "GiftDraws");
+                name: "GiftDrawUserKeys");
 
             migrationBuilder.DropTable(
                 name: "Orders");
@@ -404,6 +467,12 @@ namespace Raffle.Dal.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "GiftDrawUsers");
+
+            migrationBuilder.DropTable(
+                name: "GiftDraws");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

@@ -10,7 +10,7 @@ using Raffle.Dal;
 namespace Raffle.Dal.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181210053817_Init")]
+    [Migration("20181210080336_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,8 +45,8 @@ namespace Raffle.Dal.Migrations
                     b.ToTable("AspNetRoles");
 
                     b.HasData(
-                        new { Id = "650ef52c-7ee9-4e0f-86c6-c8a32ffeba90", ConcurrencyStamp = "b16c7adb-0dc2-4b4a-9d80-6d19e9f5a2de", Name = "Superuser", NormalizedName = "SUPERUSER" },
-                        new { Id = "cd919616-bd9e-4102-88a2-6212044addd3", ConcurrencyStamp = "ace5e000-4ead-4b61-a5f5-498c45f65f7d", Name = "Participant", NormalizedName = "PARTICIPANT" }
+                        new { Id = "8b9b2222-3254-46d5-9c1d-15e5a3f7ac5b", ConcurrencyStamp = "8a6a78bc-bb1a-4cfc-b0a4-d1c754e03981", Name = "Superuser", NormalizedName = "SUPERUSER" },
+                        new { Id = "74ee1a2d-e287-442b-ae5c-6ca0db5593d9", ConcurrencyStamp = "c4283f58-0440-45f1-8a40-cf33ccfe4df2", Name = "Participant", NormalizedName = "PARTICIPANT" }
                     );
                 });
 
@@ -285,6 +285,47 @@ namespace Raffle.Dal.Migrations
                     );
                 });
 
+            modelBuilder.Entity("Raffle.Domain.Interface.Entity.GiftDrawUser", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long>("GiftDrawId");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GiftDrawId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("GiftDrawUsers");
+                });
+
+            modelBuilder.Entity("Raffle.Domain.Interface.Entity.GiftDrawUserKey", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long?>("GiftDrawUserId");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("Key")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GiftDrawUserId");
+
+                    b.ToTable("GiftDrawUserKeys");
+                });
+
             modelBuilder.Entity("Raffle.Domain.Interface.Entity.Order", b =>
                 {
                     b.Property<long>("Id")
@@ -414,6 +455,25 @@ namespace Raffle.Dal.Migrations
                         .WithMany("GiftDraws")
                         .HasForeignKey("GiftId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Raffle.Domain.Interface.Entity.GiftDrawUser", b =>
+                {
+                    b.HasOne("Raffle.Domain.Interface.Entity.GiftDraw", "GiftDraw")
+                        .WithMany()
+                        .HasForeignKey("GiftDrawId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Raffle.Domain.Interface.Entity.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("Raffle.Domain.Interface.Entity.GiftDrawUserKey", b =>
+                {
+                    b.HasOne("Raffle.Domain.Interface.Entity.GiftDrawUser", "GiftDrawUser")
+                        .WithMany("Keys")
+                        .HasForeignKey("GiftDrawUserId");
                 });
 
             modelBuilder.Entity("Raffle.Domain.Interface.Entity.Vote", b =>

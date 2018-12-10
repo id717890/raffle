@@ -20,6 +20,8 @@ namespace Raffle.Dal
         public DbSet<GiftDraw> GiftDraws { get; set; }
         public DbSet<Vote> Votes { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<GiftDrawUser> GiftDrawUsers{ get; set; }
+        public DbSet<GiftDrawUserKey> GiftDrawUserKeys { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -29,6 +31,8 @@ namespace Raffle.Dal
             modelBuilder.ApplyConfiguration(new CustomerMap());
             modelBuilder.ApplyConfiguration(new VoteMap());
             modelBuilder.ApplyConfiguration(new OrderMap());
+            modelBuilder.ApplyConfiguration(new GiftDrawUserMap());
+            modelBuilder.ApplyConfiguration(new GiftDrawUserKeyMap());
 
 
             //modelBuilder.Entity<GiftDraw>()
@@ -52,6 +56,8 @@ namespace Raffle.Dal
             //var user = new ApplicationUser { Email = "jusupovz@gmail.com", UserName = "jusupovz@gmail.com", NormalizedEmail = "JUSUPOVZ@GMAIL.COM", NormalizedUserName = "JUSUPOVZ@GMAIL.COM", EmailConfirmed = true, FirstName = "Zamir", LastName = "Yusupov", PasswordHash = hashed };
 
             //modelBuilder.Entity<ApplicationUser>().HasData(user);
+
+
 
             var gift1 = new Gift
             {
