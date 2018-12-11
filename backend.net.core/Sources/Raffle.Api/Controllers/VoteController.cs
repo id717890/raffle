@@ -34,10 +34,12 @@ namespace Raffle.Api.Controllers
         }
 
         [HttpGet, AllowAnonymous]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromQuery]string userId)
         {
             try
             {
+                ApplicationUser user = null;
+                if (userId != null) user = await _userManager.FindByIdAsync(userId);
                 //var first = _voteService.GetAllGifts().Result;
                 ////var two = first.VoteUsers;
                 //return Ok(first);
@@ -48,12 +50,9 @@ namespace Raffle.Api.Controllers
                     data.VotesAgree = item.VoteUsers.Count(x => x.Value);
                     data.VotesDisagree = item.VoteUsers.Count(x => !x.Value);
                     list.Add(data);
+                    if (user != null) data.UserVote = item.VoteUsers.FirstOrDefault(x => x.UserId == user.Id)?.Value;
                 }
-
-
-
                 //var map = _mapper.Map<IEnumerable<VoteViewModel.Vote>>(await _voteService.GetAllGifts());
-
                 return Ok(list);
             }
             catch (Exception e)

@@ -2,6 +2,8 @@
 export const RECIEVE_INFO = 'RECIEVE_INFO'
 
 /* Vote */
+export const REMOVE_VOTE_FROM_BUSY = 'REMOVE_VOTE_FROM_BUSY'
+export const ADD_VOTE_TO_BUSY = 'ADD_VOTE_TO_BUSY'
 export const ADD_VOTE = 'ADD_VOTE'
 export const RECIEVE_VOTES = 'RECIEVE_VOTES'
 

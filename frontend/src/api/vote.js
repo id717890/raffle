@@ -2,11 +2,11 @@ import config from '@/packages/config'
 import Vue from 'vue'
 
 export default {
-  getVotes () {
+  getVotes (userId) {
     if (config.isLocalApp()) {
       return new Promise((resolve) => { resolve(data) })
     } else {
-      return Vue.$http.get('api/vote').then((x) => {
+      return Vue.$http.get('api/vote', {params: {userId}}).then((x) => {
         return x
       }).catch(error => {
         return error

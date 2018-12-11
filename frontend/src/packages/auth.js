@@ -11,6 +11,17 @@ export default function (Vue) {
       }
       return token
     },
+    getUser () {
+      if (this.isExpired()) {
+        this.logout()
+        return null
+      }
+      let user = localStorage.getItem('id')
+      if (!user) {
+        return null
+      }
+      return user
+    },
     getCredentials () {
       if (this.isExpired()) {
         this.logout()

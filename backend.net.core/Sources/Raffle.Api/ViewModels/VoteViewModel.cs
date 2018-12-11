@@ -14,6 +14,7 @@ namespace Raffle.Api.ViewModels
             public string GiftName { get; set; }
             public string GiftImage { get; set; }
             public string GiftImageLocal { get; set; }
+            public bool? UserVote { get; set; }
         }
 
         [JsonObject]
