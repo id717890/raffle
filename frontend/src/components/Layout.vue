@@ -1,6 +1,6 @@
 <template>
 <div style="height: 100%">
-  <b-navbar toggleable="sm" class="w-100" variant="dark" style="position: fixed; top: 0">
+  <b-navbar toggleable="sm" class="w-100" variant="dark" style="position: fixed; top: 0; z-index: 2">
     <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
     <b-navbar-brand to="/">Raffle</b-navbar-brand>
     <b-collapse is-nav id="nav_collapse">
@@ -37,9 +37,7 @@
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>
-  <b-container fluid class="h-100 p-0">
-    <router-view></router-view>
-  </b-container>
+  <router-view></router-view>
 </div>
 </template>
 
