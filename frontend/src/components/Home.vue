@@ -84,8 +84,8 @@
       <b-container fluid>
         <b-row>
           <b-col class="d-flex justify-content-center" style="flex-flow:row wrap; align-items: center">
-            <b-card @mouseover="hoverCard(gift.id)" @mouseout="currentCard = null" :title="gift.gift.name" class="m-4 p-4 card-home text-center" v-for="gift in this.getGiftsDraw" :key="gift.id"
-              :img-src="gift.gift.image" style="max-width: 20rem; border: none" img-top
+            <b-card @mouseover="hoverCard(gift.id)" @mouseout="currentCard = null" :title="gift.giftName" class="m-4 p-4 card-home text-center" v-for="gift in this.getGiftsDraw" :key="gift.id"
+              :img-src="gift.image" style="max-width: 20rem; border: none" img-top
             >
             <!-- <p class="card-text mb-1">{{gift.info}}</p> -->
             <p class="card-text m-0">Собрано: {{Number((gift.reached * 100 / gift.price).toFixed(1))}}%</p>
@@ -124,8 +124,8 @@ export default {
     }
   },
   async created () {
-    this.$store.dispatch('getGiftsDraw')
-    this.$store.dispatch('reciveInfo')
+    // this.$store.dispatch('getGiftsDraw')
+    // this.$store.dispatch('reciveInfo')
   }
 }
 </script>

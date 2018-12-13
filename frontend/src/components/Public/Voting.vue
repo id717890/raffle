@@ -1,7 +1,7 @@
 <template>
-<b-container class="h-100 p-0" fluid>
+<b-container class="p-0" fluid>
   <div class="prlxblock3 prlx pt-5" >
-    <b-row class="w-100">
+    <b-row class="w-100 pt-5">
       <b-col lg=8 md=10 sm=12 offset-lg=2 offset-md=1>
         <b-jumbotron bg-variant="secondary" text-variant="white" class="mt-3 pb-4" border-variant="dark">
           <template slot="header">

@@ -71,6 +71,11 @@ const getters = {
       return state.giftDrawByUser.filter(x => x.giftIsActive === false)
     }
     return []
+  },
+  getGiftDrawById: state => id => {
+    // console.log(state.giftDraw)
+    // console.log(state.giftDraw.find(x => x.id === id))
+    return state.giftDraw.find(x => Number(x.id) === Number(id))
   }
 }
 

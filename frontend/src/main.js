@@ -22,5 +22,7 @@ new Vue({
   render: h => h(App),
   async created () {
     this.$store.dispatch('autoSignIn')
+    this.$store.dispatch('getGiftsDraw')
+    this.$store.dispatch('reciveInfo')
   }
 })
