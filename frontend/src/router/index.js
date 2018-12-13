@@ -9,7 +9,7 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {path: '/', name: 'Home', component: () => import('@/components/Home')},
-    // {path: '/forum', name: 'Forum', component: () => import('@/components/Public/Forum')},
+    {path: '/gift/:id', name: 'GiftConcrete', component: () => import('@/components/Public/Gift')},
     {path: '/forum', name: 'Forum', component: Forum},
     {path: '/voting', name: 'Voting', component: () => import('@/components/Public/Voting')},
     {path: '/signin', name: 'Signin', component: () => import('@/components/Auth/SignIn')},

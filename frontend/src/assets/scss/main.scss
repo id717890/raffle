@@ -4,6 +4,28 @@ html, body {
   color: $txt-color-white;
 }
 
+.main-header {
+  background: $bg-color-dark-1 !important;;
+  // border-bottom: 1px solid rgba(0,0,0,0.10);
+}
+
+.main-header .nav-item a {
+  position: relative;
+  display: block;
+  font-size: 17px;
+  color: #fff !important;
+  line-height: 30px;
+  font-weight: 500;
+  text-transform: uppercase;
+  padding: 15px 0 5px;
+  margin-bottom: 10px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.main-header .nav-item a.active {
+  border-bottom: 4px solid rgb(204, 204, 204)
+}
+
 .prlxblock1 {
   padding: 50px 0;
   background-image: url('assets/images/p1.jpg');  

@@ -84,12 +84,13 @@
       <b-container fluid>
         <b-row>
           <b-col class="d-flex justify-content-center" style="flex-flow:row wrap; align-items: center">
-            <b-card :title="gift.gift.name" class="m-4 p-4 card-home" v-for="gift in this.getGiftsDraw" :key="gift.id"
+            <b-card @mouseover="hoverCard(gift.id)" @mouseout="currentCard = null" :title="gift.gift.name" class="m-4 p-4 card-home text-center" v-for="gift in this.getGiftsDraw" :key="gift.id"
               :img-src="gift.gift.image" style="max-width: 20rem; border: none" img-top
             >
-            <p class="card-text">{{gift.info}}</p>
-            <p class="card-text">Собрано: {{Number((gift.reached * 100 / gift.price).toFixed(1))}}%</p>
-            <p class="card-text">Участников: {{Number((gift.reached / gift.priceKey).toFixed(0))}}</p>
+            <!-- <p class="card-text mb-1">{{gift.info}}</p> -->
+            <p class="card-text m-0">Собрано: {{Number((gift.reached * 100 / gift.price).toFixed(1))}}%</p>
+            <p class="card-text m-0">Участников: {{Number((gift.reached / gift.priceKey).toFixed(0))}}</p>
+            <button class="btn mt-3" :class="isHovered(gift.id)" @click="$router.push('/gift/' + gift.id)">Donate</button>
             </b-card>
           </b-col>
         </b-row>
@@ -103,11 +104,24 @@
 import {mapGetters, mapState} from 'vuex'
 
 export default {
+  data () {
+    return {
+      currentCard: null
+    }
+  },
   computed: {
     ...mapState({
       info: state => state.info.info
     }),
     ...mapGetters(['getGiftsDraw'])
+  },
+  methods: {
+    hoverCard (id) {
+      this.currentCard = id
+    },
+    isHovered (id) {
+      return id === this.currentCard ? 'btn-primary' : ''
+    }
   },
   async created () {
     this.$store.dispatch('getGiftsDraw')
