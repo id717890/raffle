@@ -95,7 +95,6 @@
 
 <script>
 import {mapGetters, mapState} from 'vuex'
-import axios from 'axios'
 
 export default {
   data () {
@@ -128,44 +127,6 @@ export default {
         }
       }
       return 0
-    }
-    // countOfKeys () {
-    //   if (this.sum !== null && this.sum > 0) {
-    //     return Math.floor(this.sum / this.gift.priceKey)
-    //   }
-    //   return 0
-    // }
-  },
-  methods: {
-    donate () {
-      // let headers = {
-      //   'Content-Type': 'application/xml'
-      // }
-      let form = new FormData()
-      form.set('receiver', '410016208060232')
-      // form.formcomment = 'test'
-      // form.label = 'test label'
-      // form.quickpay_form = 'shop'
-      // form.targets = 'test label'
-      // form.sum = 2
-      // form.paymentType = 'AC'
-
-      axios({
-        method: 'post',
-        url: 'https://money.yandex.ru/quickpay/confirm.xml',
-        data: form,
-        config: {headers: { 'Content-Type': 'application/xml' }}
-      })
-        .then(function (response) {
-          console.log(response)
-        })
-        .catch(function (response) {
-          console.log(response)
-        })
-
-      // axios.get('https://money.yandex.ru/quickpay/confirm.xml', form, {headers: headers})
-      //   .then(x => console.log(x.response.data))
-      //   .catch(x => console.log(x))
     }
   },
   mounted () {
