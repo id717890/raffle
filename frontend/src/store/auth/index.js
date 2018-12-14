@@ -5,8 +5,8 @@ import config from '@/packages/config'
 
 const state = {
   user: null,
-  token: null,
-  isAuth: false
+  token: null
+  // isAuth: false
 }
 
 // getters

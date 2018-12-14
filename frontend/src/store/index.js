@@ -8,6 +8,7 @@ import forum from './forum'
 import busy from './busy'
 import vote from './vote'
 import info from './info'
+import payment from './payment'
 
 Vue.use(Vuex)
 
@@ -27,7 +28,8 @@ export const store = new Vuex.Store({
     forum,
     busy,
     vote,
-    info
+    info,
+    payment
     // category,
     // word,
     // busy
