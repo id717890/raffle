@@ -1,8 +1,8 @@
 <template>
   <b-container>
-    <b-row align-h="center" class="mt-5">
-      <b-col cols="5">
-        <b-card class="p-3">
+    <b-row align-h="center">
+      <b-col lg=5 md=7 sm=12 xs=12 class="pt-10">
+        <b-card class="p-0 m-0 text-dark">
           <h3 class="mb-4">Account registration</h3>
           <div class="mt-2" v-if="this.getMessages !== null">
             <b-alert show variant="success" v-for="(message, index) in this.getMessages" :key="index">{{message}}</b-alert>

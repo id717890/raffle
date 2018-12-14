@@ -1,0 +1,38 @@
+$base-font-family: fantasy;
+$base-font-size: 1rem;
+
+.face {
+  font-family: fantasy;
+  font-size: 30px; 
+  color: white
+}
+
+.face h1 {
+  font-size: 6rem;
+}
+
+.face h1 {
+  font-size: 6rem;
+}
+
+.img-notebook {
+  margin: 100px 0 40px;
+  // width: auto;
+  // position: absolute;
+  // right: 0;
+  // bottom: 30px;
+  // max-width: none;
+  // position: absolute;
+}
+
+.txt-logo {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 70px;
+  font-weight: 800;
+  line-height: 1.6em;
+}
+
+.card-pay {
+  border: 3px solid #4a5363;
+  background: $bg-color-dark-1;
+}

@@ -4,10 +4,6 @@ import * as types from '../mutation-types'
 const state = {
 }
 
-// getters
-const getters = {
-}
-
 // actions
 const actions = {
 }
@@ -16,9 +12,13 @@ const actions = {
 const mutations = {
 }
 
+// getters
+const getters = {
+}
+
 export default {
   state,
   getters,
   actions,
-  mutations,
+  mutations
 }

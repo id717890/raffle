@@ -11,13 +11,16 @@ const getters = {
 
 // actions
 const actions = {
-  setLoading: {
-    root: true,
-    handler ({commit}, payload) {
-      console.log('loading')
-      commit(types.SET_LOADING, payload)
-    }
+  setLoading ({commit}, payload) {
+    commit(types.SET_LOADING, payload)
   }
+  // setLoading: {
+  //   root: true,
+  //   handler ({commit}, payload) {
+  //     console.log('loading')
+  //     commit(types.SET_LOADING, payload)
+  //   }
+  // }
 }
 
 // mutations

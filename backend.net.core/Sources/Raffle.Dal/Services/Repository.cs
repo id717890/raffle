@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Raffle.Dal.Interface.Services;
@@ -15,9 +16,9 @@ namespace Raffle.Dal.Services
             _dbContext = dbContext;
         }
 
-        public IQueryable<TEntity> GetAll()
+        public virtual async Task<List<TEntity>> GetAll()
         {
-            return _dbContext.Set<TEntity>().AsNoTracking();
+            return await _dbContext.Set<TEntity>().AsNoTracking().ToListAsync();
         }
 
         public async Task<TEntity> GetById(long id)

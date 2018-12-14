@@ -57,13 +57,26 @@ namespace Raffle.Api
             // Add framework services.
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            #region DI
             services.AddSingleton<IJwtFactory, JwtFactory>();
             services.TryAddTransient<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<IEmailBuilder, EmailBuilder>();
             services.AddTransient<ICustomerRepository, CustomerRepository>();
             services.AddTransient<ICustomerService, CustomerService>();
-            services.AddTransient<IMessageModelBuilder, MessageModelBuilder>();
+            services.AddTransient<IMessageModelBuilder, MessageModelBuilder>(); 
+            services.AddTransient<IGiftDrawService, GiftDrawService>();
+            services.AddTransient<IGiftDrawRepository, GiftDrawRepository>();
+            services.AddTransient<IVoteRepository, VoteRepository>();
+            services.AddTransient<IVoteUserRepository, VoteUserRepository>();
+            services.AddTransient<IVoteService, VoteService>();
+            services.AddTransient<IOrderRepository, OrderRepository>();
+            services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<IGiftDrawUserKeyRepository, GiftDrawUserKeyRepository>();
+            services.AddTransient<IGiftDrawUserKeyService, GiftDrawUserKeyService>();
+            #endregion
+
+
             services.Configure<AuthMessageSenderOptions>(Configuration);
             //services.AddCors();
             // jwt wire up
@@ -133,7 +146,13 @@ namespace Raffle.Api
             builder.AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
             services.AddAutoMapper();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+                .AddJsonOptions(x =>
+                {
+                    x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Serialize;
+                    x.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Include;
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

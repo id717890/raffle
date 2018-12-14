@@ -29,8 +29,7 @@ export default {
       email: email,
       password: password
     }
-    // console.log(data)
-    return Vue.$http.post('api/auth/login', data).then((x) => {
+    return Vue.$http.post('api/auth/Login', data).then((x) => {
       return x
     }).catch(error => {
       // console.log('api')

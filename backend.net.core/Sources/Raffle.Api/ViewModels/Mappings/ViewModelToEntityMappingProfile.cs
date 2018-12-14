@@ -8,11 +8,11 @@ using Raffle.Domain.Interface.Entity;
 
 namespace Raffle.Api.ViewModels.Mappings
 {
-  public class ViewModelToEntityMappingProfile: Profile
-  {
-    public ViewModelToEntityMappingProfile()
+    public class ViewModelToEntityMappingProfile : Profile
     {
-      CreateMap<RegistrationViewModel, ApplicationUser>().ForMember(au => au.UserName, map => map.MapFrom(vm => vm.Email));
+        public ViewModelToEntityMappingProfile()
+        {
+            CreateMap<RegistrationViewModel, ApplicationUser>().ForMember(au => au.UserName, map => map.MapFrom(vm => vm.Email));
+        }
     }
-  }
 }

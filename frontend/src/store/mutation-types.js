@@ -1,3 +1,20 @@
+/* INFO */
+export const RECIEVE_INFO = 'RECIEVE_INFO'
+
+/* Vote */
+export const REMOVE_VOTE_FROM_BUSY = 'REMOVE_VOTE_FROM_BUSY'
+export const ADD_VOTE_TO_BUSY = 'ADD_VOTE_TO_BUSY'
+export const ADD_VOTE = 'ADD_VOTE'
+export const RECIEVE_VOTES = 'RECIEVE_VOTES'
+
+/* Forum */
+export const SET_CURRENT_TOPIC = 'SET_CURRENT_TOPIC'
+export const RECIEVE_TOPICS = 'RECIEVE_TOPICS'
+
+/* Gift Draw */
+export const RECIEVE_USER_GIFTS = 'RECIEVE_USER_GIFTS'
+export const SET_GIFTS_DRAW = 'SET_GIFTS_DRAW'
+
 /* Dialog element */
 export const SET_CONFIRM_DIALOG_RESULT = 'SET_CONFIRM_DIALOG_RESULT'
 export const RESET_CONFIRM_DIALOG_RESULT = 'RESET_CONFIRM_DIALOG_RESULT'
@@ -12,6 +29,7 @@ export const SET_ERRORS = 'SET_ERRORS'
 export const SET_USER = 'SET_USER'
 export const SIGN_UP = 'SIGN_UP'
 export const SIGN_IN = 'SIGN_IN'
+export const SET_TOKEN = 'SET_TOKEN'
 
 /* words */
 export const UPDATE_ORDER_OF_CATEGORY_OF_WORDS = 'UPDATE_ORDER_OF_CATEGORY_OF_WORDS'

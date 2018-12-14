@@ -1,6 +1,6 @@
 <template>
-<div>
-  <b-navbar toggleable="sm" type="dark" variant="dark">
+<div style="height: 100%">
+  <b-navbar toggleable="sm" class="w-100 main-header" variant="dark" style="position: fixed; top: 0; z-index: 2">
     <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
     <b-navbar-brand to="/">Raffle</b-navbar-brand>
     <b-collapse is-nav id="nav_collapse">
@@ -12,7 +12,7 @@
       <b-navbar-nav class="ml-auto">
         <b-nav-item to="/signin" v-if="!isAuth">Sign In</b-nav-item>
         <b-nav-item to="/signup" v-if="!isAuth">Sign Up</b-nav-item>
-        <b-nav-item to="dashboard" v-if="isAuth">Dashboard</b-nav-item>
+        <b-nav-item to="/dashboard" v-if="isAuth">Dashboard</b-nav-item>
         <b-nav-item @click="LogoutButton" v-if="isAuth">Logout</b-nav-item>
 
         <!-- <b-nav-form>
@@ -37,9 +37,7 @@
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>
-  <b-container fluid>
-    <router-view></router-view>
-  </b-container>
+  <router-view></router-view>
 </div>
 </template>
 
@@ -47,8 +45,8 @@
 import {mapGetters, mapActions} from 'vuex'
 
 const menu = [
-  {id: 1, name: 'Forum', link: 'forum'},
-  {id: 2, name: 'Voting', link: 'voting'}
+  {id: 1, name: 'Forum', link: '/forum'},
+  {id: 2, name: 'Voting', link: '/voting'}
 ]
 export default {
   computed: {
